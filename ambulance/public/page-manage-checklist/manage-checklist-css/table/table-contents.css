@@ -1,0 +1,84 @@
+/* Table Container */
+.table-container {
+    background: white;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    overflow: hidden;
+}
+
+/* Table */
+.checklist-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-family: 'Mitr', sans-serif;
+}
+
+.checklist-table thead tr {
+    background: #f8f9fa;
+}
+
+.checklist-table th {
+    padding: 15px;
+    border-bottom: 2px solid #e9ecef;
+    font-weight: bold;
+    color: #495057;
+}
+
+.checklist-table th:first-child {
+    text-align: center;
+    width: 80px;
+}
+
+.checklist-table th:last-child {
+    text-align: center;
+    width: 120px;
+}
+
+.checklist-table td {
+    padding: 15px;
+    border-bottom: 1px solid #e9ecef;
+    color: #333;
+}
+
+.checklist-table tbody tr {
+    transition: background-color 0.2s ease;
+}
+
+.checklist-table tbody tr:hover {
+    background: #f8f9fa;
+}
+
+/* Table Cells */
+.table-index {
+    text-align: center;
+    font-weight: bold;
+    color: #667eea;
+}
+
+.table-name {
+    text-align: center;
+    font-weight: bold;
+}
+
+.table-actions {
+    text-align: center;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .checklist-table th,
+    .checklist-table td {
+        padding: 12px 8px;
+        font-size: 0.9rem;
+    }
+    
+    .checklist-table th:first-child,
+    .checklist-table td:first-child {
+        width: 60px;
+    }
+    
+    .checklist-table th:last-child,
+    .checklist-table td:last-child {
+        width: 100px;
+    }
+}

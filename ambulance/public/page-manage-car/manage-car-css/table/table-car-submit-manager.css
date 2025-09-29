@@ -1,0 +1,89 @@
+/* Action Buttons Container */
+.action-buttons {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 0;
+}
+
+/* Base Button Style */
+.btn-action {
+    width: 32px;
+    height: 32px;
+    border: 1px solid;
+    border-radius: 0;
+    cursor: pointer;
+    font-size: 13px;
+    font-weight: bold;
+    font-family: 'Mitr', sans-serif;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: white;
+}
+
+.btn-action:first-child {
+    border-radius: 4px 0 0 4px;
+}
+
+.btn-action:last-child {
+    border-radius: 0 4px 4px 0;
+    border-left: none;
+}
+
+.btn-action:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+    z-index: 1;
+    position: relative;
+}
+
+.btn-action:active {
+    transform: translateY(0);
+}
+
+/* Edit Button */
+.btn-edit {
+    border-color: #ffc107;
+    color: #ffc107;
+}
+
+.btn-edit:hover {
+    background: #ffc107;
+    color: white;
+    border-color: #ffc107;
+    box-shadow: 0 2px 6px rgba(255, 193, 7, 0.4);
+}
+
+/* Delete Button */
+.btn-delete {
+    border-color: #dc3545;
+    color: #dc3545;
+}
+
+.btn-delete:hover {
+    background: #dc3545;
+    color: white;
+    border-color: #dc3545;
+    box-shadow: 0 2px 6px rgba(220, 53, 69, 0.4);
+}
+
+/* Icon Styles */
+.btn-action i {
+    font-size: 11px;
+}
+
+/* Mobile Responsive */
+@media (max-width: 768px) {
+    .btn-action {
+        width: 28px;
+        height: 28px;
+        font-size: 11px;
+        border-width: 1px;
+    }
+    
+    .btn-action i {
+        font-size: 9px;
+    }
+}

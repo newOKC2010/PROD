@@ -1,0 +1,173 @@
+/**
+ * Add Form Components - สำหรับ form elements และ checklist items
+ */
+
+/* Vehicle Selection */
+.vehicle-select-container {
+    position: relative;
+}
+
+.vehicle-select {
+    width: 100%;
+    padding: 0.75rem;
+    border: 2px solid #e9ecef;
+    border-radius: 8px;
+    font-size: 1rem;
+    transition: all 0.3s ease;
+    background-color: white;
+}
+
+.vehicle-select:focus {
+    outline: none;
+    border-color: #98ec77;
+    box-shadow: 0 0 0 0.2rem rgba(152, 236, 119, 0.25);
+}
+
+/* Date Input */
+.date-input {
+    width: 100%;
+    padding: 0.75rem;
+    border: 2px solid #e9ecef;
+    border-radius: 8px;
+    font-size: 1rem;
+    transition: all 0.3s ease;
+}
+
+.date-input:focus {
+    outline: none;
+    border-color: #98ec77;
+    box-shadow: 0 0 0 0.2rem rgba(152, 236, 119, 0.25);
+}
+
+/* Checklist Items */
+.checklist-items-container {
+    max-height: 50vh;
+    overflow-y: auto;
+    padding-right: 0.5rem;
+}
+
+.checklist-item-card {
+    margin-bottom: 1rem;
+    border: 2px solid #e9ecef;
+    border-radius: 12px;
+    transition: all 0.3s ease;
+    background-color: white;
+}
+
+.checklist-item-card:hover {
+    border-color: #98ec77;
+    box-shadow: 0 4px 12px rgba(152, 236, 119, 0.15);
+}
+
+.checklist-item-header {
+    background-color: #f8f9fa;
+    padding: 0.75rem 1rem;
+    border-bottom: 1px solid #e9ecef;
+    border-radius: 10px 10px 0 0;
+    min-width: 0;
+    overflow: hidden;
+}
+
+.checklist-item-title {
+    font-weight: 600;
+    color: #495057;
+    margin: 0;
+    font-size: 1rem;
+    word-wrap: break-word;
+    word-break: break-word;
+    white-space: normal;
+    line-height: 1.4;
+    overflow-wrap: break-word;
+    display: flex;
+    align-items: flex-start;
+    gap: 0.5rem;
+}
+
+.checklist-item-number {
+    color: #98ec77;
+    font-weight: 700;
+    font-size: 1.1rem;
+    min-width: 1.5rem;
+    flex-shrink: 0;
+}
+
+.checklist-item-body {
+    padding: 1rem;
+}
+
+/* Status Radio Buttons */
+.status-radio-group {
+    display: flex;
+    gap: 1rem;
+    margin-bottom: 1rem;
+}
+
+.status-radio-option {
+    display: flex;
+    align-items: center;
+    padding: 0.5rem 1rem;
+    border: 2px solid #e9ecef;
+    border-radius: 25px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    background-color: white;
+}
+
+.status-radio-option:hover {
+    border-color: #98ec77;
+    background-color: #f8f9fa;
+}
+
+.status-radio-option.selected-pass {
+    border-color: #28a745;
+    background-color: #d4edda;
+    color: #155724;
+}
+
+.status-radio-option.selected-fail {
+    border-color: #dc3545;
+    background-color: #f8d7da;
+    color: #721c24;
+}
+
+.status-radio-option input[type="radio"] {
+    margin-right: 0.5rem;
+    transform: scale(1.2);
+}
+
+.status-radio-option label {
+    margin: 0;
+    cursor: pointer;
+    font-weight: 500;
+}
+
+/* Note Textarea */
+.note-textarea {
+    width: 100%;
+    min-height: 80px;
+    padding: 0.75rem;
+    border: 2px solid #e9ecef;
+    border-radius: 8px;
+    font-size: 0.95rem;
+    resize: vertical;
+    transition: all 0.3s ease;
+    font-family: inherit;
+}
+
+.note-textarea:focus {
+    outline: none;
+    border-color: #98ec77;
+    box-shadow: 0 0 0 0.2rem rgba(152, 236, 119, 0.25);
+}
+
+.note-textarea::placeholder {
+    color: #6c757d;
+}
+
+/* Responsive Design for Form Components */
+@media (max-width: 768px) {
+    .status-radio-group {
+        flex-direction: column;
+        gap: 0.5rem;
+    }
+} 

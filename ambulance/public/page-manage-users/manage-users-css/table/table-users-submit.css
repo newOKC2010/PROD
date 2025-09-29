@@ -1,0 +1,122 @@
+/* Table Submit - สไตล์ของปุ่มและการจัดการ */
+
+/* Action Buttons */
+.action-buttons {
+    display: flex;
+    gap: 8px;
+    justify-content: center;
+    align-items: center;
+}
+
+.btn-delete {
+    background: transparent;
+    color: #dc3545;
+    border: 1px solid #dc3545;
+    border-radius: 6px;
+    padding: 6px 10px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-size: 14px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Mitr', sans-serif;
+}
+
+.btn-delete:hover {
+    background: #dc3545;
+    color: white;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(220, 53, 69, 0.4);
+}
+
+.btn-delete:active {
+    transform: translateY(0);
+}
+
+.btn-delete i {
+    font-size: 12px;
+}
+
+/* Loading States */
+.btn-delete:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+    transform: none;
+}
+
+.btn-delete.loading {
+    opacity: 0.7;
+    cursor: wait;
+}
+
+.btn-delete.loading i {
+    animation: spin 1s linear infinite;
+}
+
+/* Update States */
+.updating {
+    opacity: 0.6;
+    pointer-events: none;
+}
+
+.updating .role-select,
+.updating .status-toggle {
+    opacity: 0.5;
+    cursor: wait;
+}
+
+/* Success/Error States */
+.success-flash {
+    background-color: #d4edda !important;
+    animation: flashGreen 0.5s ease-in-out;
+}
+
+.error-flash {
+    background-color: #f8d7da !important;
+    animation: flashRed 0.5s ease-in-out;
+}
+
+@keyframes flashGreen {
+    0% { background-color: #d4edda; }
+    50% { background-color: #c3e6cb; }
+    100% { background-color: #d4edda; }
+}
+
+@keyframes flashRed {
+    0% { background-color: #f8d7da; }
+    50% { background-color: #f1b0b7; }
+    100% { background-color: #f8d7da; }
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .action-buttons {
+        gap: 4px;
+    }
+    
+    .btn-delete {
+        padding: 4px 8px;
+        font-size: 12px;
+    }
+    
+    .btn-delete i {
+        font-size: 10px;
+    }
+}
+
+@media (max-width: 480px) {
+    .btn-delete {
+        padding: 3px 6px;
+        font-size: 11px;
+    }
+    
+    .btn-delete i {
+        font-size: 9px;
+    }
+}

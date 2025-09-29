@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="th">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>สมัครสมาชิก - ตรวจสอบรถกู้ชีพ</title>
+
+    <link
+    href="https://fonts.googleapis.com/css2?family=Kanit&family=Mitr:wght@300;500&family=Prompt:wght@600&display=swap"
+    rel="stylesheet"
+  />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+    <link rel="stylesheet" href="/global-toggle.css">
+    <link rel="stylesheet" href="global-animations.css">
+    <!-- page css -->
+    <link rel="stylesheet" href="/register.css">
+</head>
+
+<body>
+    <div class="container">
+        <div class="register-box">
+            <h2><i class="fas fa-user-plus"></i> สมัครสมาชิก</h2>
+            <form id="registerForm">
+                <div class="form-group">
+                    <label for="username">ชื่อผู้ใช้</label>
+                    <div class="input-wrapper">
+                        <i class="fas fa-user input-icon"></i>
+                        <input type="text" id="username" name="username" placeholder="กรอกชื่อผู้ใช้" >
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="email">อีเมล</label>
+                    <div class="input-wrapper">
+                        <i class="fas fa-envelope input-icon"></i>
+                        <input type="email" id="email" name="email" placeholder="กรอกอีเมลของคุณ" >
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="cid">เลขบัตรประชาชน</label>
+                    <div class="input-wrapper">
+                        <i class="fas fa-id-card input-icon"></i>
+                        <input type="text" id="cid" name="cid" maxlength="13" placeholder="1234567890123" oninput="this.value = this.value.replace(/[^0-9]/g, '')" >
+                    </div>
+                    <small><i class="fas fa-info-circle"></i> กรอกเลขบัตรประชาชน 13 หลัก</small>
+                </div>
+                <div class="form-group">
+                    <label for="password">รหัสผ่าน</label>
+                    <div class="input-wrapper">
+                        <i class="fas fa-lock input-icon"></i>
+                        <input type="password" id="password" name="password" placeholder="กรอกรหัสผ่าน" >
+                        <span class="password-toggle"><i class="fas fa-eye"></i></span>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="confirmPassword">ยืนยันรหัสผ่าน</label>
+                    <div class="input-wrapper">
+                        <i class="fas fa-lock input-icon"></i>
+                        <input type="password" id="confirmPassword" name="confirmPassword"  placeholder="ยืนยันรหัสผ่าน" >
+                        <span class="password-toggle"><i class="fas fa-eye"></i></span>
+                    </div>
+                </div>
+                <button type="submit" id="registerBtn">
+                    <i class="fas fa-user-plus"></i> สมัครสมาชิก
+                </button>
+                <div id="message" class="message"></div>
+            </form>
+            <p class="login-link">
+                มีบัญชีแล้ว? <a href="/"><i class="fas fa-sign-in-alt"></i> เข้าสู่ระบบ</a>
+            </p>
+        </div>
+    </div>
+    
+    <script type="module" defer src="register.js"></script>
+</body>
+
+</html>

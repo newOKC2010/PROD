@@ -1,0 +1,256 @@
+/**
+ * Card Styles - Welcome Cards, Menu Cards และ General Cards
+ */
+
+/* Welcome Card */
+.welcome-card {
+    background: rgba(255, 255, 255, 0.95);
+    padding: 30px;
+    border-radius: 20px;
+    text-align: center;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease;
+    backdrop-filter: blur(10px);
+    margin-bottom: 30px;
+    border-left: 5px solid #667eea;
+}
+
+.welcome-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+}
+
+.card-icon {
+    font-size: 48px;
+    color: #667eea;
+    margin-bottom: 20px;
+}
+
+.welcome-card h3 {
+    font-size: 24px;
+    font-weight: 700;
+    margin-bottom: 15px;
+    color: #333;
+    font-family: 'Mitr', sans-serif;
+}
+
+.welcome-card p {
+    color: #666;
+    font-size: 16px;
+    line-height: 1.6;
+    font-weight: 500;
+    font-family: 'Mitr', sans-serif;
+}
+
+/* Menu Card */
+.menu-card {
+    background: white;
+    padding: 30px;
+    border-radius: 15px;
+    text-align: center;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease;
+    cursor: pointer;
+    border-left: 4px solid #667eea;
+}
+
+.menu-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.15);
+    border-left-color: #764ba2;
+}
+
+.menu-icon {
+    font-size: 48px;
+    color: #667eea;
+    margin-bottom: 20px;
+    transition: all 0.3s ease;
+}
+
+.menu-card:hover .menu-icon {
+    color: #764ba2;
+    transform: scale(1.1);
+}
+
+.menu-card h3 {
+    font-size: 20px;
+    font-weight: 700;
+    margin-bottom: 12px;
+    color: #333;
+    font-family: 'Mitr', sans-serif;
+}
+
+.menu-card p {
+    color: #666;
+    font-size: 14px;
+    line-height: 1.5;
+    font-family: 'Mitr', sans-serif;
+}
+
+/* General Card Styles */
+.card {
+    border-radius: 12px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    border: none;
+    position: relative;
+    z-index: 1;
+    overflow: visible;
+}
+
+.card-header {
+    border-radius: 12px 12px 0 0 !important;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.125);
+}
+
+.card-body {
+    padding: 1.5rem;
+    overflow: visible;
+}
+
+/* Modern Table Card */
+.modern-table-card {
+    border-radius: 16px;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    background: rgba(255, 255, 255, 0.98);
+    backdrop-filter: blur(10px);
+}
+
+.modern-card-header {
+    background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+    border-bottom: 1px solid #dee2e6;
+    padding: 1.25rem 1.5rem;
+    border-radius: 16px 16px 0 0 !important;
+}
+
+.card-title-modern {
+    color: #495057;
+    font-family: 'Mitr', sans-serif;
+    font-weight: 600;
+    font-size: 1.1rem;
+    display: flex;
+    align-items: center;
+}
+
+.card-title-modern i {
+    color: #667eea;
+    font-size: 1.2rem;
+}
+
+.modern-card-body {
+    padding: 0;
+    overflow: visible;
+}
+
+/* Integrated Search Container */
+.integrated-search-container {
+    padding: 1.5rem;
+    border-bottom: 1px solid #e9ecef;
+    background: linear-gradient(135deg, #f8f9fa 0%, #ffffff 100%);
+    position: relative;
+    z-index: auto;
+    overflow: visible;
+}
+
+.integrated-search-container .search-filter-container {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    border-radius: 12px;
+    padding: 1.25rem;
+    margin-bottom: 0;
+    box-shadow: 0 4px 20px rgba(102, 126, 234, 0.15);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.integrated-search-container .search-filter-form {
+    background: rgba(255, 255, 255, 0.98);
+    border-radius: 10px;
+    padding: 1.25rem;
+}
+
+/* Checklist Grid Styles */
+.checklist-grid .card {
+    transition: all 0.2s ease;
+    border-width: 2px;
+}
+
+.checklist-grid .card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+.checklist-grid .card-header {
+    font-size: 0.9rem;
+    font-weight: 500;
+}
+
+.checklist-grid .card-body {
+    padding: 1rem;
+    font-size: 0.85rem;
+}
+
+/* Checklist Item Name Styling */
+.checklist-item-name {
+    word-wrap: break-word;
+    word-break: break-word;
+    white-space: normal;
+    line-height: 1.4;
+    font-size: 0.95rem;
+    max-width: 100%;
+    overflow-wrap: break-word;
+    hyphens: auto;
+}
+
+/* Checklist Note Text Styling */
+.checklist-note-text {
+    word-wrap: break-word;
+    word-break: break-word;
+    white-space: normal;
+    line-height: 1.4;
+    overflow-wrap: break-word;
+}
+
+/* Checklist Item Enhancements */
+.checklist-grid .card-header .badge {
+    font-size: 0.8rem;
+    padding: 4px 8px;
+    border-radius: 12px;
+}
+
+.checklist-grid .card-header i.fas {
+    font-size: 1.1rem;
+}
+
+/* Status Colors */
+.checklist-grid .border-success {
+    border-color: #28a745 !important;
+}
+
+.checklist-grid .border-danger {
+    border-color: #dc3545 !important;
+}
+
+.checklist-grid .bg-success {
+    background-color: #28a745 !important;
+}
+
+.checklist-grid .bg-danger {
+    background-color: #dc3545 !important;
+}
+
+/* Status Icons */
+.text-success {
+    color: #28a745 !important;
+}
+
+.text-muted {
+    color: #6c757d !important;
+}
+
+/* Empty State */
+.text-center.py-4 {
+    padding: 3rem 1rem !important;
+}
+
+.text-center.py-4 i {
+    opacity: 0.5;
+} 

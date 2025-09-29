@@ -1,0 +1,167 @@
+/**
+ * Date Search Component Styles - ส่วนค้นหาตามช่วงวันที่
+ */
+
+/* Date Search Section */
+.date-search-section {
+    margin-bottom: 1.5rem;
+    padding-bottom: 1rem;
+}
+
+/* Date Input Groups */
+.date-input-group {
+    position: relative;
+    margin-bottom: 1rem;
+}
+
+.date-input-group label {
+    font-weight: 600;
+    color: #495057;
+    margin-bottom: 0.4rem;
+    display: block;
+    font-size: 0.85rem;
+}
+
+.modern-input-container {
+    position: relative;
+}
+
+.modern-input {
+    width: 100%;
+    padding: 0.6rem 0.8rem;
+    border: 1px solid #e9ecef;
+    border-radius: 6px;
+    font-size: 0.9rem;
+    transition: all 0.3s ease;
+    background-color: #fff;
+}
+
+.modern-input:focus {
+    outline: none;
+    border-color: #667eea;
+    box-shadow: 0 0 0 0.2rem rgba(102, 126, 234, 0.25);
+    transform: translateY(-1px);
+}
+
+.modern-input:hover {
+    border-color: #ced4da;
+}
+
+.modern-input:disabled {
+    background-color: #f8f9fa;
+    border-color: #e9ecef;
+    color: #6c757d;
+    cursor: not-allowed;
+}
+
+/* Quick Date Buttons */
+.quick-date-buttons {
+    border-top: 1px solid rgba(0, 0, 0, 0.1);
+    padding-top: 0.75rem;
+    margin-top: 0.75rem;
+}
+
+.quick-date-buttons .btn {
+    font-size: 0.75rem;
+    padding: 0.4rem 0.6rem;
+    border-radius: 5px;
+    transition: all 0.2s ease;
+    background-color: transparent !important;
+    border-color: #6c757d !important;
+    color: #6c757d !important;
+    box-shadow: none !important;
+}
+
+.quick-date-buttons .btn:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15) !important;
+    background-color: #6c757d !important;
+    border-color: #6c757d !important;
+    color: white !important;
+}
+
+.quick-date-buttons .btn:focus,
+.quick-date-buttons .btn:active {
+    background-color: #6c757d !important;
+    border-color: #6c757d !important;
+    color: white !important;
+    box-shadow: 0 0 0 0.2rem rgba(108, 117, 125, 0.25) !important;
+}
+
+.quick-date-buttons .btn:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+    transform: none;
+    box-shadow: none !important;
+    background-color: transparent !important;
+    border-color: #6c757d !important;
+    color: #6c757d !important;
+}
+
+/* Validation States */
+.modern-input.is-invalid {
+    border-color: #dc3545;
+}
+
+.modern-input.is-invalid:focus {
+    border-color: #dc3545;
+    box-shadow: 0 0 0 0.2rem rgba(220, 53, 69, 0.25);
+}
+
+.modern-input.is-valid {
+    border-color: #28a745;
+}
+
+.modern-input.is-valid:focus {
+    border-color: #28a745;
+    box-shadow: 0 0 0 0.2rem rgba(40, 167, 69, 0.25);
+}
+
+/* Custom Date Picker Styles */
+.modern-input::-webkit-calendar-picker-indicator {
+    background: transparent;
+    bottom: 0;
+    color: transparent;
+    cursor: pointer;
+    height: auto;
+    left: 0;
+    position: absolute;
+    right: 0;
+    top: 0;
+    width: auto;
+}
+
+/* Focus States */
+.modern-input:focus-visible {
+    outline: 2px solid #667eea;
+    outline-offset: 2px;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .date-input-group {
+        margin-bottom: 1.5rem;
+    }
+    
+    .modern-input {
+        font-size: 0.9rem;
+        padding: 0.65rem 0.9rem;
+    }
+    
+    .quick-date-buttons .btn-group {
+        flex-wrap: wrap;
+        gap: 0.5rem;
+    }
+    
+    .quick-date-buttons .btn {
+        flex: 1;
+        min-width: calc(50% - 0.25rem);
+    }
+}
+
+@media (max-width: 576px) {
+    .quick-date-buttons .btn {
+        font-size: 0.75rem;
+        padding: 0.4rem 0.6rem;
+    }
+}

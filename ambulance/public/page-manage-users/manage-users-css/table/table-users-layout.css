@@ -1,0 +1,115 @@
+/* Table Layout - โครงสร้างหลักของตาราง */
+.table-container {
+    background: white;
+    border-radius: 12px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    margin-top: 20px;
+}
+
+.table-responsive {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+}
+
+#users-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-family: 'Mitr', sans-serif;
+}
+
+#users-table thead {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+}
+
+#users-table th,
+#users-table td {
+    padding: 12px 16px;
+    text-align: center;
+    border-bottom: 1px solid #e0e0e0;
+}
+
+#users-table th {
+    font-weight: bold;
+    font-size: 16px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    font-family: 'Mitr', sans-serif;
+}
+
+#users-table tbody tr {
+    transition: all 0.3s ease;
+    font-family: 'Mitr', sans-serif;
+}
+
+#users-table tbody tr:hover {
+    background-color: #f8f9fa;
+    transform: translateY(-1px);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Loading และ No Data */
+.loading-spinner,
+.no-data {
+    text-align: center;
+    padding: 40px;
+    color: #666;
+    font-family: 'Mitr', sans-serif;
+}
+
+.loading-spinner i {
+    font-size: 24px;
+    margin-right: 10px;
+}
+
+.no-data i {
+    font-size: 48px;
+    color: #ddd;
+    margin-bottom: 15px;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    #users-table th,
+    #users-table td {
+        padding: 8px 6px;
+        font-size: 12px;
+    }
+    
+    #users-table th {
+        font-size: 12px;
+    }
+    
+    .table-container {
+        margin: 15px 0;
+        border-radius: 8px;
+    }
+}
+
+@media (max-width: 480px) {
+    #users-table th,
+    #users-table td {
+        padding: 4px 3px;
+        font-size: 11px;
+    }
+    
+    #users-table th {
+        font-size: 10px;
+        letter-spacing: 0.2px;
+    }
+    
+    .table-container {
+        margin: 10px 0;
+        border-radius: 6px;
+    }
+    
+    .no-data {
+        padding: 20px;
+    }
+    
+    .no-data i {
+        font-size: 32px;
+        margin-bottom: 10px;
+    }
+}

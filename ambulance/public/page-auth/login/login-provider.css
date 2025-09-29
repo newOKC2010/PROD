@@ -1,0 +1,53 @@
+/* Provider Login Button */
+.provider-login-btn {
+    background: transparent;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 20px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    margin-top: 15px;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+}
+
+.provider-login-btn img {
+    max-width: 100%;
+    max-height: 60px;
+    height: auto;
+    object-fit: contain;
+}
+
+.provider-login-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 15px rgba(76, 175, 80, 0.2);
+}
+
+.provider-login-btn:active {
+    transform: translateY(0);
+}
+
+.login-divider {
+    margin: 20px 0;
+    display: flex;
+    align-items: center;
+    text-align: center;
+}
+
+.login-divider::before,
+.login-divider::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: #ddd;
+}
+
+.login-divider span {
+    padding: 0 15px;
+    color: #666;
+    font-size: 14px;
+    white-space: nowrap;
+}

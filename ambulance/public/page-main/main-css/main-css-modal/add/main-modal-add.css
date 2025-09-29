@@ -1,0 +1,60 @@
+/**
+ * Modal Add Styles - สำหรับ Modal เพิ่ม Checklist ใหม่
+ */
+@import url('add-form-components.css');
+@import url('add-photo-upload.css');
+@import url('add-buttons-actions.css');
+@import url('add-dropdown.css');
+
+/* Modal Header Styles */
+#addChecklistModal .modal-header {
+    background-color: #98ec77 !important;
+    border-bottom: 1px solid #98ec77;
+}
+
+#addChecklistModal .modal-title {
+    color: #ffffff !important;
+    font-weight: bold;
+}
+/* Modal Add Container */
+.modal-add-container {
+    max-height: 80vh;
+    overflow-y: auto;
+    cursor: auto !important;
+}
+
+/* Form Section */
+.add-form-section {
+    margin-bottom: 1.5rem;
+    padding: 1rem;
+    background-color: #f8f9fa;
+    border-radius: 8px;
+    border: 1px solid #e9ecef;
+}
+
+.add-form-section h6 {
+    color: #495057;
+    font-weight: 600;
+    margin-bottom: 0.75rem;
+    display: flex;
+    align-items: center;
+}
+
+.add-form-section h6 i {
+    margin-right: 0.5rem;
+    color: #98ec77;
+}
+
+/* Fix cursor issues */
+#addChecklistModal .modal-content,
+#addChecklistModal .modal-body,
+#addModalContent {
+    cursor: auto !important;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .modal-add-container {
+        max-height: 90vh;
+    }
+} 

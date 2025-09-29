@@ -1,0 +1,77 @@
+@import url('table-users-layout.css');
+@import url('table-users-contents.css');
+@import url('table-users-submit.css');
+@import url('table-users-paginations.css');
+@import url('swal-users.css');
+/* Manage Users - สไตล์หลักของหน้าจัดการผู้ใช้ */
+
+
+/* Main Container */
+.main-content {
+    padding: 20px;
+    min-height: 100vh;
+    background: #f8f9fa;
+}
+
+/* Header */
+.main-content h1 {
+    color: #333;
+    margin-bottom: 30px;
+    font-family: 'Mitr', sans-serif;
+    font-size: 28px;
+    text-align: center;
+}
+
+.manage-users-box {
+    background: white;
+    padding: 30px;
+    border-radius: 12px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    margin: 0 auto;
+    max-width: 1200px;
+}
+
+.manage-users-box h2 {
+    color: #333;
+    margin-bottom: 25px;
+    font-family: 'Mitr', sans-serif;
+    font-size: 22px;
+    text-align: center;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .main-content {
+        padding: 15px;
+    }
+    
+    .main-content h1 {
+        font-size: 24px;
+        margin-bottom: 20px;
+    }
+    
+    .manage-users-box {
+        padding: 20px;
+        margin: 0 10px;
+    }
+    
+    .manage-users-box h2 {
+        font-size: 20px;
+    }
+}
+
+@media (max-width: 480px) {
+    .manage-users-box {
+        padding: 15px;
+        margin: 10px 0;
+        border-radius: 8px;
+    }
+    
+    .manage-users-box h2 {
+        font-size: 20px;
+    }
+    
+    .manage-users-box h2 i {
+        font-size: 24px;
+    }
+}

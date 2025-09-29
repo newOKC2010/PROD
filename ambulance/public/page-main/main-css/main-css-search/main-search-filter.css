@@ -1,0 +1,231 @@
+/**
+ * Filter Component Styles - ส่วนกรองข้อมูลตามชื่อรถและผู้ตรวจสอบ
+ */
+
+/* Filter Section */
+.filter-section {
+    margin-bottom: 1.5rem;
+    padding-bottom: 1rem;
+    position: relative;
+    z-index: auto;
+}
+
+/* Filter Groups */
+.filter-group {
+    position: relative;
+    margin-bottom: 1rem;
+    z-index: auto;
+}
+
+.filter-group label {
+    font-weight: 600;
+    color: #495057;
+    margin-bottom: 0.4rem;
+    display: block;
+    font-size: 0.85rem;
+}
+
+/* Modern Dropdown Styles */
+.modern-dropdown {
+    position: relative;
+    width: 100%;
+    z-index: auto;
+}
+
+.modern-dropdown.disabled {
+    opacity: 0.6;
+    pointer-events: none;
+}
+
+/* Search Filter Dropdown Overrides */
+.filter-section .modern-dropdown {
+    z-index: 500;
+}
+
+.filter-section .modern-dropdown.active {
+    z-index: 999999999;
+}
+
+.filter-section .modern-select-options {
+    z-index: 999999999 !important;
+}
+
+.modern-select-container {
+    position: relative;
+    display: flex;
+    align-items: center;
+    background-color: #fff;
+    border: 1px solid #e9ecef;
+    border-radius: 6px;
+    padding: 0.6rem 0.8rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    min-height: 42px;
+}
+
+.modern-select-container:hover {
+    border-color: #ced4da;
+}
+
+.modern-select-container:focus-within,
+.modern-select-container.active {
+    border-color: #667eea;
+    box-shadow: 0 0 0 0.2rem rgba(102, 126, 234, 0.25);
+    transform: translateY(-1px);
+}
+
+.dropdown-icon {
+    margin-right: 0.6rem;
+    color: #6c757d;
+    font-size: 0.9rem;
+}
+
+.modern-select-value {
+    flex: 1;
+    font-size: 0.9rem;
+    color: #495057;
+    user-select: none;
+}
+
+.dropdown-arrow {
+    margin-left: 0.6rem;
+    color: #6c757d;
+    transition: transform 0.2s ease;
+    font-size: 0.75rem;
+}
+
+.modern-select-container.active .dropdown-arrow {
+    transform: rotate(180deg);
+}
+
+/* Dropdown Options */
+.modern-select-options {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    background-color: #fff;
+    border: 2px solid #667eea;
+    border-top: none;
+    border-radius: 0 0 8px 8px;
+    max-height: 200px;
+    overflow-y: auto;
+    z-index: 1000;
+    display: none;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.modern-select-container.active .modern-select-options {
+    display: block;
+}
+
+.modern-option {
+    padding: 0.6rem 0.8rem;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+    font-size: 0.9rem;
+    color: #495057;
+    border-bottom: 1px solid #f8f9fa;
+}
+
+.modern-option:hover {
+    background-color: #f8f9fa;
+}
+
+.modern-option.selected {
+    background-color: #667eea;
+    color: white;
+}
+
+.modern-option:last-child {
+    border-bottom: none;
+}
+
+/* Hidden Select */
+.hidden-select {
+    position: absolute;
+    opacity: 0;
+    pointer-events: none;
+    z-index: -1;
+}
+
+/* Focus States */
+.modern-select-container:focus-visible {
+    outline: 2px solid #667eea;
+    outline-offset: 2px;
+}
+
+/* Scrollbar Styles for Options */
+.modern-select-options::-webkit-scrollbar {
+    width: 6px;
+}
+
+.modern-select-options::-webkit-scrollbar-track {
+    background: #f1f1f1;
+    border-radius: 3px;
+}
+
+.modern-select-options::-webkit-scrollbar-thumb {
+    background: #c1c1c1;
+    border-radius: 3px;
+}
+
+.modern-select-options::-webkit-scrollbar-thumb:hover {
+    background: #a8a8a8;
+}
+
+/* Animation */
+.modern-select-options {
+    animation: dropdownSlide 0.2s ease-out;
+}
+
+@keyframes dropdownSlide {
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .filter-group {
+        margin-bottom: 1.5rem;
+    }
+    
+    .modern-select-container {
+        font-size: 0.9rem;
+        padding: 0.65rem 0.9rem;
+        min-height: 44px;
+    }
+    
+    .modern-option {
+        padding: 0.65rem 0.9rem;
+        font-size: 0.9rem;
+    }
+    
+    .dropdown-icon {
+        font-size: 0.9rem;
+        margin-right: 0.5rem;
+    }
+    
+    .dropdown-arrow {
+        margin-left: 0.5rem;
+    }
+}
+
+@media (max-width: 576px) {
+    .modern-select-container {
+        font-size: 0.85rem;
+        padding: 0.6rem 0.8rem;
+        min-height: 42px;
+    }
+    
+    .modern-option {
+        padding: 0.6rem 0.8rem;
+        font-size: 0.85rem;
+    }
+}

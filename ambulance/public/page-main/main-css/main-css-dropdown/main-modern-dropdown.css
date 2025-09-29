@@ -1,0 +1,312 @@
+/* Modern Dropdown Styles */
+.modern-dropdown {
+    position: relative;
+    width: 100%;
+    z-index: 100;
+}
+
+.modern-dropdown.active {
+    z-index: 999998;
+}
+
+.modern-select-container {
+    position: relative;
+    background: white;
+    border: 1px solid #ced4da;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    min-height: 40px;
+    display: flex;
+    align-items: center;
+    padding: 0 12px;
+}
+
+.modern-select-container:hover {
+    border-color: #80bdff;
+}
+
+.modern-select-container.active {
+    border-color: #007bff;
+    box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
+    position: relative;
+    z-index: 98;
+}
+
+.dropdown-icon {
+    margin-right: 8px;
+    color: #6c757d;
+    font-size: 14px;
+}
+
+.modern-select-value {
+    flex: 1;
+    color: #495057;
+    font-size: 14px;
+    line-height: 1.5;
+}
+
+.dropdown-arrow {
+    margin-left: 8px;
+    color: #6c757d;
+    font-size: 12px;
+    transition: transform 0.2s ease;
+}
+
+.modern-select-container.active .dropdown-arrow {
+    transform: rotate(180deg);
+}
+
+.modern-select-options {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    background: white;
+    border: 1px solid #ced4da;
+    border-top: none;
+    border-radius: 0 0 6px 6px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    z-index: 999999;
+    max-height: 200px;
+    overflow-y: auto;
+    display: none;
+}
+
+.modern-select-container.active .modern-select-options {
+    display: block;
+}
+
+.modern-option {
+    padding: 8px 12px;
+    cursor: pointer;
+    font-size: 14px;
+    color: #495057;
+    transition: background-color 0.2s ease;
+}
+
+.modern-option:hover {
+    background-color: #f8f9fa;
+}
+
+.modern-option.selected {
+    background-color: #007bff;
+    color: white;
+}
+
+.modern-option.selected:hover {
+    background-color: #0056b3;
+}
+
+.hidden-select {
+    display: none;
+}
+
+/* Disabled state */
+.modern-dropdown.disabled .modern-select-container {
+    background-color: #e9ecef;
+    border-color: #ced4da;
+    cursor: not-allowed;
+}
+
+.modern-dropdown.disabled .modern-select-value {
+    color: #6c757d;
+}
+
+.modern-dropdown.disabled .dropdown-icon,
+.modern-dropdown.disabled .dropdown-arrow {
+    color: #adb5bd;
+}
+
+/* Loading state */
+.modern-dropdown.loading .dropdown-arrow::before {
+    content: "";
+    display: inline-block;
+    width: 12px;
+    height: 12px;
+    border: 2px solid #f3f3f3;
+    border-top: 2px solid #007bff;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+/* Items Per Page Dropdown - เฉพาะสำหรับ dropdown จำนวนรายการ */
+#itemsPerPageDropdown {
+    position: relative;
+    z-index: 200;
+    min-width: 130px;
+}
+
+#itemsPerPageDropdown.active {
+    z-index: 9999999;
+}
+
+/* Responsive width adjustments */
+@media (min-width: 1200px) {
+    #itemsPerPageDropdown {
+        min-width: 140px;
+    }
+}
+
+@media (max-width: 991px) {
+    #itemsPerPageDropdown {
+        min-width: 120px;
+    }
+}
+
+@media (max-width: 768px) {
+    #itemsPerPageDropdown {
+        min-width: 110px;
+    }
+}
+
+@media (max-width: 576px) {
+    #itemsPerPageDropdown {
+        min-width: 100px;
+    }
+}
+
+#itemsPerPageDropdown .modern-select-container {
+    min-height: 36px;
+    font-size: 13px;
+    padding: 0 12px;
+    border: 1px solid #dee2e6;
+    border-radius: 4px;
+    background: white;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    display: flex;
+    align-items: center;
+    width: 100%;
+}
+
+#itemsPerPageDropdown .dropdown-icon {
+    color: #007bff;
+    font-size: 12px;
+    margin-right: 6px;
+}
+
+#itemsPerPageDropdown .modern-select-container:hover {
+    border-color: #007bff;
+    box-shadow: 0 0 0 0.1rem rgba(0, 123, 255, 0.15);
+}
+
+#itemsPerPageDropdown .modern-select-container.active {
+    border-color: #007bff;
+    box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
+}
+
+#itemsPerPageDropdown .modern-select-value {
+    font-weight: 500;
+    color: #495057;
+    flex: 1;
+}
+
+#itemsPerPageDropdown .dropdown-arrow {
+    color: #6c757d;
+    font-size: 11px;
+    margin-left: 8px;
+    transition: transform 0.2s ease;
+}
+
+#itemsPerPageDropdown .modern-select-container.active .dropdown-arrow {
+    transform: rotate(180deg);
+}
+
+#itemsPerPageDropdown .modern-select-options {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    background: white;
+    border: 1px solid #dee2e6;
+    border-top: none;
+    border-radius: 0 0 4px 4px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    z-index: 99999999;
+    max-height: 150px;
+    overflow-y: auto;
+    display: none;
+}
+
+#itemsPerPageDropdown.active .modern-select-options,
+#itemsPerPageDropdown .modern-select-container.active + .modern-select-options {
+    display: block !important;
+}
+
+#itemsPerPageDropdown .modern-option {
+    padding: 8px 10px;
+    font-size: 13px;
+    cursor: pointer;
+    color: #495057;
+    transition: background-color 0.2s ease;
+}
+
+#itemsPerPageDropdown .modern-option:hover {
+    background-color: #f8f9fa;
+    color: #007bff;
+}
+
+#itemsPerPageDropdown .modern-option.selected {
+    background-color: #007bff;
+    color: white;
+    font-weight: 500;
+}
+
+/* Responsive สำหรับ Mobile และ Tablet */
+@media (max-width: 991px) {
+    #itemsPerPageDropdown .modern-select-container {
+        padding: 0 10px;
+    }
+}
+
+@media (max-width: 768px) {
+    #itemsPerPageDropdown .modern-select-container {
+        min-height: 34px;
+        font-size: 12px;
+        padding: 0 8px;
+    }
+    
+    #itemsPerPageDropdown .dropdown-icon {
+        font-size: 11px;
+        margin-right: 5px;
+    }
+    
+    #itemsPerPageDropdown .dropdown-arrow {
+        font-size: 9px;
+        margin-left: 5px;
+    }
+    
+    #itemsPerPageDropdown .modern-option {
+        padding: 6px 8px;
+        font-size: 12px;
+    }
+}
+
+@media (max-width: 576px) {
+    #itemsPerPageDropdown .modern-select-container {
+        min-height: 32px;
+        font-size: 11px;
+        padding: 0 6px;
+    }
+    
+    #itemsPerPageDropdown .dropdown-icon {
+        font-size: 10px;
+        margin-right: 4px;
+    }
+    
+    #itemsPerPageDropdown .dropdown-arrow {
+        font-size: 8px;
+        margin-left: 4px;
+    }
+    
+    #itemsPerPageDropdown .modern-option {
+        padding: 5px 6px;
+        font-size: 11px;
+    }
+}

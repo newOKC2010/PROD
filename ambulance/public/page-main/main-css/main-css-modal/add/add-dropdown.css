@@ -1,0 +1,206 @@
+/**
+ * Add Dropdown Components - สำหรับ dropdown elements ใน modal add
+ */
+
+/* Basic Dropdown Container */
+.add-dropdown-container {
+    position: relative;
+    width: 250px; /* ลดความยาวจาก 100% เป็น 300px */
+    max-width: 100%;
+    cursor: pointer !important;
+}
+
+/* ป้องกันแถบสีเทาจาก pseudo-elements */
+.add-dropdown-container *::before,
+.add-dropdown-container *::after {
+    background: none !important;
+    background-color: transparent !important;
+}
+
+.add-dropdown-container * {
+    box-sizing: border-box;
+}
+
+/* Dropdown Button */
+.add-dropdown-button {
+    width: 100%;
+    padding: 0.75rem 1rem;
+    border: 2px solid #e9ecef;
+    border-radius: 8px;
+    background-color: white;
+    font-size: 1rem;
+    text-align: left;
+    cursor: pointer !important;
+    transition: all 0.3s ease;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    min-height: 50px;
+}
+
+.add-dropdown-button:hover {
+    /* เอากรอบออกเมื่อ hover */
+    border-color: #e9ecef;
+    background-color: #f8f9fa;
+}
+
+.add-dropdown-button:focus {
+    outline: none;
+    border-color: #e9ecef;  /* เอากรอบสีฟ้าออก */
+    box-shadow: none;       /* เอา shadow ออก */
+}
+
+.add-dropdown-button.active {
+    border-color: #e9ecef;  /* เอากรอบสีฟ้าออกเมื่อ active */
+    box-shadow: none;       /* เอา shadow ออก */
+}
+
+/* Dropdown Arrow */
+.add-dropdown-arrow {
+    transition: transform 0.3s ease;
+    color: #6c757d;
+    font-size: 0.9rem;
+}
+
+.add-dropdown-button.active .add-dropdown-arrow {
+    transform: rotate(180deg);
+}
+
+/* Dropdown Text */
+.add-dropdown-text {
+    color: #495057;
+    font-weight: bold;
+    background: none;
+    background-color: transparent;
+    border: none;
+    outline: none;
+    cursor: pointer !important;
+}
+
+/* ป้องกันแถบสีเทาจาก browser default */
+.add-dropdown-text::before,
+.add-dropdown-text::after {
+    content: none !important;
+    display: none !important;
+}
+
+.add-dropdown-text::-webkit-input-placeholder {
+    background: transparent !important;
+}
+
+.add-dropdown-text::-moz-placeholder {
+    background: transparent !important;
+}
+
+.add-dropdown-text:-ms-input-placeholder {
+    background: transparent !important;
+}
+
+/* Placeholder Text - แสดงข้อความเมื่อยังไม่ได้เลือกอะไร */
+.add-dropdown-text.placeholder {
+    color: #6c757d !important;
+    font-weight: bold !important;
+    font-style: normal !important;  /* เปลี่ยนจาก italic เป็น normal */
+    background: none !important;
+    background-color: transparent !important;
+    border: none !important;
+    outline: none !important;
+    box-shadow: none !important;
+    cursor: pointer !important;
+}
+
+/* Dropdown Menu */
+.add-dropdown-menu {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    background-color: white;
+    border: none;  /* เอากรอบออก */
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);  /* เปลี่ยนเป็นสีเทา */
+    z-index: 1000;
+    max-height: 200px;
+    overflow-y: auto;
+    margin-top: 2px;
+    display: none;
+    opacity: 0;
+    transform: translateY(-10px);  /* เริ่มต้นเลื่อนขึ้น */
+    transition: all 0.3s ease;     /* เพิ่ม animation */
+}
+
+.add-dropdown-menu.show {
+    display: block;
+    opacity: 1;
+    transform: translateY(0);      /* slide ลงมา */
+}
+
+/* Dropdown Items */
+.add-dropdown-item {
+    padding: 0.75rem 1rem;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+    border-bottom: 1px solid #e9ecef;
+    color: #495057;
+    font-weight: bold;  /* ทำให้เป็นตัวหนา */
+}
+
+.add-dropdown-item:last-child {
+    border-bottom: none;
+}
+
+.add-dropdown-item:hover {
+    background-color: #f8f9fa;
+    color: #007bff;
+}
+
+.add-dropdown-item.selected {
+    background-color: #007bff;
+    color: white;
+}
+
+/* Empty State */
+.add-dropdown-empty {
+    padding: 1rem;
+    text-align: center;
+    color: #6c757d;
+    font-style: italic;
+}
+
+/* Search Input */
+.add-dropdown-search {
+    width: 100%;
+    padding: 0.5rem 1rem;
+    border: none;
+    border-bottom: 1px solid #e9ecef;
+    outline: none;
+    font-size: 0.95rem;
+    font-weight: bold;  /* ทำให้ search input เป็นตัวหนา */
+}
+
+.add-dropdown-search:focus {
+    border-bottom-color: #007bff;
+}
+
+/* Search Placeholder */
+.add-dropdown-search::placeholder {
+    font-weight: bold;  /* ทำให้ placeholder เป็นตัวหนา */
+    color: #6c757d;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .add-dropdown-menu {
+        max-height: 150px;
+    }
+    
+    .add-dropdown-button {
+        padding: 0.6rem 0.8rem;
+        font-size: 0.95rem;
+    }
+    
+    .add-dropdown-item {
+        padding: 0.6rem 0.8rem;
+        font-size: 0.95rem;
+    }
+}

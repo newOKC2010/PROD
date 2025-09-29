@@ -1,0 +1,377 @@
+/**
+ * Update Modal Styles - สไตล์สำหรับ Modal แก้ไข
+ */
+ @import './update-form-components.css';
+
+/* Modal Header */
+#updateChecklistModal .modal-header.bg-warning {
+    border-bottom: 2px solid #f0ad4e;
+}
+
+#updateChecklistModal .modal-title {
+    font-weight: 600;
+    font-size: 1.1rem;
+}
+
+/* Loading Indicator */
+#updateLoadingIndicator {
+    min-height: 200px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}
+
+#updateLoadingIndicator .spinner-border {
+    width: 3rem;
+    height: 3rem;
+    border-width: 0.3em;
+}
+
+/* Vehicle Info Card */
+.vehicle-info-card .card {
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    border-radius: 8px;
+}
+
+.vehicle-info-card .card-header {
+    border-radius: 8px 8px 0 0;
+    font-weight: 600;
+}
+
+.vehicle-info-card .card-body {
+    padding: 1.5rem;
+}
+
+/* Permission Warning */
+.alert-info {
+    border-left: 4px solid #0dcaf0;
+    background-color: #e7f3ff;
+    border-color: #b8daff;
+}
+
+/* Checklist Items */
+.checklist-items h6 {
+    color: #495057;
+    font-weight: 600;
+    border-bottom: 2px solid #dee2e6;
+    padding-bottom: 0.5rem;
+}
+
+.checklist-item-form {
+    margin-bottom: 1.5rem;
+}
+
+.checklist-item-form .card {
+    border: 1px solid #dee2e6;
+    border-radius: 8px;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.08);
+    transition: all 0.3s ease;
+}
+
+.checklist-item-form .card:hover {
+    box-shadow: 0 3px 12px rgba(0,0,0,0.15);
+    transform: translateY(-1px);
+}
+
+.checklist-item-form .card-header {
+    background-color: #f8f9fa;
+    border-bottom: 1px solid #dee2e6;
+    border-radius: 8px 8px 0 0;
+}
+
+.checklist-item-form .card-header h6 {
+    margin: 0;
+    font-weight: 600;
+    color: #495057;
+    border: none;
+    padding: 0;
+}
+
+.checklist-item-form .badge {
+    font-size: 0.75rem;
+    padding: 0.4em 0.6em;
+}
+
+/* Status Controls */
+.status-controls .form-label,
+.status-display .form-label {
+    color: #495057;
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+}
+
+.status-options {
+    display: flex;
+    gap: 1rem;
+    margin-top: 0.5rem;
+}
+
+.status-options .form-check {
+    margin-bottom: 0;
+}
+
+.status-options .form-check-input:checked {
+    border-color: transparent;
+}
+
+.status-options .form-check-input[value="true"]:checked {
+    background-color: #198754;
+}
+
+.status-options .form-check-input[value="false"]:checked {
+    background-color: #dc3545;
+}
+
+.status-options .form-check-label {
+    font-weight: 600;
+    cursor: pointer;
+    padding: 0.25rem 0.5rem;
+    border-radius: 4px;
+    transition: background-color 0.2s ease;
+}
+
+.status-options .form-check-label:hover {
+    background-color: rgba(0,0,0,0.05);
+}
+
+.status-display .bg-light {
+    background-color: #f8f9fa !important;
+    border: 1px solid #dee2e6;
+    border-radius: 4px;
+}
+
+/* Note Controls */
+.note-controls .form-label,
+.note-display .form-label {
+    color: #495057;
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+}
+
+.note-controls .note-textarea {
+    resize: vertical;
+    min-height: 80px;
+    border: 1px solid #ced4da;
+    border-radius: 4px;
+    transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+}
+
+.note-controls .note-textarea:focus {
+    border-color: #ffc107;
+    box-shadow: 0 0 0 0.2rem rgba(255, 193, 7, 0.25);
+}
+
+.note-display .bg-light {
+    background-color: #f8f9fa !important;
+    border: 1px solid #dee2e6;
+    border-radius: 4px;
+    min-height: 60px;
+}
+
+/* Photo Controls */
+.photos-section h6 {
+    color: #495057;
+    font-weight: 600;
+    margin-bottom: 1rem;
+    border-bottom: 1px solid #dee2e6;
+    padding-bottom: 0.5rem;
+}
+
+.existing-photos .form-label {
+    color: #495057;
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+}
+
+.photo-item {
+    position: relative;
+    overflow: hidden;
+    transition: all 0.3s ease;
+}
+
+.photo-item:hover {
+    transform: scale(1.02);
+}
+
+.photo-item img {
+    border-radius: 8px;
+    transition: all 0.3s ease;
+}
+
+.photo-item .delete-photo-btn {
+    width: 24px;
+    height: 24px;
+    padding: 0;
+    font-size: 0.75rem;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 2px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.3);
+    transition: all 0.2s ease;
+}
+
+.photo-item .delete-photo-btn:hover {
+    transform: scale(1.1);
+    box-shadow: 0 3px 8px rgba(0,0,0,0.4);
+}
+
+/* Photo Delete State */
+.photo-marked-delete {
+    position: relative;
+}
+
+.photo-marked-delete .photo-item {
+    opacity: 0.5;
+    filter: grayscale(100%);
+}
+
+.delete-overlay {
+    border-radius: 6px;
+    backdrop-filter: blur(2px);
+}
+
+/* New Photo Upload */
+.add-photos .form-label {
+    color: #495057;
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+}
+
+.update-photo-input {
+    border: 2px dashed #ced4da;
+    border-radius: 8px;
+    padding: 0.75rem;
+    transition: all 0.3s ease;
+    background-color: #f8f9fa;
+}
+
+.update-photo-input:hover {
+    border-color: #ffc107;
+    background-color: #fff;
+}
+
+.update-photo-input:focus {
+    border-color: #ffc107;
+    box-shadow: 0 0 0 0.2rem rgba(255, 193, 7, 0.25);
+    background-color: #fff;
+}
+
+/* New Photo Preview */
+.new-photo {
+    border: 2px solid #ffc107 !important;
+}
+
+.photo-info {
+    font-size: 0.7rem;
+    line-height: 1.2;
+}
+
+.remove-new-photo {
+    width: 20px;
+    height: 20px;
+    padding: 0;
+    font-size: 0.7rem;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 2px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.3);
+    transition: all 0.2s ease;
+}
+
+.remove-new-photo:hover {
+    transform: scale(1.1);
+}
+
+/* Modal Footer */
+#updateChecklistModal .modal-footer {
+    border-top: 2px solid #dee2e6;
+    padding: 1rem 1.5rem;
+}
+
+#updateSubmitBtn {
+    font-weight: 600;
+    padding: 0.5rem 1.5rem;
+    border-radius: 6px;
+    transition: all 0.3s ease;
+}
+
+#updateSubmitBtn:hover:not(:disabled) {
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(255, 193, 7, 0.4);
+}
+
+#updateSubmitBtn:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .checklist-item-form .row > .col-md-6 {
+        margin-bottom: 1rem;
+    }
+    
+    .status-options {
+        flex-direction: column;
+        gap: 0.5rem;
+    }
+    
+    .photo-item {
+        margin-bottom: 1rem;
+    }
+    
+    .vehicle-info-card .row > .col-md-6 {
+        margin-bottom: 0.5rem;
+    }
+}
+
+@media (max-width: 576px) {
+    #updateChecklistModal .modal-dialog {
+        margin: 0.5rem;
+    }
+    
+    .checklist-item-form .card-body {
+        padding: 1rem;
+    }
+    
+    .vehicle-info-card .card-body {
+        padding: 1rem;
+    }
+    
+    .photos-section .row {
+        margin: 0;
+    }
+    
+    .photos-section .col-md-3 {
+        padding: 0.25rem;
+    }
+}
+
+/* Animation */
+@keyframes slideInUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.checklist-item-form {
+    animation: slideInUp 0.3s ease-out;
+}
+
+.checklist-item-form:nth-child(even) {
+    animation-delay: 0.1s;
+}
+
+.checklist-item-form:nth-child(odd) {
+    animation-delay: 0.05s;
+}

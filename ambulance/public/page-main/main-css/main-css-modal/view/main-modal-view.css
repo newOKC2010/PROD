@@ -1,0 +1,35 @@
+@import 'modal-image-gallery.css';
+/**
+ * Modal View Styles - Modal และ Dialog Styles
+ */
+
+/* Modal Styles */
+.modal-dialog {
+    max-width: 900px;
+    z-index: 1055;
+}
+
+.modal-header {
+    background-color: #0d6efd;
+    border-bottom: 1px solid #0d6efd;
+}
+
+.modal-title {
+    font-weight: 600;
+    color: #ffffff;
+    font-weight: bold;
+}
+
+.modal-body {
+    padding: 1.5rem;
+}
+
+/* Modal backdrop z-index */
+.modal-backdrop {
+    z-index: 1050;
+}
+
+/* Ensure modal content is above dropdowns */
+.modal-content {
+    z-index: 1056;
+}

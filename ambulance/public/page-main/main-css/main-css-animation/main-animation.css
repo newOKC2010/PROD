@@ -1,0 +1,70 @@
+/**
+ * Main Page Specific Animation Styles
+ * หมายเหตุ: Basic animations (fade-in, slide-up, etc.) ย้ายไปที่ /global-css/global-animations.css แล้ว
+ */
+
+/* Main Page Specific Animations */
+.table-row-appear {
+    animation: tableRowAppear 0.4s ease-out;
+}
+
+@keyframes tableRowAppear {
+    from {
+        opacity: 0;
+        transform: translateX(-10px);
+        background-color: rgba(0, 123, 255, 0.1);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+        background-color: transparent;
+    }
+}
+
+.search-highlight {
+    animation: searchHighlight 1s ease-in-out;
+}
+
+@keyframes searchHighlight {
+    0% {
+        background-color: transparent;
+    }
+    50% {
+        background-color: rgba(255, 193, 7, 0.3);
+    }
+    100% {
+        background-color: transparent;
+    }
+}
+
+.modal-content-enter {
+    animation: modalContentEnter 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+@keyframes modalContentEnter {
+    from {
+        opacity: 0;
+        transform: translateY(-30px) scale(0.95);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+.status-badge-update {
+    animation: statusBadgeUpdate 0.6s ease-in-out;
+}
+
+@keyframes statusBadgeUpdate {
+    0% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.1);
+        box-shadow: 0 0 10px rgba(40, 167, 69, 0.5);
+    }
+    100% {
+        transform: scale(1);
+    }
+} 

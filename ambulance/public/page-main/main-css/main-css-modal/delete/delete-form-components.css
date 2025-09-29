@@ -1,0 +1,24 @@
+/* Delete Modal Form Components - สไตล์ของ form elements */
+
+.delete-modal-header {
+    color: #dc3545;
+}
+
+.delete-modal-header i {
+    font-size: 24px;
+    margin-right: 12px;
+}
+
+.delete-modal-header h5 {
+    margin: 0;
+    font-weight: 600;
+}
+
+.delete-modal-body {
+    color: #6c757d;
+    font-weight: bold;
+}
+
+.text-warning {
+    color: #e0be58 !important;
+}

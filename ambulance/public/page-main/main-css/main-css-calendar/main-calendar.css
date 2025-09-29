@@ -1,0 +1,308 @@
+/* Thai Calendar Styles */
+.thai-calendar-container {
+    position: relative;
+    width: 100%;
+}
+
+.thai-calendar-display {
+    display: flex;
+    align-items: center;
+    padding: 8px 12px;
+    background: white;
+    border: 1px solid #ced4da;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    min-height: 40px;
+}
+
+.thai-calendar-display:hover {
+    border-color: #80bdff;
+}
+
+.thai-calendar-display.active {
+    border-color: #007bff;
+    box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
+}
+
+.calendar-icon {
+    margin-right: 8px;
+    color: #6c757d;
+    font-size: 14px;
+}
+
+.calendar-text {
+    flex: 1;
+    color: #495057;
+    font-size: 14px;
+}
+
+.calendar-arrow {
+    margin-left: 8px;
+    color: #6c757d;
+    font-size: 12px;
+    transition: transform 0.2s ease;
+}
+
+.thai-calendar-display.active .calendar-arrow {
+    transform: rotate(180deg);
+}
+
+.thai-calendar-popup {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    background: white;
+    border: 1px solid #ced4da;
+    border-top: none;
+    border-radius: 0 0 6px 6px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    z-index: 9000;
+    padding: 16px;
+    display: none;
+}
+
+.thai-calendar-popup.active {
+    display: block;
+    z-index: 10002;
+}
+
+.thai-calendar-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 16px;
+}
+
+.calendar-nav-btn {
+    background: none;
+    border: none;
+    padding: 8px;
+    cursor: pointer;
+    border-radius: 4px;
+    color: #6c757d;
+    transition: all 0.2s ease;
+}
+
+.calendar-nav-btn:hover {
+    background-color: #f8f9fa;
+    color: #495057;
+}
+
+.calendar-title {
+    display: flex;
+    gap: 8px;
+}
+
+.month-select,
+.year-select {
+    padding: 4px 8px;
+    border: 1px solid #ced4da;
+    border-radius: 4px;
+    font-size: 14px;
+    background: white;
+}
+
+.thai-calendar-days-header {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 2px;
+    margin-bottom: 8px;
+}
+
+.day-header {
+    text-align: center;
+    font-weight: 500;
+    color: #6c757d;
+    padding: 8px 4px;
+    font-size: 12px;
+    background-color: #f8f9fa;
+    border-radius: 4px;
+}
+
+.thai-calendar-days {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 2px;
+    margin-bottom: 16px;
+}
+
+.calendar-day {
+    text-align: center;
+    padding: 8px 4px;
+    cursor: pointer;
+    border-radius: 4px;
+    transition: all 0.2s ease;
+    font-size: 14px;
+    min-height: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.calendar-day:hover {
+    background-color: #f8f9fa;
+}
+
+.calendar-day.empty {
+    cursor: default;
+}
+
+.calendar-day.today {
+    background-color: #28a745;
+    color: white;
+    font-weight: 500;
+}
+
+.calendar-day.selected {
+    background-color: #007bff;
+    color: white;
+}
+
+.calendar-day.selected.today {
+    background-color: #007bff;
+}
+
+.thai-calendar-footer {
+    display: flex;
+    justify-content: space-between;
+    gap: 8px;
+}
+
+.today-btn,
+.clear-btn {
+    flex: 1;
+    padding: 8px 12px;
+    border: 1px solid #ced4da;
+    border-radius: 4px;
+    background: white;
+    cursor: pointer;
+    font-size: 14px;
+    transition: all 0.2s ease;
+}
+
+.today-btn:hover,
+.clear-btn:hover {
+    background-color: #f8f9fa;
+    border-color: #adb5bd;
+}
+
+.today-btn {
+    color: #28a745;
+    border-color: #28a745;
+}
+
+.today-btn:hover {
+    background-color: #28a745;
+    color: white;
+}
+
+.clear-btn {
+    color: #dc3545;
+    border-color: #dc3545;
+}
+
+.clear-btn:hover {
+    background-color: #dc3545;
+    color: white;
+}
+
+/* Mobile Responsive Styles */
+@media (max-width: 768px) {
+    .thai-calendar-popup {
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        right: auto;
+        width: 90%;
+        max-width: 350px;
+        border-radius: 12px;
+        border-top: 1px solid #ced4da;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+        z-index: 9999999;
+    }
+    
+    .thai-calendar-popup.active {
+        z-index: 9999999;
+    }
+    
+    .thai-calendar-header {
+        margin-bottom: 12px;
+    }
+    
+    .calendar-title {
+        gap: 6px;
+    }
+    
+    .month-select,
+    .year-select {
+        padding: 6px 8px;
+        font-size: 16px; /* ป้องกัน zoom ใน iOS */
+    }
+    
+    .day-header {
+        padding: 6px 2px;
+        font-size: 11px;
+    }
+    
+    .calendar-day {
+        padding: 10px 4px;
+        font-size: 16px;
+        min-height: 40px;
+    }
+    
+    .today-btn,
+    .clear-btn {
+        padding: 12px 16px;
+        font-size: 16px;
+    }
+}
+
+@media (max-width: 480px) {
+    .thai-calendar-popup {
+        width: 95%;
+        max-width: 320px;
+        padding: 12px;
+    }
+    
+    .thai-calendar-header {
+        margin-bottom: 10px;
+    }
+    
+    .calendar-title {
+        flex-direction: column;
+        gap: 4px;
+        align-items: center;
+    }
+    
+    .month-select,
+    .year-select {
+        width: 100%;
+        text-align: center;
+    }
+    
+    .day-header {
+        font-size: 10px;
+        padding: 4px 1px;
+    }
+    
+    .calendar-day {
+        font-size: 14px;
+        min-height: 36px;
+        padding: 8px 2px;
+    }
+    
+    .thai-calendar-footer {
+        flex-direction: column;
+        gap: 8px;
+    }
+    
+    .today-btn,
+    .clear-btn {
+        width: 100%;
+        padding: 14px 16px;
+        font-size: 16px;
+    }
+}

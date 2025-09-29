@@ -1,0 +1,139 @@
+/**
+ * Responsive Design - Media Queries สำหรับ Mobile และ Tablet
+ */
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    /* Header Responsive */
+    .header {
+        padding: 20px;
+        flex-direction: column;
+        gap: 15px;
+        text-align: center;
+    }
+    
+    .header h1 {
+        font-size: 24px;
+    }
+    
+    /* Main Content Responsive */
+    .main {
+        padding: 30px 20px;
+    }
+    
+    .main h2 {
+        font-size: 28px;
+    }
+    
+    /* Cards Responsive */
+    .welcome-card {
+        padding: 20px;
+        margin: 0 10px 20px 10px;
+    }
+    
+    /* Search Container Responsive */
+    #searchContainer {
+        max-width: 100%;
+        padding: 0 1rem;
+    }
+    
+    /* Table Responsive */
+    .table-responsive {
+        font-size: 0.8rem;
+    }
+    
+    .btn-group .btn {
+        padding: 3px 6px;
+        font-size: 0.7rem;
+    }
+    
+    .modal-dialog {
+        margin: 0.5rem;
+    }
+    
+    /* Adjust name columns for mobile */
+    .table td.vehicle-name,
+    .table td.inspector-name,
+    .table td.username-cell {
+        max-width: 120px;
+        font-size: 0.8rem;
+    }
+    
+    /* Modal checklist items responsive */
+    .checklist-item-name {
+        font-size: 0.85rem;
+    }
+    
+    .checklist-grid .card-header {
+        padding: 8px 10px;
+    }
+    
+    .modal-body {
+        padding: 1rem;
+    }
+}
+
+@media (max-width: 576px) {
+    /* Table Small Screen */
+    .table th,
+    .table td {
+        padding: 8px 4px;
+        font-size: 0.75rem;
+    }
+    
+    .btn-group {
+        flex-direction: column;
+    }
+    
+    .btn-group .btn {
+        margin: 1px 0;
+        border-radius: 4px;
+    }
+}
+
+/* Print Styles */
+@media print {
+    .no-print,
+    .btn,
+    .pagination,
+    .modal-footer {
+        display: none !important;
+    }
+    
+    .card {
+        border: 1px solid #000 !important;
+        box-shadow: none !important;
+    }
+    
+    .table {
+        font-size: 0.8rem;
+    }
+    
+    .checklist-grid .card {
+        break-inside: avoid;
+        margin-bottom: 0.5rem;
+    }
+    
+    /* Print checklist item names */
+    .checklist-item-name {
+        font-size: 0.9rem !important;
+        line-height: 1.3 !important;
+        word-break: break-word !important;
+        white-space: normal !important;
+    }
+    
+    .checklist-note-text {
+        font-size: 0.8rem !important;
+        line-height: 1.3 !important;
+        word-break: break-word !important;
+        white-space: normal !important;
+    }
+    
+    .card-header {
+        padding: 6px 8px !important;
+    }
+    
+    .card-body {
+        padding: 6px 8px !important;
+    }
+} 

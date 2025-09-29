@@ -1,0 +1,17 @@
+/* Delete Modal - ไฟล์หลักรวม CSS ทั้งหมด */
+
+@import url('delete-layout.css');
+@import url('delete-form-components.css');
+@import url('delete-buttons-actions.css');
+@import url('delete-animations.css');
+
+/* Delete Modal Header Styles */
+#deleteModal .delete-modal-header {
+    background-color: #dc3545 !important;
+    color: #ffffff !important;
+}
+
+#deleteModal .delete-modal-header i,
+#deleteModal .delete-modal-header h5 {
+    color: #ffffff !important;
+}
