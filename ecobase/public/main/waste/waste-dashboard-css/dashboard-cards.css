@@ -1,0 +1,192 @@
+/* dashboard-cards.css */
+.waste-card {
+  background-color: white;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  height: 350px;
+  overflow: hidden;
+  position: relative;
+}
+
+.card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 15px;
+}
+
+.card-title {
+  margin: 0;
+  font-size: 18px;
+  font-weight: 500;
+  color: var(--dark-green);
+  display: flex;
+  align-items: center;
+}
+
+.card-title .material-icons {
+  margin-right: 8px;
+  font-size: 28px;
+}
+
+.card-total {
+  font-size: 14px;
+  color: #555;
+  display: flex;
+  align-items: center;
+  background-color: var(--light-green);
+  padding: 4px 10px;
+  border-radius: 4px;
+}
+
+.card-total .value {
+  font-weight: 500;
+  color: var(--dark-green);
+  margin: 0 5px;
+}
+
+.card-content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  width: 100%;
+}
+
+.card-footer {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 15px;
+  font-size: 12px;
+  color: #777;
+}
+
+/* เลือกสีตามประเภทขยะ */
+.waste-card.type-1 {
+  border-top: 4px solid #ffc107; /* ขยะทั่วไป - สีเหลือง */
+  background-color: white; /* พื้นหลังขาว */
+}
+
+.waste-card.type-2 {
+  border-top: 4px solid #2196f3; /* ขยะรีไซเคิล - สีฟ้า */
+  background-color: white; /* พื้นหลังขาว */
+}
+
+.waste-card.type-3 {
+  border-top: 4px solid #f44336; /* ขยะอันตราย - สีแดง */
+  background-color: white; /* พื้นหลังขาว */
+}
+
+.waste-card.type-4 {
+  border-top: 4px solid #9e9e9e; /* ขยะติดเชื้อ - สีเทา */
+  background-color: white; /* พื้นหลังขาว */
+}
+
+/* สีกราฟตามประเภทขยะ */
+:root {
+  --waste-type-1-color: rgba(255, 193, 7, 0.3); /* ขยะทั่วไป - เหลือง */
+  --waste-type-1-border: rgb(255, 193, 7);
+
+  --waste-type-2-color: rgba(33, 150, 243, 0.3); /* ขยะรีไซเคิล - ฟ้า */
+  --waste-type-2-border: rgb(33, 150, 243);
+
+  --waste-type-3-color: rgba(244, 67, 54, 0.3); /* ขยะอันตราย - สีแดง */
+  --waste-type-3-border: rgb(244, 67, 54);
+
+  --waste-type-4-color: rgba(158, 158, 158, 0.3); /* ขยะติดเชื้อ - สีเทา */
+  --waste-type-4-border: rgb(158, 158, 158);
+}
+
+/* สีของตัวอักษรหัวข้อการ์ดตามประเภทขยะ */
+.waste-card.type-1 .card-title {
+  color: #ff6f00; /* สีเข้มกว่าสีการ์ดเล็กน้อย */
+}
+
+.waste-card.type-2 .card-title {
+  color: #0d47a1; /* สีเข้มกว่าสีการ์ดเล็กน้อย */
+}
+
+.waste-card.type-3 .card-title {
+  color: #b71c1c; /* สีเข้มกว่าสีการ์ดเล็กน้อย - แดงเข้ม */
+}
+
+.waste-card.type-4 .card-title {
+  color: #616161; /* สีเข้มกว่าสีการ์ดเล็กน้อย - เทาเข้ม */
+}
+
+/* สำหรับข้อมูลที่ไม่มี */
+.no-data-message {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  color: #777;
+  text-align: center;
+}
+
+.no-data-message i {
+  font-size: 40px;
+  margin-bottom: 10px;
+  color: #ccc;
+}
+
+/* สำหรับโหลดข้อมูล */
+.loading-indicator {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  color: #555;
+}
+
+.loading-spinner {
+  border: 4px solid #f3f3f3;
+  border-top: 4px solid var(--primary-color);
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  animation: spin 1s linear infinite;
+  margin-bottom: 10px;
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+/* สไตล์สำหรับการ์ดเปรียบเทียบ */
+.comparison-card {
+  height: 500px; /* เพิ่มความสูงจาก 400px เป็น 500px */
+  grid-column: 1 / -1; /* ให้ขยายเต็มความกว้าง */
+}
+
+.comparison-card .chart-inner-container {
+  min-width: 900px; /* เพิ่มความกว้างขั้นต่ำจาก 800px เป็น 900px เพื่อรองรับการเพิ่มช่องว่างระหว่างเดือน */
+}
+
+.comparison-chart-container {
+  height: 90%;
+}
+
+/* ปรับขนาดป้ายชื่อ (legend) ในกราฟเปรียบเทียบ */
+.comparison-card .card-content canvas {
+  max-height: 450px; /* เพิ่มความสูงจาก 350px เป็น 450px */
+}
+
+/* เพิ่มขนาดแท่งกราฟ */
+.comparison-card .card-title {
+  font-size: 22px; /* เพิ่มขนาดข้อความหัวข้อ */
+}
+
+.comparison-card .card-content {
+  padding: 10px 0 20px 0; /* เพิ่ม padding ด้านล่างเพื่อให้มีพื้นที่มากขึ้น */
+}

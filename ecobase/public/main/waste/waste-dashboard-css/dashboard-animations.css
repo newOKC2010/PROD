@@ -1,0 +1,51 @@
+/* dashboard-animations.css */
+
+/* เอฟเฟกต์ fade in สำหรับ card */
+.waste-card {
+  animation: fadeIn 0.6s ease-in-out;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* เอฟเฟกต์คลิกปุ่ม */
+.filter-button:active {
+  transform: scale(0.98);
+}
+
+/* เอฟเฟกต์ card hover */
+.waste-card {
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.waste-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+}
+
+/* แอนิเมชั่นสำหรับไอคอนโหลด */
+.loading-spinner {
+  animation: spin 1s linear infinite;
+}
+
+/* แอนิเมชั่นสำหรับ card เมื่อมีการอัพเดตข้อมูล */
+.card-update {
+  animation: highlight 1s ease-in-out;
+}
+
+@keyframes highlight {
+  0% {
+    background-color: var(--light-green);
+  }
+  100% {
+    background-color: white;
+  }
+}

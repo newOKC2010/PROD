@@ -1,0 +1,190 @@
+/* สไตล์สำหรับ Summary Dashboard Cards */
+
+/* สไตล์สำหรับการ์ดสรุป */
+.summary-card {
+    text-align: center;
+    transition: all 0.3s ease;
+    background-color: white;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.1);
+    padding: 10px;
+    min-height: 150px;
+    display: flex;
+    flex-direction: column;
+}
+
+.summary-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 15px rgba(0, 0, 0, 0.1);
+}
+
+.summary-card .card-header {
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    padding: 15px 10px 5px 10px;
+    text-align: center;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+.summary-card .card-title {
+    font-size: 0.95rem;
+    margin: 0;
+    text-align: center;
+    width: 100%;
+}
+
+.summary-card .card-icon {
+    width: 50px;
+    height: 50px;
+    margin-bottom: 5px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    background-color: rgba(0, 0, 0, 0.03);
+}
+
+.summary-card .card-icon i {
+    color: inherit;
+}
+
+.summary-card:hover .card-icon {
+    transform: scale(1.1);
+    transition: transform 0.3s ease;
+}
+
+.summary-card .card-body {
+    padding-top: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+/* สไตล์สำหรับค่าเฉลี่ย */
+.summary-value {
+    font-size: 1.5rem;
+    font-weight: bold;
+    margin-bottom: 3px;
+    font-family: 'Mitr', sans-serif;
+}
+
+.summary-unit {
+    font-size: 0.9rem;
+    color: #7f8c8d;
+    font-family: 'Mitr', sans-serif;
+}
+
+/* สไตล์สำหรับแสดงเปอร์เซ็นต์ */
+.percent-container {
+    position: relative;
+    width: 100px;
+    height: 100px;
+    margin: 0 auto;
+}
+
+.percent-circle {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #f0f0f0;
+    box-shadow: inset 0 0 0 10px #f0f0f0;
+}
+
+.percent-circle::before {
+    content: '';
+    position: absolute;
+    width: 80%;
+    height: 80%;
+    border-radius: 50%;
+    background-color: white;
+    z-index: 1;
+}
+
+.percent-value {
+    position: relative;
+    z-index: 2;
+    font-size: 1.5rem;
+    font-weight: bold;
+    font-family: 'Mitr', sans-serif;
+}
+
+.status-label {
+    margin-top: 10px;
+    font-size: 0.9rem;
+    color: #7f8c8d;
+    font-family: 'Mitr', sans-serif;
+}
+
+/* สไตล์สำหรับการแสดงผลบนอุปกรณ์ขนาดเล็ก */
+@media screen and (max-width: 576px) {
+    #summary-card-grid {
+        grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+    }
+}
+
+/* สร้าง grid สำหรับแสดงเปอร์เซ็นต์สถานะทั้งหมด */
+.status-percentages {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 5px;
+    width: 100%;
+    margin-top: 8px;
+}
+
+/* สไตล์แต่ละรายการเปอร์เซ็นต์ */
+.status-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-size: 0.75rem;
+    padding: 3px 6px;
+    border-radius: 4px;
+    font-family: 'Mitr', sans-serif;
+    margin: 2px 0;
+    transition: all 0.2s ease;
+}
+
+.status-item:hover {
+    transform: translateX(2px);
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+/* สีพื้นหลังสำหรับแต่ละสถานะ */
+.status-normal {
+    background-color: rgba(46, 204, 113, 0.1);
+    color: rgb(46, 204, 113);
+}
+
+.status-abnormal {
+    background-color: rgba(231, 76, 60, 0.1);
+    color: rgb(231, 76, 60);
+}
+
+.status-maintenance {
+    background-color: rgba(241, 196, 15, 0.1);
+    color: rgb(241, 196, 15);
+}
+
+.status-inactive {
+    background-color: rgba(149, 165, 166, 0.1);
+    color: rgb(149, 165, 166);
+}
+
+.status-unknown {
+    background-color: rgba(189, 195, 199, 0.1);
+    color: rgb(189, 195, 199);
+}
+
+/* ปรับขนาดกริดของการ์ดให้แสดงมากขึ้นต่อแถว */
+#summary-card-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 15px;
+}

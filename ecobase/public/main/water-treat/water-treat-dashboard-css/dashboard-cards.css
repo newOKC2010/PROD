@@ -1,0 +1,587 @@
+/* สไตล์สำหรับการ์ด */
+.card-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 15px;
+  margin-bottom: 15px;
+}
+
+.dashboard-card {
+  background-color: white;
+  border-radius: 10px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  padding: 15px;
+  transition: transform 0.3s, box-shadow 0.3s;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  position: relative;
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+  max-height: 350px;
+}
+
+.dashboard-card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+}
+
+.dashboard-card:before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 5px;
+  background: rgba(255, 255, 255, 0.3);
+  transform: translateX(-100%);
+  transition: transform 0.5s ease;
+}
+
+.dashboard-card:hover:before {
+  transform: translateX(0);
+}
+
+.card-header {
+  position: relative;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 15px;
+}
+
+.card-title {
+  flex: 1;
+  margin-right: 10px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.card-icon {
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  background-color: rgba(0, 0, 0, 0.03);
+  transition: all 0.3s ease;
+}
+
+.dashboard-card:hover .card-icon {
+  transform: scale(1.1);
+  background-color: rgba(0, 0, 0, 0.05);
+}
+
+.card-body {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.chart-container {
+  width: 100%;
+  height: 250px;
+  position: relative;
+  border-radius: 10px;
+  padding: 15px;
+  box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.05);
+  margin-bottom: 10px;
+  overflow-x: auto;
+}
+
+.card-footer {
+  margin-top: 15px;
+  font-size: 0.9rem;
+  color: #7f8c8d;
+}
+
+/* สไตล์สำหรับข้อความสรุป */
+.summary-value {
+  font-size: 2rem;
+  font-weight: bold;
+  color: #2c3e50;
+  margin: 10px 0;
+  text-align: center;
+  font-family: "Mitr", sans-serif;
+}
+
+.summary-label {
+  text-align: center;
+  color: #7f8c8d;
+  font-size: 0.9rem;
+}
+
+/* สไตล์สำหรับการ์ดที่ไม่มีข้อมูล */
+.no-data-card {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  min-height: 200px;
+  text-align: center;
+  color: #95a5a6;
+}
+
+.no-data-card .icon {
+  font-size: 3rem;
+  margin-bottom: 10px;
+}
+
+.no-data-card .message {
+  font-weight: bold;
+}
+
+/* สไตล์สำหรับสีของกราฟ */
+.chart-status-normal {
+  background-color: rgba(46, 204, 113, 0.2);
+  border-color: rgb(46, 204, 113);
+}
+
+.chart-status-abnormal {
+  background-color: rgba(231, 76, 60, 0.2);
+  border-color: rgb(231, 76, 60);
+}
+
+.chart-status-maintenance {
+  background-color: rgba(241, 196, 15, 0.2);
+  border-color: rgb(241, 196, 15);
+}
+
+.chart-status-inactive {
+  background-color: rgba(149, 165, 166, 0.2);
+  border-color: rgb(149, 165, 166);
+}
+
+/* เพิ่มส่วนนี้เพื่อทำให้แต่ละส่วนมีสีและสไตล์ที่แตกต่างกัน */
+
+/* ส่วนการใช้ทรัพยากร - ธีมสีฟ้า */
+#resource-usage-section {
+  background: #ffffff;
+  border-radius: 15px;
+  border-left: 1px solid #e0e0e0;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+}
+
+#resource-usage-section .section-title {
+  color: #2980b9;
+}
+
+#resource-usage-section .dashboard-card {
+  background: white;
+  border-top: 4px solid #3498db;
+}
+
+/* ส่วนสถานะอุปกรณ์ - ธีมสีเขียว */
+#equipment-status-section {
+  background: #ffffff;
+  border-radius: 15px;
+  border-left: 1px solid #e0e0e0;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+}
+
+#equipment-status-section .section-title {
+  color: #27ae60;
+}
+
+#equipment-status-section .dashboard-card {
+  background: white;
+  border-top: 4px solid #2ecc71;
+}
+
+/* ส่วนคุณภาพน้ำและตะกอน - ธีมสีส้ม */
+#water-quality-section {
+  background: #ffffff;
+  border-radius: 15px;
+  border-left: 1px solid #e0e0e0;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+}
+
+#water-quality-section .section-title {
+  color: #d35400;
+}
+
+#water-quality-section .dashboard-card {
+  background: white;
+  border-top: 4px solid #f39c12;
+}
+
+/* ปรับแต่งเพิ่มเติมสำหรับการ์ด */
+.dashboard-card {
+  overflow: hidden;
+  transition: all 0.3s ease;
+  position: relative;
+}
+
+.dashboard-card:before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 5px;
+  background: rgba(255, 255, 255, 0.3);
+  transform: translateX(-100%);
+  transition: transform 0.5s ease;
+}
+
+.dashboard-card:hover:before {
+  transform: translateX(0);
+}
+
+.dashboard-card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+}
+
+/* สไตล์ที่แตกต่างกันสำหรับกราฟแต่ละประเภท */
+#resource-card-grid .chart-container {
+  background-color: #f8fafc;
+}
+
+#status-card-grid .chart-container {
+  background-color: #f7fdf9;
+}
+
+#quality-card-grid .chart-container {
+  background-color: #fef9f1;
+}
+
+/* เพิ่มสไตล์เพื่อให้กราฟวงกลมสวยงามยิ่งขึ้น */
+.chart-container {
+  padding: 20px;
+  position: relative;
+}
+
+/* ใส่เงาเล็กน้อยให้กราฟดูมีมิติมากขึ้น */
+canvas {
+  filter: drop-shadow(0px 2px 3px rgba(0, 0, 0, 0.1));
+}
+
+/* ปรับให้กราฟโดนัทมีขนาดดีขึ้น */
+#status-card-grid .chart-container {
+  height: 250px;
+}
+
+/* เพิ่มคำอธิบายสีกราฟใต้กราฟวงกลม */
+.status-legend {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 10px;
+  margin-top: 15px;
+}
+
+.status-legend-item {
+  display: flex;
+  align-items: center;
+  font-size: 12px;
+}
+
+.status-legend-color {
+  width: 12px;
+  height: 12px;
+  margin-right: 5px;
+  border-radius: 50%;
+}
+
+.status-normal-color {
+  background-color: rgba(46, 204, 113, 0.9);
+}
+
+.status-abnormal-color {
+  background-color: rgba(231, 76, 60, 0.9);
+}
+
+.status-maintenance-color {
+  background-color: rgba(241, 196, 15, 0.9);
+}
+
+.status-inactive-color {
+  background-color: rgba(149, 165, 166, 0.9);
+}
+
+/* เพิ่มสไตล์สำหรับชุดสีใหม่ */
+.chart-legend-colors {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 15px;
+  margin-top: 10px;
+}
+
+.chart-legend-item {
+  display: flex;
+  align-items: center;
+}
+
+.chart-color-box {
+  width: 15px;
+  height: 15px;
+  display: inline-block;
+  margin-right: 8px;
+  border-radius: 3px;
+}
+
+/* สร้างกรอบให้กับ legend ของกราฟวงกลม */
+.status-legend {
+  background-color: rgba(255, 255, 255, 0.8);
+  border-radius: 8px;
+  padding: 8px 12px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  max-width: 90%;
+  margin: 15px auto 0;
+}
+
+/* เพิ่มการไฮไลท์เมื่อ hover เหนือ legend */
+.status-legend > div:hover {
+  transform: translateY(-2px);
+  transition: transform 0.2s ease;
+}
+
+/* ปรับแต่งพื้นหลังของแต่ละส่วนเป็นสีขาว */
+
+/* ส่วนการใช้ทรัพยากร */
+#resource-usage-section {
+  background: #ffffff;
+  border-radius: 15px;
+  border-left: 1px solid #e0e0e0;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+}
+
+#resource-usage-section .section-title {
+  color: #2980b9;
+}
+
+/* ส่วนสถานะอุปกรณ์ */
+#equipment-status-section {
+  background: #ffffff;
+  border-radius: 15px;
+  border-left: 1px solid #e0e0e0;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+}
+
+#equipment-status-section .section-title {
+  color: #27ae60;
+}
+
+/* ส่วนคุณภาพน้ำและตะกอน */
+#water-quality-section {
+  background: #ffffff;
+  border-radius: 15px;
+  border-left: 1px solid #e0e0e0;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+}
+
+#water-quality-section .section-title {
+  color: #d35400;
+}
+
+/* ปรับแต่งการ์ด */
+.dashboard-card {
+  background: #ffffff;
+  border: 1px solid #f0f0f0;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.04);
+}
+
+/* ปรับแต่งพื้นหลังส่วนกรองข้อมูล */
+.dashboard-filter {
+  background-color: #ffffff;
+  border: 1px solid #f0f0f0;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.04);
+}
+
+/* ปรับแต่งพื้นหลังของกราฟ */
+.chart-container {
+  background-color: #ffffff;
+}
+
+/* เพิ่ม CSS สำหรับกราฟแท่ง */
+#wastewater-chart {
+  margin: 10px 0;
+}
+
+/* ปรับแต่งจุดตัดของกราฟแท่ง */
+.chart-container canvas[id="wastewater-chart"] {
+  background-color: rgba(255, 255, 255, 0.5);
+  border-radius: 8px;
+  padding: 10px;
+}
+
+/* ปรับ hover effect สำหรับกราฟแท่ง */
+#resource-card-grid .chart-container:hover {
+  transform: translateY(-3px);
+  transition: transform 0.3s ease;
+}
+
+/* ปรับแต่งกราฟปริมาณน้ำเสียให้มีขนาดใหญ่กว่าปกติ */
+#wastewater-chart-container {
+  height: 350px;
+}
+
+/* ปรับขนาดของ legend ให้ชัดเจนยิ่งขึ้น */
+.status-legend {
+  padding: 12px;
+  margin-top: 20px;
+  font-size: 14px;
+  /* เพิ่มขนาดตัวอักษร */
+}
+
+/* ปรับขนาดของจุดสีใน legend ให้ใหญ่ขึ้น */
+.status-legend-item .status-legend-color {
+  width: 15px;
+  height: 15px;
+}
+
+/* ปรับขนาด tooltip ให้ใหญ่ขึ้น */
+.chartjs-tooltip {
+  font-size: 15px !important;
+  padding: 10px 15px !important;
+}
+
+/* สไตล์สำหรับข้อความไม่มีข้อมูล */
+.no-data-message {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background-color: white;
+  border-radius: 10px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  padding: 30px;
+  text-align: center;
+  width: 100%;
+  height: 250px;
+  grid-column: 1 / -1;
+  /* ขยายให้เต็มความกว้าง */
+}
+
+.no-data-icon {
+  font-size: 3rem;
+  margin-bottom: 15px;
+  color: #95a5a6;
+}
+
+.no-data-message h3 {
+  font-family: "Mitr", sans-serif;
+  font-size: 1.4rem;
+  color: #34495e;
+  margin-bottom: 10px;
+}
+
+.no-data-message p {
+  font-family: "Mitr", sans-serif;
+  font-size: 1rem;
+  color: #7f8c8d;
+}
+
+/* ส่วนที่ครอบ canvas ให้รองรับการเลื่อน */
+.chart-scroll-wrapper {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  overflow-x: auto;
+}
+
+/* จัดการให้ scroll bar แสดงเฉพาะเมื่อจำเป็น */
+.chart-scroll-wrapper::-webkit-scrollbar {
+  height: 8px;
+}
+
+.chart-scroll-wrapper::-webkit-scrollbar-thumb {
+  background-color: rgba(0, 0, 0, 0.2);
+  border-radius: 4px;
+}
+
+.chart-scroll-wrapper::-webkit-scrollbar-track {
+  background-color: rgba(0, 0, 0, 0.05);
+}
+
+/* ปรับ canvas ให้มีความสูงคงที่ */
+.chart-container canvas {
+  height: 100%;
+}
+
+/* ลดขนาดช่องว่างระหว่าง sections */
+.dashboard-sections {
+  gap: 15px;
+}
+
+/* เพิ่ม CSS เพื่อทำให้กราฟคมชัดขึ้น */
+canvas {
+  image-rendering: -webkit-optimize-contrast;
+  /* สำหรับ Chrome */
+  image-rendering: crisp-edges;
+  /* สำหรับ Firefox */
+  -ms-interpolation-mode: nearest-neighbor;
+  /* สำหรับ IE */
+  filter: none !important;
+  /* ลบฟิลเตอร์ที่อาจทำให้เกิดความมัว */
+}
+
+/* ลบเงาที่อาจทำให้ดูมัว */
+.chart-container canvas {
+  box-shadow: none !important;
+  filter: none !important;
+}
+
+/* เพิ่มความคมชัดให้กับ tooltip */
+.chartjs-tooltip {
+  filter: none !important;
+  backdrop-filter: none !important;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2) !important;
+}
+
+/* เพิ่ม CSS สำหรับการ์ดแสดงสถานะอุปกรณ์ */
+.status-summary-card {
+  background-color: white;
+  border-radius: 10px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  padding: 15px;
+  overflow: hidden;
+}
+
+.status-summary-card .card-header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 15px;
+  gap: 10px;
+  text-align: center;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+  padding-bottom: 10px;
+}
+
+.status-summary-card .card-icon {
+  width: 50px;
+  height: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  background-color: rgba(0, 0, 0, 0.03);
+}
+
+.status-summary-card .card-title {
+  font-size: 1rem;
+  margin: 0;
+  font-weight: 600;
+  font-family: "Mitr", sans-serif;
+}
+
+.status-summary-card .status-percentages {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 8px;
+}
+
+.status-summary-card .status-item {
+  padding: 5px 8px;
+  border-radius: 4px;
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.8rem;
+  font-family: "Mitr", sans-serif;
+}

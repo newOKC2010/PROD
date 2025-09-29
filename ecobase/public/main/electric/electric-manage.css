@@ -1,0 +1,20 @@
+.back-button {
+    display: inline-block;
+    background-color: #3498db;
+    color: white;
+    padding: 8px 15px;
+    border-radius: 5px;
+    text-decoration: none;
+    margin-left: 20px;
+    font-size: 0.9rem;
+    transition: background-color 0.3s ease;
+}
+
+.back-button:hover {
+    background-color: #2980b9;
+}
+
+.header {
+    display: flex;
+    align-items: center;
+}

@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="th">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>เข้าสู่ระบบ</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Mitr:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" />
+  <link rel="stylesheet" href="/assets/common/style.css" />
+
+</head>
+
+<body>
+  <div class="container">
+    <div class="main-content">
+      <div class="header">
+        <h1>เข้าสู่ระบบ</h1>
+      </div>
+      <div class="content">
+        <div class="login-container">
+          <form id="login-form">
+            <div class="form-group">
+              <label for="username">ชื่อผู้ใช้</label>
+              <input type="text" id="username" name="username" placeholder="username" required />
+            </div>
+            <div class="form-group">
+              <label for="password">รหัสผ่าน</label>
+              <div class="password-container">
+                <input type="password" id="password" name="password" placeholder="password" required />
+                <span class="password-toggle" id="password-toggle">
+                  <i class="fa-solid fa-eye" id="eye-icon"></i>
+                </span>
+              </div>
+            </div>
+            <button type="submit" class="form-button">เข้าสู่ระบบ</button>
+            <div class="form-footer">
+              <p>ยังไม่มีบัญชี? <a href="/register">สมัครสมาชิก</a></p>
+            </div>
+          </form>
+          <div class="or-divider">
+            <span>หรือ</span>
+          </div>
+          <div class="oauth-container">
+            <a href="/auth/login-provider" class="provider-login-button">
+              <img src="/static/images/provider-id-logo.png" alt="Provider ID Logo" class="provider-logo">
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <script src="/assets/common/script.js"></script>
+  <script src="/assets/common/login.js"></script>
+
+</body>
+
+</html>

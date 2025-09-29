@@ -1,0 +1,261 @@
+/* สไตล์สำหรับ Modal ข้อมูลรายวัน */
+.modal-container {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.6);
+  z-index: 1000;
+  justify-content: center;
+  align-items: center;
+  font-family: 'Mitr', sans-serif;
+}
+
+.modal-content {
+  background-color: white;
+  border-radius: 8px;
+  width: 85%;
+  max-width: 900px;
+  max-height: 90vh;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  overflow: hidden;
+  animation: modalFadeIn 0.3s ease-out;
+}
+
+.modal-header {
+  padding: 12px 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-radius: 8px 8px 0 0;
+}
+
+/* สีหัวข้อตามประเภทขยะ */
+.modal-header.general-waste {
+  background-color: #ffc107; /* ขยะทั่วไป - เหลือง */
+  color: #333;
+}
+
+.modal-header.recyclable-waste {
+  background-color: #2196f3; /* ขยะรีไซเคิล - ฟ้า */
+  color: white;
+}
+
+.modal-header.hazardous-waste {
+  background-color: #f44336; /* ขยะอันตราย - แดง */
+  color: white;
+}
+
+.modal-header.infectious-waste {
+  background-color: #9e9e9e; /* ขยะติดเชื้อ - เทา */
+  color: white;
+}
+
+.modal-header.comparison {
+  background-color: #4caf50; /* เปรียบเทียบ - เขียว */
+  color: white;
+}
+
+.modal-header h2 {
+  margin: 0;
+  font-size: 1.25rem;
+  font-weight: bold;
+}
+
+.modal-body {
+  padding: 15px 20px;
+  max-height: 70vh;
+  overflow-y: auto;
+}
+
+.modal-footer {
+  padding: 10px 20px;
+  text-align: center;
+  background-color: #f5f5f5;
+  border-top: 1px solid #ddd;
+}
+
+.modal-note {
+  font-size: 0.85rem;
+  color: #777;
+}
+
+.close-modal {
+  background: none;
+  border: none;
+  font-size: 24px;
+  cursor: pointer;
+  padding: 0;
+  line-height: 1;
+}
+
+.close-modal:hover {
+  opacity: 0.7;
+}
+
+/* ตารางข้อมูลรายวัน */
+.daily-data-table-container {
+  overflow-x: auto;
+  margin-top: 10px;
+  max-height: 60vh;
+  overflow-y: auto;
+}
+
+.daily-data-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 14px;
+  margin-bottom: 20px;
+}
+
+.daily-data-table th,
+.daily-data-table td {
+  padding: 10px 12px;
+  text-align: center;
+  border: 1px solid #ddd;
+}
+
+.daily-data-table th {
+  background-color: #f8f8f8;
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  font-weight: bold;
+}
+
+.daily-data-table tr:nth-child(even) {
+  background-color: #f5f5f5;
+}
+
+.daily-data-table tr:hover {
+  background-color: #ebf4ff;
+}
+
+/* สไตล์สำหรับข้อมูลแต่ละประเภทขยะ */
+.waste-type {
+  padding: 4px 8px;
+  border-radius: 4px;
+  font-weight: bold;
+  display: inline-block;
+  width: 95%;
+  text-align: center;
+}
+
+.general-waste-badge {
+  background-color: #fff3cd;
+  color: #856404;
+}
+
+.recyclable-waste-badge {
+  background-color: #d1ecf1;
+  color: #0c5460;
+}
+
+.hazardous-waste-badge {
+  background-color: #f8d7da;
+  color: #721c24;
+}
+
+.infectious-waste-badge {
+  background-color: #e2e3e5;
+  color: #383d41;
+}
+
+/* Loading indicator */
+.loading-container {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 2000;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+.loading-spinner {
+  width: 50px;
+  height: 50px;
+  border: 5px solid #f3f3f3;
+  border-top: 5px solid #3498db;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+  margin-bottom: 15px;
+}
+
+.loading-container p {
+  color: white;
+  font-size: 1rem;
+  margin: 0;
+  font-weight: bold;
+}
+
+/* Error modal */
+.error-content .modal-header {
+  background-color: #e74c3c;
+  color: white;
+}
+
+/* ปรับแต่งข้อความไม่มีข้อมูล */
+.no-data {
+  text-align: center;
+  color: #888;
+  font-style: italic;
+  padding: 20px;
+}
+
+/* ข้อมูลจำนวนรายการ */
+.data-count {
+  margin-bottom: 15px;
+  background-color: #f5f5f5;
+  padding: 10px;
+  border-radius: 4px;
+  color: #555;
+  font-size: 14px;
+  text-align: right;
+  font-weight: bold;
+}
+
+/* Animations */
+@keyframes modalFadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+/* Responsive styles */
+@media (max-width: 768px) {
+  .modal-content {
+    width: 95%;
+  }
+
+  .daily-data-table th,
+  .daily-data-table td {
+    padding: 6px;
+    font-size: 13px;
+  }
+
+  .waste-type {
+    width: 90%;
+    padding: 3px 6px;
+  }
+} 

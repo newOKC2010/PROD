@@ -1,0 +1,280 @@
+/**
+ * waste-form-elements.css
+ * สไตล์สำหรับอิลิเมนต์ฟอร์มต่างๆ ในระบบจัดการขยะ
+ */
+
+/* ฟอร์มทั่วไป */
+.form-container {
+  padding: 15px;
+  border-radius: 5px;
+}
+
+/* แถวในฟอร์ม */
+.form-row {
+  display: flex;
+  flex-wrap: wrap;
+  margin-bottom: 15px;
+  gap: 15px;
+}
+
+/* กรุ๊ปของฟอร์ม */
+.form-group {
+  flex: 1;
+  min-width: 200px;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 5px;
+  font-weight: 500;
+  color: #333;
+  font-size: 14px;
+}
+
+.form-control {
+  width: 100%;
+  padding: 10px 12px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  font-size: 14px;
+  transition: border-color 0.2s;
+}
+
+.form-control:focus {
+  border-color: #2196f3;
+  outline: none;
+  box-shadow: 0 0 0 2px rgba(33, 150, 243, 0.2);
+}
+
+/* เลือกประเภท */
+select.form-control {
+  appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%23333' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 10px center;
+  padding-right: 30px;
+}
+
+/* กล่องข้อความ */
+textarea.form-control {
+  min-height: 100px;
+  resize: vertical;
+}
+
+/* กรณีมีข้อผิดพลาด */
+.form-control.is-invalid {
+  border-color: #f44336;
+}
+
+.invalid-feedback {
+  display: block;
+  width: 100%;
+  margin-top: 5px;
+  font-size: 12px;
+  color: #f44336;
+}
+
+/* ปุ่มฟอร์ม */
+.form-buttons {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+  margin-top: 20px;
+}
+
+/* ปรับแต่งรูปแบบปุ่มให้ทันสมัยยิ่งขึ้น */
+
+/* ปุ่มพื้นฐาน */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  padding: 8px 15px;
+  border-radius: 4px;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  border: none;
+  outline: none;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.btn:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.btn:active {
+  transform: translateY(0);
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+}
+
+.btn i {
+  font-size: 14px;
+}
+
+.btn-secondary:hover {
+  background-color: #5a6268;
+}
+
+/* ปุ่มแก้ไขในตาราง */
+.edit-button {
+  background-color: #007bff;
+  color: white;
+  padding: 6px 10px;
+  border-radius: 4px;
+  font-size: 13px;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  transition: all 0.2s ease;
+}
+
+.edit-button:hover {
+  background-color: #0069d9;
+  transform: translateY(-1px);
+}
+
+/* ปุ่มลบในตาราง */
+.delete-button {
+  background-color: #dc3545;
+  color: white;
+  padding: 6px 10px;
+  border-radius: 4px;
+  font-size: 13px;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  transition: all 0.2s ease;
+}
+
+/* ปรับการแสดงปุ่มในฟอร์มของ modal */
+.form-buttons {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  gap: 10px;
+  margin-top: 20px;
+}
+
+.form-buttons .save-button,
+.form-buttons .cancel-button,
+.form-buttons .delete-button {
+  flex: 1;
+  max-width: 48%;
+  min-width: auto;
+}
+
+/* ปุ่มเพิ่มข้อมูล */
+.add-button {
+  background-color: #28a745;
+  color: white;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  font-weight: bold;
+  padding: 8px 16px;
+  border-radius: 4px;
+  transition: all 0.2s ease;
+  border: none;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.add-button:hover {
+  background-color: #218838;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.add-button:before {
+  content: "+";
+  font-size: 14px;
+  margin-right: 4px;
+}
+
+/* ปุ่มยกเลิก */
+.cancel-button {
+  background-color: #6c757d;
+  color: white;
+  padding: 8px 16px;
+  border-radius: 4px;
+  transition: all 0.2s ease;
+  border: none;
+}
+
+.cancel-button:hover {
+  background-color: #5a6268;
+}
+
+/* ปุ่มบันทึกข้อมูล */
+.save-button {
+  background-color: #28a745;
+  color: white;
+  padding: 8px 16px;
+  border-radius: 4px;
+  font-weight: 500;
+  transition: all 0.2s ease;
+  border: none;
+}
+
+.save-button:hover {
+  background-color: #218838;
+}
+
+/* สไตล์สำหรับปุ่มที่ถูก disabled */
+button:disabled,
+.btn:disabled {
+  opacity: 0.65;
+  cursor: not-allowed;
+  transform: none !important;
+  box-shadow: none !important;
+}
+
+/* สไตล์สำหรับปุ่มที่มีไอคอน loading */
+button .fa-spinner {
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+/* จัดการปุ่มในแถวการจัดการในตาราง */
+.action-buttons {
+  display: flex;
+  gap: 6px;
+  justify-content: center;
+}
+
+/* เพิ่ม style สำหรับ confirm-buttons */
+.confirm-buttons {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  margin-top: 20px;
+}
+
+/* เพิ่ม style สำหรับวันที่-เวลาที่แสดงแบบอ่านได้อย่างเดียว */
+.readonly-datetime {
+  background-color: #f9f9f9;
+  padding: 10px;
+  border-radius: 5px;
+  margin-bottom: 15px;
+  border-left: 3px solid #4a90e2;
+  font-size: 1rem;
+  line-height: 1.5;
+}
+
+.readonly-note {
+  color: #888;
+  font-size: 0.9rem;
+  font-style: italic;
+}

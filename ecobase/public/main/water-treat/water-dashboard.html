@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="th">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ระบบบำบัดน้ำเสีย - แดชบอร์ด</title>
+
+  <!-- CSS -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Mitr:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="stylesheet" href="/assets/common/style.css" />
+  <link rel="stylesheet" href="/assets/water/water-treat-dashboard-css/dashboard-fonts.css">
+  <link rel="stylesheet" href="/assets/water/water-treat-dashboard-css/dashboard-cards.css">
+  <link rel="stylesheet" href="/assets/water/water-treat-dashboard-css/dashboard-summary.css">
+  <link rel="stylesheet" href="/assets/water/water-treat-dashboard-css/dashboard-layout.css">
+  <link rel="stylesheet" href="/assets/water/water-treat-dashboard-css/dashboard-responsive.css">
+  <link rel="stylesheet" href="/assets/water/water-treat-dashboard-css/dashboard-animations.css">
+  <link rel="stylesheet" href="/assets/water/water-treat-dashboard-css/modal.css">
+  <link rel="stylesheet" href="/assets/water/water-treat-dashboard-css/chart-interaction.css">
+
+  <!-- Chart.js -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2.0.0"></script>
+
+  <!-- Google Fonts (เปลี่ยนเป็น Mitr) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Mitr:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+
+  <!-- เพิ่มในส่วน head -->
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Outlined" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+
+<body>
+  <div class="container">
+
+    <div class="main-content">
+      <div class="dashboard-container">
+        <div class="dashboard-header">
+          <h1 class="dashboard-title">ระบบบำบัดน้ำเสีย - รายงานสรุปรายเดือน</h1>
+          <!-- <div class="last-update">อัพเดตล่าสุด: <span id="last-update-time">-</span></div> -->
+        </div>
+
+        <!-- ส่วนกรองข้อมูล -->
+        <div class="dashboard-filter">
+          <h3 class="filter-title">กรองข้อมูลตามช่วงเวลา</h3>
+          <div class="date-filters">
+            <div class="filter-group">
+              <label for="start-date">วันที่เริ่มต้น</label>
+              <input type="date" id="start-date" />
+            </div>
+            <div class="filter-group">
+              <label for="end-date">วันที่สิ้นสุด</label>
+              <input type="date" id="end-date" />
+            </div>
+            <div class="filter-buttons">
+              <button id="filter-btn" class="filter-button primary">กรอง</button>
+              <button id="reset-filter-btn" class="filter-button secondary">รีเซ็ต</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- เนื้อหาแดชบอร์ด -->
+        <div class="dashboard-sections">
+          <!-- ย้าย summary-section มาก่อน resource-usage-section -->
+          <section class="dashboard-section" id="summary-section">
+            <header class="section-header">
+              <h2 class="section-title">สรุปภาพรวมของช่วงเวลาที่เลือก</h2>
+            </header>
+            <div class="card-grid" id="summary-card-grid">
+              <!-- การ์ดจะถูกสร้างโดย JavaScript -->
+            </div>
+          </section>
+
+          <!-- ส่วนการใช้ทรัพยากร -->
+          <section class="dashboard-section" id="resource-usage-section">
+            <header class="section-header">
+              <h2 class="section-title">การใช้ทรัพยากร</h2>
+            </header>
+            <div class="card-grid" id="resource-card-grid">
+              <!-- การ์ดจะถูกสร้างโดย JavaScript -->
+            </div>
+          </section>
+
+          <!-- ส่วนสถานะอุปกรณ์ -->
+          <section class="dashboard-section" id="equipment-status-section">
+            <header class="section-header">
+              <h2 class="section-title">สถานะอุปกรณ์</h2>
+            </header>
+            <div class="card-grid" id="status-card-grid">
+              <!-- การ์ดจะถูกสร้างโดย JavaScript -->
+            </div>
+          </section>
+
+          <!-- ส่วนคุณภาพน้ำและตะกอน -->
+          <section class="dashboard-section" id="water-quality-section">
+            <header class="section-header">
+              <h2 class="section-title">คุณภาพน้ำและตะกอน</h2>
+            </header>
+            <div class="card-grid" id="quality-card-grid">
+              <!-- การ์ดจะถูกสร้างโดย JavaScript -->
+            </div>
+          </section>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- JavaScript -->
+  <script src="/assets/common/script.js"></script>
+  <script type="module" src="/assets/water/water-dashboard.js"></script>
+  </script>
+
+</body>
+
+</html>

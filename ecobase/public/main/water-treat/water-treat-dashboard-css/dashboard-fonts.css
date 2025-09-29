@@ -1,0 +1,55 @@
+/* การตั้งค่าฟอนต์ */
+@import url('https://fonts.googleapis.com/css2?family=Mitr:wght@300;400;500;600;700&display=swap');
+
+body {
+    font-family: 'Mitr', sans-serif;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+.dashboard-title,
+.section-title,
+.card-title,
+.filter-title,
+.summary-value,
+.filter-button,
+.admin-actions .button {
+    font-family: 'Mitr', sans-serif;
+    font-weight: bold;
+}
+
+.card-title {
+    font-weight: 600;
+}
+
+input,
+select,
+button {
+    font-family: 'Mitr', sans-serif;
+}
+
+/* เพิ่มสไตล์เพื่อให้ legend ใช้ font Mitr ทั้งหมด */
+.status-legend {
+    font-family: 'Mitr', sans-serif !important;
+    font-weight: 500;
+}
+
+.status-legend-item {
+    font-family: 'Mitr', sans-serif !important;
+}
+
+/* ทำให้ฟอนต์ Mitr ใช้กับทุกที่ */
+body,
+div,
+span,
+p,
+a,
+label,
+button,
+input {
+    font-family: 'Mitr', sans-serif !important;
+}

@@ -1,0 +1,998 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Mitr", "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  font-weight: 500;
+}
+
+body {
+  background-color: #f5f5f5;
+}
+
+.container {
+  display: flex;
+  min-height: 100vh;
+}
+
+h1 {
+  font-size: 2rem;
+  font-weight: 700;
+  margin-bottom: 20px;
+  color: #2e2e2e;
+}
+
+h3 {
+  font-size: 1.5rem;
+  font-weight: bold;
+  margin-bottom: 10px;
+  color: #2e2e2e;
+}
+
+/* Sidebar Styles */
+.sidebar {
+  width: 280px;
+  background-color: #3498db;
+  color: white;
+  padding: 20px 0;
+  position: fixed;
+  height: 100vh;
+  box-shadow: 2px 0 5px rgba(0, 0, 0, 0.2);
+  z-index: 10;
+}
+
+.logo {
+  padding: 0 20px 20px;
+  border-bottom: 1px solid #2980b9;
+}
+
+.logo h2 {
+  font-size: 1.7rem;
+  text-align: center;
+  font-weight: 700;
+  margin-top: 10px;
+}
+
+nav ul {
+  list-style: none;
+  padding: 20px 0;
+}
+
+nav ul li {
+  padding: 12px 0;
+}
+
+.nav-link {
+  color: #ffffff;
+  text-decoration: none;
+  font-size: 1.25rem;
+  padding: 12px 25px;
+  display: block;
+  transition: all 0.3s ease;
+  font-weight: 600;
+  border-left: 4px solid transparent;
+  position: relative;
+}
+
+.nav-link:hover {
+  background-color: #2980b9;
+  border-left: 4px solid #ecf0f1;
+}
+
+.nav-link.active {
+  background-color: #2980b9;
+  border-left: 4px solid #ecf0f1;
+}
+
+/* กำหนดให้แต่ละเมนูเป็นอิสระต่อกัน - ไม่มีการสืบทอดกัน */
+nav ul li .nav-link.active::after {
+  content: none;
+}
+
+/* ลบเงาหรือไฮไลต์ที่อาจตกค้างจากเมนูอื่น */
+nav ul li .nav-link:focus {
+  outline: none;
+}
+
+/* เพิ่มความชัดเจนให้กับเมนูที่เลือก */
+nav ul li .nav-link.active {
+  background-color: #2980b9;
+  border-left: 4px solid #ecf0f1;
+  font-weight: 700;
+  box-shadow: inset 0 0 0 0 transparent;
+}
+
+/* แก้ไขสำหรับปัญหา hover หลังจากเลือกเมนูแล้ว */
+nav ul li .nav-link.active:hover {
+  background-color: #2980b9;
+  border-left: 4px solid #ecf0f1;
+}
+
+/* Main Content Styles */
+.main-content {
+  flex: 1;
+  margin-left: 280px;
+  padding: 20px;
+}
+
+.header {
+  background-color: white;
+  padding: 20px;
+  border-radius: 5px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  margin-bottom: 20px;
+}
+
+.content {
+  background-color: white;
+  padding: 20px;
+  border-radius: 5px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  min-height: 500px;
+}
+
+/* Login Button Styles */
+.login-button {
+  display: block;
+  background-color: #2980b9;
+  color: white;
+  text-align: center;
+  padding: 12px;
+  margin: 20px;
+  border-radius: 5px;
+  text-decoration: none;
+  transition: all 0.3s ease;
+  font-weight: 600;
+  font-size: 1.1rem;
+}
+
+.login-button:hover {
+  background-color: #1c6ea4;
+}
+
+.logout-button {
+  display: block;
+  background-color: #e74c3c;
+  color: white;
+  text-align: center;
+  padding: 12px;
+  margin: 20px;
+  border-radius: 5px;
+  text-decoration: none;
+  transition: all 0.3s ease;
+  font-weight: 600;
+  font-size: 1.1rem;
+}
+
+.logout-button:hover {
+  background-color: #c0392b;
+}
+
+/* Login Form Styles */
+.login-container {
+  max-width: 400px;
+  margin: 50px auto;
+  background-color: white;
+  padding: 30px;
+  border-radius: 8px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.form-group {
+  margin-bottom: 20px;
+  position: relative;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 8px;
+  font-weight: 600;
+  color: #2c3e50;
+}
+
+.form-group input {
+  width: 100%;
+  padding: 12px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  font-size: 1rem;
+}
+
+.form-button {
+  background-color: #3498db;
+  color: white;
+  border: none;
+  padding: 14px 20px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 1.1rem;
+  width: 100%;
+  transition: background-color 0.3s ease;
+  font-weight: 600;
+}
+
+.form-button:hover {
+  background-color: #2980b9;
+}
+
+.form-footer {
+  margin-top: 20px;
+  text-align: center;
+}
+
+.form-footer a {
+  color: #3498db;
+  text-decoration: none;
+  font-weight: 600;
+}
+
+.form-footer a:hover {
+  text-decoration: underline;
+}
+
+/* Thai Calendar Styles */
+/* ปฏิทินภาษาไทยที่ใช้ Font Mitr */
+.thai-datepicker-container {
+  position: relative;
+  font-family: "Mitr", sans-serif;
+  margin-bottom: 15px;
+  z-index: 20;
+}
+
+.thai-date-input-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+  width: 100%;
+}
+
+.thai-date-display {
+  width: 100%;
+  padding: 12px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  font-family: "Mitr", sans-serif;
+  font-size: 1rem;
+  cursor: pointer;
+  background-color: #fff;
+}
+
+.thai-date-display:hover {
+  border-color: #3498db;
+}
+
+.calendar-icon {
+  position: absolute;
+  right: 12px;
+  color: #3498db;
+  cursor: pointer;
+  font-size: 1.1rem;
+}
+
+.calendar-popup {
+  position: absolute;
+  left: 0;
+  top: 100%;
+  width: 300px;
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+  z-index: 30;
+  overflow: hidden;
+  max-width: 100%;
+}
+
+.thai-calendar-container {
+  font-family: "Mitr", sans-serif;
+  font-weight: 400;
+  padding: 15px;
+}
+
+.calendar-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 15px;
+}
+
+.month-year-display {
+  font-weight: 500;
+  font-size: 1.1rem;
+  color: #333;
+}
+
+/* สไตล์สำหรับเดือนและปีที่คลิกได้ */
+.month-year-display.clickable {
+  cursor: pointer;
+}
+
+.month-display,
+.year-display {
+  cursor: pointer;
+  position: relative;
+  transition: color 0.2s;
+}
+
+.month-display:hover,
+.year-display:hover {
+  color: #3498db;
+}
+
+.month-display:after,
+.year-display:after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: -2px;
+  width: 100%;
+  height: 1px;
+  background-color: #3498db;
+  transform: scaleX(0);
+  transition: transform 0.2s;
+}
+
+.month-display:hover:after,
+.year-display:hover:after {
+  transform: scaleX(1);
+}
+
+.calendar-nav-btn {
+  background: none;
+  border: none;
+  color: #3498db;
+  font-size: 1rem;
+  cursor: pointer;
+  width: 30px;
+  height: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  transition: background-color 0.3s;
+}
+
+.calendar-nav-btn:hover {
+  background-color: #f0f8ff;
+}
+
+.calendar-body {
+  width: 100%;
+}
+
+.weekdays-row {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  text-align: center;
+  font-weight: 500;
+  margin-bottom: 10px;
+  color: #555;
+}
+
+.weekday-cell {
+  padding: 5px;
+  font-size: 0.9rem;
+}
+
+.days-grid {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 5px;
+}
+
+.day-cell {
+  height: 35px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  border-radius: 50%;
+  transition: all 0.2s;
+  font-size: 0.95rem;
+}
+
+.day-cell:hover {
+  background-color: #f0f8ff;
+  color: #3498db;
+}
+
+.day-cell.empty {
+  cursor: default;
+}
+
+.day-cell.today {
+  border: 2px solid #3498db;
+  font-weight: 600;
+  background-color: #edf7fd;
+  position: relative;
+}
+
+.day-cell.today:after {
+  content: "";
+  position: absolute;
+  bottom: 3px;
+  left: 50%;
+  width: 4px;
+  height: 4px;
+  background-color: #3498db;
+  border-radius: 50%;
+  transform: translateX(-50%);
+}
+
+.day-cell.selected {
+  background-color: #3498db;
+  color: white;
+  font-weight: 500;
+}
+
+/* สไตล์สำหรับตัวเลือกเดือน */
+.months-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+  margin-top: 15px;
+}
+
+.month-cell {
+  height: 45px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  border-radius: 5px;
+  transition: all 0.2s;
+  padding: 5px;
+  text-align: center;
+  font-size: 0.95rem;
+}
+
+.month-cell:hover {
+  background-color: #f0f8ff;
+  color: #3498db;
+}
+
+.month-cell.selected {
+  background-color: #3498db;
+  color: white;
+  font-weight: 500;
+}
+
+/* สไตล์สำหรับตัวเลือกปี */
+.years-grid {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 8px;
+  margin-top: 15px;
+}
+
+/* สไตล์สำหรับ wrapper ของส่วนแสดงปี */
+.year-header-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  max-width: 200px;
+  margin: 0 auto;
+}
+
+.year-cell {
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  border-radius: 5px;
+  transition: all 0.2s;
+  padding: 5px;
+  text-align: center;
+  font-size: 0.95rem;
+}
+
+.year-cell:hover {
+  background-color: #f0f8ff;
+  color: #3498db;
+}
+
+.year-cell.selected {
+  background-color: #3498db;
+  color: white;
+  font-weight: 500;
+}
+
+.year-cell.today {
+  border: 2px solid #3498db;
+  background-color: #edf7fd;
+  font-weight: 600;
+  position: relative;
+}
+
+.year-cell.today.selected {
+  background-color: #3498db;
+  color: white;
+  border: 2px solid #2980b9;
+}
+
+.year-cell.today:not(.selected):after {
+  content: "";
+  position: absolute;
+  bottom: 3px;
+  left: 50%;
+  width: 4px;
+  height: 4px;
+  background-color: #3498db;
+  border-radius: 50%;
+  transform: translateX(-50%);
+}
+
+/* ปรับแต่งปุ่มเลื่อนปี */
+.prev-years-btn,
+.next-years-btn {
+  position: static !important;
+  margin: 0 5px;
+}
+
+/* ลบคุณสมบัติ position: absolute จากปุ่ม next-years-btn */
+.next-years-btn {
+  position: static !important;
+  right: auto;
+  top: auto;
+}
+
+/* สำหรับเซลล์เดือนเช่นกัน */
+.month-cell.today {
+  border: 2px solid #3498db;
+  background-color: #edf7fd;
+  font-weight: 600;
+  position: relative;
+}
+
+.month-cell.today.selected {
+  background-color: #3498db;
+  color: white;
+  border: 2px solid #2980b9;
+}
+
+.month-cell.today:not(.selected):after {
+  content: "";
+  position: absolute;
+  bottom: 3px;
+  left: 50%;
+  width: 4px;
+  height: 4px;
+  background-color: #3498db;
+  border-radius: 50%;
+  transform: translateX(-50%);
+}
+
+/* Responsive Calendar */
+@media (max-width: 768px) {
+  .calendar-popup {
+    width: 280px;
+  }
+
+  .day-cell {
+    height: 32px;
+    font-size: 0.9rem;
+  }
+
+  .weekday-cell {
+    font-size: 0.85rem;
+  }
+
+  .month-cell {
+    height: 40px;
+    font-size: 0.9rem;
+  }
+
+  .year-cell {
+    height: 35px;
+    font-size: 0.9rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .calendar-popup {
+    width: 100%;
+    position: fixed;
+    top: auto !important;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.2);
+    border-radius: 15px 15px 0 0;
+    animation: slideUp 0.3s ease;
+  }
+
+  .thai-calendar-container {
+    padding: 20px 15px;
+  }
+
+  .month-year-display {
+    font-size: 1.2rem;
+  }
+
+  .calendar-nav-btn {
+    width: 40px;
+    height: 40px;
+  }
+
+  .days-grid {
+    gap: 8px;
+  }
+
+  .day-cell {
+    height: 40px;
+  }
+
+  .months-grid {
+    gap: 8px;
+  }
+
+  .month-cell {
+    height: 50px;
+  }
+
+  .years-grid {
+    grid-template-columns: repeat(4, 1fr);
+  }
+
+  @keyframes slideUp {
+    from {
+      transform: translateY(100%);
+    }
+
+    to {
+      transform: translateY(0);
+    }
+  }
+}
+
+/* เพิ่ม iOS-like style สำหรับ mobile */
+@media (max-width: 480px) and (hover: none) {
+  .calendar-header {
+    padding-bottom: 15px;
+    border-bottom: 1px solid #eee;
+  }
+
+  .weekdays-row {
+    padding: 10px 0;
+  }
+
+  .day-cell {
+    font-size: 1rem;
+  }
+
+  .day-cell.selected {
+    position: relative;
+  }
+
+  .day-cell.selected::after {
+    content: "";
+    position: absolute;
+    bottom: -5px;
+    left: 50%;
+    width: 5px;
+    height: 5px;
+    background-color: #3498db;
+    border-radius: 50%;
+    transform: translateX(-50%);
+  }
+}
+
+/* ปุ่มกลับไปหน้า Dashboard */
+
+.back-button {
+  background-color: #3498db;
+  /* สีฟ้าเหมือนปุ่มค้นหา */
+  color: white;
+  padding: 8px 16px;
+  border: none;
+  border-radius: 4px;
+  font-family: "Mitr", sans-serif;
+  font-weight: bold;
+  font-size: 14px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+}
+
+.back-button:hover {
+  background-color: #2980b9;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+  transform: translateY(-1px);
+}
+
+.back-button:active {
+  background-color: #1f6aa5;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  transform: translateY(1px);
+}
+
+.back-button i {
+  margin-right: 6px;
+}
+
+/* ทำให้ปุ่มตอบสนองต่อขนาดหน้าจอต่างๆ */
+@media (max-width: 768px) {
+  .back-button {
+    padding: 7px 14px;
+    font-size: 13px;
+  }
+}
+
+@media (max-width: 480px) {
+  .back-button {
+    padding: 6px 12px;
+    font-size: 12px;
+    width: 100%;
+    margin-bottom: 10px;
+  }
+}
+
+/* ส่วนของการแสดงผลแบบ Responsive */
+
+/* จอขนาดกลาง (แท็บเล็ต) */
+@media screen and (max-width: 992px) {
+  .container {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .sidebar {
+    width: 100%;
+    height: auto;
+    position: static;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+  }
+
+  .logo h2 {
+    font-size: 1.5rem;
+  }
+
+  .main-content {
+    margin-left: 0;
+    width: 100%;
+  }
+
+  .login-container {
+    max-width: 500px;
+    margin: 30px auto;
+  }
+
+  .nav-link {
+    padding: 10px 25px;
+    font-size: 1.1rem;
+  }
+
+  nav ul li {
+    padding: 8px 0;
+  }
+
+  .login-button,
+  .logout-button {
+    margin: 15px 20px;
+    padding: 10px;
+  }
+}
+
+/* จอขนาดเล็ก (มือถือ) */
+@media screen and (max-width: 576px) {
+  .sidebar {
+    padding: 15px 0;
+  }
+
+  .logo {
+    padding: 0 15px 15px;
+  }
+
+  .logo h2 {
+    font-size: 1.3rem;
+  }
+
+  .header {
+    padding: 15px;
+    margin-bottom: 15px;
+  }
+
+  .content {
+    padding: 15px;
+  }
+
+  .login-container {
+    max-width: 100%;
+    margin: 15px auto;
+    padding: 20px;
+  }
+
+  .form-group {
+    margin-bottom: 15px;
+  }
+
+  .form-group label {
+    margin-bottom: 5px;
+  }
+
+  .form-group input {
+    padding: 10px;
+  }
+
+  .form-button {
+    padding: 12px;
+    font-size: 1rem;
+  }
+
+  .nav-link {
+    padding: 8px 20px;
+    font-size: 1rem;
+  }
+
+  .login-button,
+  .logout-button {
+    margin: 10px 15px;
+    padding: 8px;
+    font-size: 1rem;
+  }
+
+  nav ul {
+    padding: 15px 0;
+  }
+
+  nav ul li {
+    padding: 5px 0;
+  }
+
+  .form-footer {
+    font-size: 0.9rem;
+  }
+}
+
+/* ฟังก์ชัน toggle การแสดงรหัสผ่าน */
+.password-container {
+  position: relative;
+}
+
+.password-toggle {
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  cursor: pointer;
+  color: #666;
+}
+
+.password-toggle:hover {
+  color: #333;
+}
+
+/* เพิ่มสไตล์สำหรับ OAuth Provider Login */
+.or-divider {
+  text-align: center;
+  margin: 20px 0;
+  position: relative;
+}
+
+.or-divider::before,
+.or-divider::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  width: 45%;
+  height: 1px;
+  background-color: #ddd;
+}
+
+.or-divider::before {
+  left: 0;
+}
+
+.or-divider::after {
+  right: 0;
+}
+
+.or-divider span {
+  display: inline-block;
+  padding: 0 10px;
+  background-color: white;
+  position: relative;
+  color: #777;
+}
+
+.oauth-container {
+  margin-top: 20px;
+  text-align: center;
+}
+
+.provider-login-button {
+  display: inline-block;
+  align-items: center;
+  justify-content: center;
+  background-color: #fff;
+  border: none;
+  border-radius: 20px;
+  padding: 8px;
+  max-width: fit-content;
+  margin: 0 auto;
+  text-decoration: none;
+  color: #333;
+  transition: all 0.3s ease;
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+}
+
+.provider-login-button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.15);
+}
+
+.provider-logo {
+  width: 180px;
+  height: 70px;
+  display: block;
+  object-fit: contain;
+}
+
+/* user-info */
+.user-info {
+  margin: 10px 0;
+  font-size: 1rem;
+  display: flex;
+  align-items: center;
+}
+
+.user-info p {
+  margin: 0;
+  padding: 5px 0;
+}
+
+.role-badge {
+  display: inline-block;
+  padding: 2px 8px;
+  border-radius: 4px;
+  font-size: 0.9rem;
+  font-weight: 500;
+}
+
+.admin-role {
+  background-color: #ffc107;
+  color: #333;
+}
+
+.user-role {
+  background-color: #17a2b8;
+  color: white;
+}
+
+/* ปรับแต่งเพิ่มเติมสำหรับหน้าจัดการข้อมูล */
+.header {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.header h1 {
+  margin-right: auto;
+}
+
+.header .user-info {
+  margin: 0 15px;
+}
+
+/* เพิ่ม style สำหรับปุ่มจัดการข้อมูล */
+/*#water-treat-manage-button {
+  cursor: pointer;
+  transition: all 0.3s ease;
+  background-color: #3498db;
+  color: white;
+  padding: 8px 15px;
+  border-radius: 5px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+#water-treat-manage-button:hover {
+  transform: scale(1.05);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+  background-color: #2980b9;
+}*/

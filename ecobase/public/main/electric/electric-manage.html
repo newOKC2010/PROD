@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="th">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>จัดการระบบไฟฟ้า</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Mitr:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/assets/common/style.css" />
+  <link rel="stylesheet" href="/assets/electric/electric-manage.css" />
+</head>
+
+<body>
+  <div class="container">
+    <div class="sidebar">
+      <div class="logo">
+        <h2>ระบบจัดการ <br> กลุ่มงานเวชปฎิบัติ โรงพยาบาลบางเลน</h2>
+      </div>
+      <nav>
+        <ul>
+          <li><a href="/water-dashboard" class="nav-link active">ระบบบำบัดน้ำเสีย</a></li>
+          <li><a href="/electric-dashboard" class="nav-link">ระบบไฟฟ้า</a></li>
+          <li><a href="/waste-dashboard" class="nav-link">ระบบจัดการขยะ</a></li>
+        </ul>
+      </nav>
+      <div id="auth-button-container">
+        <a href="/login" class="login-button" id="login-button">เข้าสู่ระบบ</a>
+        <a href="/logout" class="logout-button" id="logout-button" style="display: none">ออกจากระบบ</a>
+      </div>
+    </div>
+    <div class="main-content">
+      <div class="header">
+        <h1>จัดการระบบไฟฟ้า</h1>
+        <a href="/electric-dashboard" class="back-button">กลับไปหน้าแดชบอร์ด</a>
+      </div>
+      <div class="content">
+        <p>หน้าจัดการระบบไฟฟ้า - อยู่ระหว่างการพัฒนา</p>
+      </div>
+    </div>
+  </div>
+  <script defer src="/assets/common/script.js"></script>
+  <script defer src="/assets/electric/electric-manage.js"></script>
+</body>
+
+</html>

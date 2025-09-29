@@ -1,0 +1,37 @@
+/* สถานะอุปกรณ์ */
+.status-badge {
+  padding: 4px 8px;
+  border-radius: 4px;
+  font-size: 12px;
+  font-weight: bold;
+  display: inline-block;
+  text-align: center;
+}
+
+.status-normal {
+  background-color: rgba(40, 167, 69, 0.1);
+  /* สีเขียวใส - สถานะปกติ */
+  color: #28a745;
+  /* สีเขียวสำหรับตัวอักษร */
+}
+
+.status-abnormal {
+  background-color: rgba(220, 53, 69, 0.1);
+  /* สีแดงใส - สถานะผิดปกติ */
+  color: #dc3545;
+  /* สีแดงสำหรับตัวอักษร */
+}
+
+.status-maintenance {
+  background-color: rgba(255, 193, 7, 0.1);
+  /* สีเหลืองใส - สถานะซ่อมบำรุง */
+  color: #ffc107;
+  /* สีเหลืองสำหรับตัวอักษร */
+}
+
+.status-inactive {
+  background-color: rgba(108, 117, 125, 0.1);
+  /* สีเทาใส - สถานะไม่ใช้งาน */
+  color: #6c757d;
+  /* สีเทาสำหรับตัวอักษร */
+}

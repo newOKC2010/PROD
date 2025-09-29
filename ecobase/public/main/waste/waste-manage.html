@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="th">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>จัดการระบบขยะ</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Mitr:wght@400;500;600;700&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+    <link rel="stylesheet" href="/assets/common/style.css" />
+    <link rel="stylesheet" href="/assets/waste/waste-manage-css/waste-data-table.css" />
+    <link rel="stylesheet" href="/assets/waste/waste-manage-css/waste-search-form.css" />
+    <link rel="stylesheet" href="/assets/waste/waste-manage-css/waste-form-elements.css" />
+    <link rel="stylesheet" href="/assets/waste/waste-manage-css/waste-modals.css" />
+    <link rel="stylesheet" href="/assets/waste/waste-manage-css/waste-manage-responsive.css" />
+  </head>
+  <body>
+    <div class="container">
+      <div class="main-content">
+        <div class="header">
+          <h1>จัดการข้อมูลระบบจัดการขยะ</h1>
+          <a href="/waste-dashboard" class="back-button">กลับไปหน้าแดชบอร์ด</a>
+        </div>
+        <div class="content">
+          <div class="data-table-container">
+            <div class="table-header">
+              <h3>รายการข้อมูลการจัดการขยะ</h3>
+              <button id="add-new-data-btn" class="add-button">เพิ่มข้อมูลใหม่</button>
+            </div>
+
+            <div class="search-section">
+              <div class="search-form">
+                <div class="search-group">
+                  <label for="start-date" class="search-label">วันที่เริ่มต้น:</label>
+                  <input type="date" id="start-date" name="start_date" class="search-input" />
+                </div>
+                <div class="search-group">
+                  <label for="end-date" class="search-label">วันที่สิ้นสุด:</label>
+                  <input type="date" id="end-date" name="end_date" class="search-input" />
+                </div>
+                <div class="search-button-group">
+                  <button type="button" id="search-btn" class="btn-search"><i class="fas fa-search"></i> ค้นหา</button>
+                  <button type="button" id="reset-search-btn" class="btn-reset">
+                    <i class="fas fa-undo"></i> ล้างการค้นหา
+                  </button>
+                  <button type="button" id="export-excel-btn" class="btn-export">
+                    <i class="fas fa-file-excel"></i> ส่งออก Excel
+                  </button>
+                </div>
+              </div>
+            </div>
+
+            <div class="table-controls">
+              <div class="pagination-controls">
+                <span>แสดง</span>
+                <select id="page-size-selector">
+                  <option value="5" selected>5</option>
+                  <option value="10">10</option>
+                  <option value="20">20</option>
+                </select>
+                <span>รายการต่อหน้า</span>
+              </div>
+            </div>
+
+            <div class="table-responsive">
+              <table class="data-table">
+                <thead>
+                  <tr>
+                    <th>ลำดับ</th>
+                    <th>วันที่บันทึก</th>
+                    <th>ผู้บันทึก</th>
+                    <th>ประเภทขยะ</th>
+                    <th>น้ำหนัก (กก.)</th>
+                    <th>จัดการ</th>
+                  </tr>
+                </thead>
+                <tbody id="data-table-body">
+                  <!-- ข้อมูลจะถูกเพิ่มที่นี่ด้วย JavaScript -->
+                  <tr class="loading-row">
+                    <td colspan="6" class="text-center">กำลังโหลดข้อมูล...</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+
+            <div class="pagination-container">
+              <div class="pagination-info">
+                แสดง <span id="showing-from">0</span> ถึง <span id="showing-to">0</span> จากทั้งหมด
+                <span id="total-items">0</span> รายการ
+              </div>
+              <div class="pagination-buttons">
+                <button id="prev-page-btn" class="pagination-button" disabled>ก่อนหน้า</button>
+                <div id="page-numbers" class="page-numbers">
+                  <!-- ปุ่มหมายเลขหน้าจะถูกเพิ่มที่นี่ด้วย JavaScript -->
+                </div>
+                <button id="next-page-btn" class="pagination-button" disabled>ถัดไป</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Modal สำหรับเพิ่มข้อมูลใหม่ -->
+    <div id="add-modal" class="modal">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h3>เพิ่มข้อมูลใหม่</h3>
+          <span class="close-modal">&times;</span>
+        </div>
+        <div class="modal-body">
+          <form id="add-form">
+            <div class="form-group">
+              <label for="add-record-date">วันที่บันทึกข้อมูล:</label>
+              <div id="add-date-input-container">
+                <input type="date" id="add-record-date" name="record_date" required />
+              </div>
+            </div>
+
+            <h4 class="form-section-title">ข้อมูลขยะ</h4>
+
+            <div class="form-row">
+              <div class="form-group">
+                <label for="add-waste-type">ประเภทขยะ:</label>
+                <div id="add-waste-type-container">
+                  <select id="add-waste-type" name="waste_type_id" required></select>
+                  <span id="add-waste-type-badge" class="modal-waste-type-badge"></span>
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label for="add-waste-weight">น้ำหนัก (กก.):</label>
+                <input type="number" id="add-waste-weight" name="waste_weight" step="0.01" min="0" required />
+              </div>
+            </div>
+
+            <div class="form-buttons">
+              <button type="submit" id="add-save-btn" class="save-button">
+                <i class="fas fa-save"></i> บันทึกข้อมูล
+              </button>
+              <button type="button" id="add-cancel-btn" class="cancel-button">
+                <i class="fas fa-times"></i> ยกเลิก
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+
+    <!-- Modal สำหรับแก้ไขข้อมูล -->
+    <div id="edit-modal" class="modal">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h3>แก้ไขข้อมูล</h3>
+          <span class="close-modal">&times;</span>
+        </div>
+        <div class="modal-body">
+          <form id="edit-form">
+            <input type="hidden" id="edit-info-id" />
+
+            <div class="form-group">
+              <label>วันที่บันทึกข้อมูล:</label>
+              <div id="edit-date-input-container">
+                <!-- ซ่อน input เลือกวันที่ และใช้แสดงวันที่แบบอ่านอย่างเดียวแทน -->
+                <input type="hidden" id="edit-record-date" name="record_date" />
+              </div>
+            </div>
+
+            <h4 class="form-section-title">ข้อมูลขยะ</h4>
+
+            <div class="form-row">
+              <div class="form-group">
+                <label for="edit-waste-type">ประเภทขยะ:</label>
+                <div id="edit-waste-type-container">
+                  <select id="edit-waste-type" name="waste_type_id" required></select>
+                  <span id="edit-waste-type-badge" class="modal-waste-type-badge"></span>
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label for="edit-waste-weight">น้ำหนัก (กก.):</label>
+                <input type="number" id="edit-waste-weight" name="waste_weight" step="0.01" min="0" required />
+              </div>
+            </div>
+
+            <div class="form-buttons">
+              <button type="submit" id="edit-save-btn" class="save-button">
+                <i class="fas fa-edit"></i> บันทึกข้อมูล
+              </button>
+              <button type="button" id="edit-cancel-btn" class="cancel-button">
+                <i class="fas fa-times"></i> ยกเลิก
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+
+    <!-- Modal สำหรับยืนยันการลบ -->
+    <div id="delete-confirm-modal" class="modal">
+      <div class="modal-content delete-confirm-content">
+        <div class="modal-header">
+          <h3>ยืนยันการลบข้อมูล</h3>
+          <span class="close-modal">&times;</span>
+        </div>
+        <div class="modal-body">
+          <p>คุณต้องการลบข้อมูลนี้ใช่หรือไม่?</p>
+          <div class="confirm-buttons">
+            <button id="confirm-delete-btn" class="delete-button">
+              <i class="fas fa-trash-alt"></i> ลบข้อมูล
+            </button>
+            <button id="cancel-delete-btn" class="cancel-button">
+              <i class="fas fa-times"></i> ยกเลิก
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script defer src="/assets/common/script.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js"></script>
+    <script type="module" defer src="/assets/waste/waste-manage.js"></script>
+  </body>
+</html>

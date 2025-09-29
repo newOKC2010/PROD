@@ -1,0 +1,214 @@
+/**
+ * waste-manage-responsive.css
+ * สไตล์สำหรับปรับแต่ง responsive ในระบบจัดการขยะ
+ */
+
+/* โครงสร้างพื้นฐาน */
+.waste-manage-container {
+  width: 100%;
+  padding: 20px;
+  box-sizing: border-box;
+}
+
+.waste-manage-header {
+  margin-bottom: 20px;
+}
+
+.waste-manage-header h1 {
+  font-size: 1.8rem;
+  color: #333;
+  margin-bottom: 10px;
+}
+
+/* จัดการขนาดใหญ่ (Desktop) */
+@media (min-width: 992px) {
+  .waste-manage-container {
+    padding: 30px;
+  }
+
+  .waste-manage-header h1 {
+    font-size: 2rem;
+  }
+
+  .form-group {
+    margin-bottom: 20px;
+  }
+
+  .modal-content {
+    padding: 25px;
+  }
+
+  /* กำหนดขนาดปุ่มใน action ให้มีขนาดใหญ่บนจอ desktop */
+  .action-buttons {
+    gap: 8px;
+  }
+
+  /* กำหนดขนาดปุ่มในโมดัลบนจอ desktop */
+  .save-button,
+  .cancel-button,
+  .delete-button {
+    padding: 10px 20px;
+    font-size: 15px;
+    min-width: 140px;
+  }
+
+  .save-button::before,
+  .cancel-button::before,
+  .delete-button::before {
+    font-size: 15px;
+    margin-right: 10px;
+  }
+
+  .confirm-buttons {
+    gap: 15px;
+  }
+
+  /* กำหนดขนาด pagination ให้มีขนาดใหญ่บนจอ desktop */
+  .pagination-container {
+    padding: 15px 0;
+  }
+}
+
+
+
+/* จัดการขนาดกลาง (Tablet) */
+@media (max-width: 991px) {
+  .table-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+  }
+
+  .search-form {
+    flex-direction: column;
+  }
+
+  .search-form .form-group {
+    width: 100%;
+  }
+
+  .pagination-container {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .pagination-info {
+    margin-bottom: 15px;
+  }
+}
+
+/* จัดการขนาดเล็ก (Mobile) */
+@media (max-width: 767px) {
+  .waste-manage-container {
+    padding: 15px;
+  }
+
+  .waste-manage-header h1 {
+    font-size: 1.5rem;
+  }
+
+  .table-controls {
+    padding: 10px;
+  }
+
+  .data-table {
+    font-size: 13px;
+  }
+
+  .data-table th,
+  .data-table td {
+    padding: 8px 10px;
+  }
+
+  .action-buttons {
+    flex-direction: row;
+    gap: 8px;
+    justify-content: center;
+  }
+
+  .edit-btn,
+  .delete-btn {
+    padding: 6px 12px;
+    font-size: 12px;
+    min-width: 40px;
+  }
+
+  .modal-content {
+    margin: 20px auto;
+    padding: 15px;
+    width: 95%;
+  }
+
+  .modal-title {
+    font-size: 1.1rem;
+  }
+
+  /* ปรับส่วน pagination บนมือถือ */
+  .pagination-container {
+    padding: 10px 5px;
+  }
+
+  .pagination-buttons {
+    margin-left: 0;
+    margin-top: 10px;
+    gap: 5px;
+  }
+
+  .page-number {
+    min-width: 22px;
+    height: 22px;
+    font-size: 11px;
+    padding: 2px 5px;
+  }
+
+  .pagination-button {
+    font-size: 11px;
+    padding: 3px 6px;
+    min-width: 60px;
+  }
+
+  .add-button {
+    width: 100%;
+    justify-content: center;
+  }
+
+  .search-buttons {
+    flex-direction: column;
+    width: 100%;
+  }
+
+  .search-btn,
+  .reset-btn,
+  .export-btn {
+    width: 100%;
+    justify-content: center;
+  }
+
+  /* ปรับขนาดปุ่มในโมดัลบนมือถือ */
+  .save-button,
+  .cancel-button,
+  .delete-button {
+    padding: 7px 12px;
+    font-size: 13px;
+    min-width: 100px;
+  }
+
+  .save-button::before,
+  .cancel-button::before,
+  .delete-button::before {
+    font-size: 13px;
+    margin-right: 6px;
+  }
+
+  .confirm-buttons {
+    flex-direction: column-reverse;
+    width: 100%;
+    gap: 8px;
+  }
+
+  .confirm-buttons .cancel-button,
+  .confirm-buttons .delete-button {
+    width: 100%;
+  }
+}
+

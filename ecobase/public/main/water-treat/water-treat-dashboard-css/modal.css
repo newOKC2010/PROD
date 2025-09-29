@@ -1,0 +1,248 @@
+/* สไตล์สำหรับ Modal */
+.modal-container {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.6);
+    z-index: 1000;
+    justify-content: center;
+    align-items: center;
+    font-family: 'Mitr', sans-serif;
+}
+
+.modal-content {
+    background-color: white;
+    border-radius: 8px;
+    width: 80%;
+    max-width: 800px;
+    max-height: 90vh;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    overflow: hidden;
+    animation: modalFadeIn 0.3s ease-out;
+    font-family: 'Mitr', sans-serif;
+}
+
+.modal-header {
+    padding: 12px 20px;
+    background-color: #3498db;
+    color: white;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-radius: 8px 8px 0 0;
+}
+
+.modal-header h2 {
+    margin: 0;
+    font-size: 1.25rem;
+    font-weight: bold;
+    font-family: 'Mitr', sans-serif;
+}
+
+.modal-body {
+    padding: 15px 20px;
+    max-height: 70vh;
+    overflow-y: auto;
+}
+
+.modal-footer {
+    padding: 10px 20px;
+    text-align: center;
+    background-color: #f5f5f5;
+    border-top: 1px solid #ddd;
+}
+
+.modal-note {
+    font-size: 0.85rem;
+    color: #777;
+    font-family: 'Mitr', sans-serif;
+}
+
+.close-modal {
+    background: none;
+    border: none;
+    color: white;
+    font-size: 24px;
+    cursor: pointer;
+    padding: 0;
+    line-height: 1;
+}
+
+/* ตารางข้อมูลรายวัน */
+.daily-data-table-container {
+    overflow-x: auto;
+    margin-top: 10px;
+    max-height: 60vh;
+    overflow-y: auto;
+    font-family: 'Mitr', sans-serif;
+}
+
+.daily-data-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 14px;
+    margin-bottom: 20px;
+}
+
+.daily-data-table th,
+.daily-data-table td {
+    padding: 8px 12px;
+    text-align: center;
+    border: 1px solid #ddd;
+    font-family: 'Mitr', sans-serif;
+}
+
+.daily-data-table th {
+    background-color: #f8f8f8;
+    position: sticky;
+    top: 0;
+    z-index: 10;
+    font-weight: bold;
+}
+
+.daily-data-table tr:nth-child(even) {
+    background-color: #f5f5f5;
+}
+
+.daily-data-table tr:hover {
+    background-color: #ebf4ff;
+}
+
+/* สถานะอุปกรณ์ */
+.status {
+    padding: 4px 8px;
+    border-radius: 4px;
+    font-weight: bold;
+    display: inline-block;
+    width: 90%;
+    text-align: center;
+}
+
+.status-normal {
+    background-color: #d4ffda;
+    color: #1e7e34;
+}
+
+.status-abnormal {
+    background-color: #ffe0e0;
+    color: #c82333;
+}
+
+.status-maintenance {
+    background-color: #fff3cd;
+    color: #856404;
+}
+
+.status-inactive {
+    background-color: #e2e3e5;
+    color: #383d41;
+}
+
+.status-unknown {
+    background-color: #f8f9fa;
+    color: #6c757d;
+}
+
+/* Loading indicator */
+.loading-container {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 2000;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    font-family: 'Mitr', sans-serif;
+}
+
+.loading-spinner {
+    width: 50px;
+    height: 50px;
+    border: 5px solid #f3f3f3;
+    border-top: 5px solid #3498db;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+    margin-bottom: 15px;
+}
+
+.loading-container p {
+    color: white;
+    font-size: 1rem;
+    margin: 0;
+    font-weight: bold;
+}
+
+/* Error modal */
+.error-content .modal-header {
+    background-color: #e74c3c;
+}
+
+/* ปรับแต่งข้อความไม่มีข้อมูล */
+.no-data {
+    text-align: center;
+    color: #888;
+    font-style: italic;
+    padding: 20px;
+    font-family: 'Mitr', sans-serif;
+}
+
+/* ข้อมูลจำนวนรายการ */
+.data-count {
+    margin-bottom: 10px;
+    background-color: #f5f5f5;
+    padding: 8px;
+    border-radius: 4px;
+    color: #555;
+    font-size: 14px;
+    text-align: right;
+    font-weight: bold;
+    font-family: 'Mitr', sans-serif;
+}
+
+/* Animations */
+@keyframes modalFadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes spin {
+    0% {
+        transform: rotate(0deg);
+    }
+
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+/* Responsive styles */
+@media (max-width: 768px) {
+    .modal-content {
+        width: 95%;
+    }
+
+    .daily-data-table th,
+    .daily-data-table td {
+        padding: 6px;
+        font-size: 13px;
+    }
+
+    .status {
+        width: 85%;
+        padding: 3px 6px;
+    }
+}

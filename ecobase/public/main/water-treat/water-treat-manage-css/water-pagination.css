@@ -1,0 +1,161 @@
+/* styles สำหรับพาจิเนชัน */
+
+.pagination-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 20px;
+  flex-wrap: wrap;
+}
+
+.pagination-info {
+  font-size: 14px;
+  color: #555;
+  margin-bottom: 10px;
+}
+
+/* คลาสใหม่สำหรับครอบปุ่มทั้งหมด */
+.pagination-control-wrapper {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 10px;
+  position: relative;
+}
+
+/* ปุ่มก่อนหน้า/ถัดไป */
+.pagination-button {
+  padding: 8px 15px;
+  background-color: #f5f5f5;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  color: #333;
+  font-size: 14px;
+  cursor: pointer;
+  transition: all 0.3s;
+  position: absolute;
+  top: 0;
+}
+
+/* ให้ปุ่มก่อนหน้าอยู่ซ้ายสุด */
+#prev-page-btn {
+  left: 0;
+}
+
+/* ให้ปุ่มถัดไปอยู่ขวาสุด */
+#next-page-btn {
+  right: 0;
+}
+
+.pagination-button:hover:not(:disabled) {
+  background-color: #e0e0e0;
+}
+
+.pagination-button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* กลุ่มปุ่มตัวเลขหน้า */
+.page-numbers {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 5px;
+  justify-content: center;
+  max-width: 60%;
+  margin: 0 auto;
+}
+
+.page-number,
+.page-ellipsis {
+  min-width: 36px;
+  height: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 14px;
+  transition: all 0.3s;
+  padding: 0 5px;
+}
+
+.page-number {
+  background-color: #f5f5f5;
+  color: #333;
+}
+
+.page-number:hover:not(.active):not(.disabled) {
+  background-color: #e0e0e0;
+}
+
+.page-number.active {
+  background-color: #007bff;
+  color: white;
+  border-color: #007bff;
+}
+
+.page-ellipsis {
+  background: none;
+  border: none;
+  cursor: default;
+}
+
+.page-number.disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* สไตล์สำหรับปุ่มหน้าแรกและหน้าสุดท้าย */
+.first-page-btn,
+.last-page-btn {
+  font-weight: bold;
+}
+
+/* สไตล์สำหรับการแสดงผลบนอุปกรณ์มือถือ */
+@media (max-width: 768px) {
+  .pagination-container {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .pagination-info {
+    margin-bottom: 15px;
+  }
+
+  .pagination-control-wrapper {
+    width: 100%;
+    padding: 0 10px;
+  }
+
+  .page-numbers {
+    max-width: 70%;
+  }
+
+  .page-number,
+  .page-ellipsis {
+    min-width: 32px;
+    height: 32px;
+    font-size: 12px;
+  }
+
+  .pagination-button {
+    padding: 6px 10px;
+    font-size: 12px;
+    position: relative;
+    margin: 0 5px;
+  }
+
+  #prev-page-btn,
+  #next-page-btn {
+    position: static;
+  }
+
+  .pagination-control-wrapper {
+    justify-content: space-between;
+  }
+}

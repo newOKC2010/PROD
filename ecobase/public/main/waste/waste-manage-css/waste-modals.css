@@ -1,0 +1,194 @@
+/**
+ * waste-modals.css
+ * สไตล์สำหรับ Modal ในระบบจัดการขยะ
+ */
+
+/* พื้นหลังทึบของ Modal */
+.modal {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 1000;
+  overflow: auto;
+}
+
+/* กล่อง Modal */
+.modal-content {
+  position: relative;
+  background-color: #fff;
+  font-weight: bold;
+  margin: 50px auto;
+  padding: 20px;
+  border-radius: 5px;
+  width: 90%;
+  max-width: 600px;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+  animation: modal-appear 0.3s ease;
+}
+
+@keyframes modal-appear {
+  from {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ส่วนหัวของ Modal */
+.modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 15px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid #eee;
+}
+
+.modal-title {
+  font-size: 1.2rem;
+  font-weight: 600;
+  color: #333;
+  margin: 0;
+}
+
+.close-modal {
+  background: none;
+  border: none;
+  font-size: 20px;
+  line-height: 1;
+  cursor: pointer;
+  color: #757575;
+  transition: color 0.2s;
+}
+
+.close-modal:hover {
+  color: #333;
+}
+
+/* ส่วนเนื้อหาของ Modal */
+.modal-body {
+  margin-bottom: 20px;
+}
+
+/* ส่วนท้ายของ Modal (ส่วนที่มีปุ่ม) */
+.modal-footer {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  gap: 10px;
+  padding-top: 15px;
+  border-top: 1px solid #eee;
+}
+
+/* กำหนดการจัดวางปุ่มใน modal ทุกปุ่ม */
+.modal-footer .save-button,
+.modal-footer .cancel-button,
+.modal-footer .delete-button {
+  flex: 1;
+  max-width: 48%;
+}
+
+
+/* สไตล์เฉพาะสำหรับ Modal ลบข้อมูล */
+.delete-confirm-content {
+  max-width: 400px;
+}
+
+/* กำหนดการจัดวางปุ่มในโมดัลลบข้อมูล */
+.confirm-buttons {
+  display: flex !important;
+  flex-direction: row !important;
+  justify-content: space-between !important;
+  gap: 10px !important;
+  margin-top: 15px !important;
+  width: 100% !important;
+}
+
+.confirm-buttons .delete-button,
+.confirm-buttons .cancel-button {
+  flex: 1 !important;
+  max-width: 48% !important;
+  min-width: auto !important;
+  justify-content: center !important;
+  display: inline-flex !important;
+  align-items: center !important;
+}
+
+
+/* สไตล์สำหรับ badge ประเภทขยะในโมดัล */
+.modal-waste-type-badge {
+  display: inline-flex;
+  align-items: center;
+  padding: 3px 10px;
+  border-radius: 4px;
+  font-size: 15px;
+  font-weight: bold;
+  margin-left: 10px;
+  background-color: rgba(240, 240, 240, 0.5);
+  border: none;
+}
+
+
+.modal .save-button i,
+.modal .cancel-button i,
+.modal .delete-button i {
+  font-size: 20px; /* ลดขนาดไอคอนให้เล็กลงอีก */
+  margin-right: 3px; /* ลดระยะห่างระหว่างไอคอนกับข้อความ */
+}
+
+/* ปุ่มบันทึกใน modal */
+.modal .save-button {
+  background-color: #ffffff; /* สีฟ้า */
+  color: #5eb6fe;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+/* ปุ่มยกเลิกใน modal */
+.modal .cancel-button {
+  background-color: #ffffff;
+  color: rgb(41, 39, 39);
+  cursor: pointer;
+  font-weight: bold;
+}
+
+/* ปุ่มลบใน modal */
+.modal .delete-button {
+  background-color: #ffffff; /* สีแดงสดใส */
+  color: rgb(255, 152, 152);
+  cursor: pointer;
+  border: none;
+  font-weight: bold;
+}
+
+/* แสดง badge สีตามประเภทขยะเมื่อเลือกในโมดัล */
+#add-waste-type-badge,
+#edit-waste-type-badge {
+  display: none; /* ซ่อนเริ่มต้น จะแสดงเมื่อเลือกประเภทขยะแล้ว */
+}
+
+#edit-waste-type-container,
+#add-waste-type-container {
+  display: flex;
+  align-items: center;
+}
+
+
+.delete-button:hover {
+  transform: translateY(-5px);
+}
+
+.save-button:hover {
+  transform: translateY(-5px);
+}
+
+.cancel-button:hover {
+  transform: translateY(-5px);
+}

@@ -1,0 +1,147 @@
+/* แสดงผลแบบ Responsive */
+
+/* จอขนาดใหญ่ (คอมพิวเตอร์) */
+@media screen and (min-width: 1200px) {
+    .card-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .card-grid.wide-cards {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+/* จอขนาดกลาง (แท็บเล็ต) */
+@media screen and (max-width: 992px) {
+    .container {
+        display: flex;
+        flex-direction: column;
+    }
+
+    .sidebar {
+        width: 100%;
+        height: auto;
+        position: static;
+    }
+
+    .main-content {
+        margin-left: 0;
+        width: 100%;
+    }
+
+    .dashboard-header {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .admin-actions {
+        margin-top: 15px;
+    }
+
+    .date-filters {
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    .filter-group {
+        width: 100%;
+        min-width: 250px;
+    }
+
+    .card-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .chart-container {
+        height: 280px;
+    }
+}
+
+/* จอขนาดกลางถึงเล็ก (แท็บเล็ต portrait) */
+@media screen and (max-width: 768px) {
+    .filter-group {
+        min-width: 200px; /* ลดขนาดให้เหมาะกับแท็บเล็ต portrait */
+    }
+
+    .filter-group input {
+        font-size: 15px;
+        padding: 9px;
+    }
+
+    .filter-button {
+        padding: 10px 14px;
+        font-size: 15px;
+    }
+
+    .dashboard-filter {
+        padding: 18px;
+    }
+}
+
+/* จอขนาดเล็ก (มือถือ) */
+@media screen and (max-width: 576px) {
+    .card-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .dashboard-container {
+        padding: 10px;
+    }
+
+    .dashboard-section {
+        padding: 15px;
+    }
+
+    .dashboard-filter {
+        padding: 15px;
+    }
+
+    .date-filters {
+        gap: 8px;
+    }
+
+    .filter-group {
+        min-width: 100%;
+        width: 100%;
+    }
+
+    .filter-group input {
+        font-size: 16px;
+        padding: 10px 8px;
+    }
+
+    .filter-buttons {
+        flex-direction: column;
+        width: 100%;
+        gap: 8px;
+    }
+
+    .filter-button {
+        width: 100%;
+        margin-bottom: 0;
+        padding: 12px 16px;
+        font-size: 16px;
+    }
+
+    .dashboard-title {
+        font-size: 1.5rem;
+    }
+
+    .section-title {
+        font-size: 1.3rem;
+    }
+
+    .filter-title {
+        font-size: 1.2rem;
+        margin-bottom: 12px;
+    }
+
+    .chart-container {
+        height: 250px;
+        padding: 15px;
+    }
+
+    .dashboard-card {
+        padding: 15px;
+    }
+}

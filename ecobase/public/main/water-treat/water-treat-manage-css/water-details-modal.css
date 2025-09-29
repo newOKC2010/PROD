@@ -1,0 +1,94 @@
+/* สไตล์สำหรับ Modal แสดงรายละเอียด */
+.details-content {
+  max-width: 700px;
+  width: 80%;
+}
+
+.details-container {
+  margin-bottom: 20px;
+}
+
+.details-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  gap: 15px;
+  margin-bottom: 20px;
+}
+
+.details-item {
+  padding: 10px;
+  border-radius: 5px;
+  background-color: #f8f9fa;
+}
+
+.details-label {
+  display: block;
+  font-weight: bold;
+  color: #7f8c8d;
+  font-size: 0.85rem;
+  margin-bottom: 5px;
+}
+
+.details-value {
+  font-size: 1rem;
+  color: #2c3e50;
+}
+
+.details-badge {
+  display: inline-block;
+  padding: 3px 8px;
+  border-radius: 3px;
+  font-size: 0.85rem;
+}
+
+/* สไตล์สำหรับปุ่มในหน้าต่างโมดัล */
+.modal-footer {
+  display: flex;
+  justify-content: flex-end;
+  gap: 12px;
+  margin-top: 20px;
+  padding-top: 15px;
+  border-top: 1px solid #e2e8f0;
+}
+
+/* สไตล์สำหรับปุ่มในแถวการกระทำ */
+.action-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 20px;
+}
+
+.action-row .btn-group {
+  display: flex;
+  gap: 10px;
+}
+
+/* สไตล์สำหรับปุ่มปิดในส่วนหัว */
+.modal-header .close-btn {
+  background: transparent;
+  border: none;
+  color: #777;
+  font-size: 22px;
+  cursor: pointer;
+  transition: color 0.2s;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+}
+
+.modal-header .close-btn:hover {
+  color: #444;
+  background-color: #f3f4f6;
+}
+
+/* ปรับแต่งปุ่มดำเนินการในโมดัล */
+.modal .form-buttons .btn,
+.modal-footer .btn {
+  min-width: 100px;
+}

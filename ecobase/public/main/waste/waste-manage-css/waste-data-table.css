@@ -1,0 +1,370 @@
+/**
+ * waste-data-table.css
+ * สไตล์สำหรับตารางข้อมูลระบบจัดการขยะ
+ */
+
+/* สไตล์หลักสำหรับตาราง */
+.data-table-container {
+  width: 100%;
+  margin-bottom: 1.5rem;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  border-radius: 5px;
+}
+
+.table-responsive {
+  overflow-x: auto;
+  width: 100%;
+}
+
+.data-table {
+  width: 100%;
+  border-collapse: collapse;
+  background-color: #fff;
+  font-size: 14px;
+  min-width: 800px;
+}
+
+.data-table th,
+.data-table td {
+  padding: 12px 15px;
+  text-align: left;
+  border-bottom: 1px solid #e0e0e0;
+}
+
+.data-table th {
+  background-color: #f5f5f5;
+  font-weight: 600;
+  color: #333;
+  position: sticky;
+  top: 0;
+  z-index: 10;
+}
+
+.data-table tbody tr:hover {
+  background-color: #f9f9f9;
+}
+
+.data-table tbody tr:last-child td {
+  border-bottom: none;
+}
+
+/* สไตล์สำหรับปุ่มในตาราง */
+.action-buttons {
+  display: flex;
+  gap: 6px;
+  justify-content: center;
+}
+
+.edit-btn,
+.delete-btn {
+  width: 38px;
+  height: 28px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  padding: 0;
+  font-size: 14px;
+  min-width: 0;
+  transition: all 0.2s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.edit-btn i,
+.delete-btn i {
+  font-size: 14px;
+}
+
+.edit-btn {
+  background-color: #3498db; /* สีฟ้าเหมือนระบบบำบัดน้ำ */
+  color: white;
+}
+
+.edit-btn:hover {
+  background-color: #2980b9;
+}
+
+.delete-btn {
+  background-color: #e74c3c; /* สีแดงเหมือนระบบบำบัดน้ำ */
+  color: white;
+}
+
+.delete-btn:hover {
+  background-color: #c0392b;
+}
+
+/* สไตล์สำหรับการแสดงผลเมื่อโหลดข้อมูล/ไม่มีข้อมูล */
+.loading-row td,
+.error-row td,
+.no-data-row td {
+  text-align: center;
+  padding: 20px !important;
+}
+
+.loading-row td {
+  color: #2196f3;
+}
+
+.error-row td {
+  color: #f44336;
+}
+
+.no-data-row td {
+  color: #757575;
+}
+
+/* สไตล์สำหรับ pagination */
+.pagination-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+  margin: 1rem 0;
+  font-size: 14px;
+}
+
+.pagination-info {
+  margin-bottom: 10px;
+  color: #555;
+}
+
+.pagination-controls {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.page-size-selector {
+  padding: 5px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  margin-left: 10px;
+  background-color: #fff;
+}
+
+.pagination-buttons {
+  display: flex;
+  align-items: center;
+  margin-left: 15px;
+}
+
+.page-btn {
+  padding: 5px 10px;
+  background-color: #f5f5f5;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  cursor: pointer;
+  margin: 0 2px;
+  transition: all 0.2s;
+}
+
+.page-btn:hover:not(:disabled) {
+  background-color: #e0e0e0;
+}
+
+.page-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+#page-numbers {
+  display: flex;
+  align-items: center;
+}
+
+.page-number {
+  padding: 4px 8px;
+  background-color: #f5f5f5;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  cursor: pointer;
+  margin: 0 2px;
+  min-width: 24px;
+  height: 24px;
+  font-size: 12px;
+  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.page-number:hover {
+  background-color: #e0e0e0;
+}
+
+.page-number.active {
+  background-color: #2196f3;
+  color: white;
+  border-color: #2196f3;
+}
+
+.page-ellipsis {
+  margin: 0 2px;
+  color: #757575;
+}
+
+.pagination-button {
+  padding: 4px 8px;
+  font-size: 12px;
+  min-width: 70px;
+}
+
+/* แถบทางด้านบนของตาราง */
+.table-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
+  flex-wrap: wrap;
+}
+
+.table-title {
+  font-size: 1.2rem;
+  font-weight: 600;
+  margin: 0;
+  color: #333;
+}
+
+.add-button {
+  background-color: #27ae60;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  padding: 8px 15px;
+  font-weight: bold;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  transition: background-color 0.2s;
+}
+
+.add-button:hover {
+  background-color: #219653;
+}
+
+.add-button i {
+  margin-right: 5px;
+}
+
+/* สไตล์สำหรับ badge ประเภทขยะ */
+.waste-type-badge {
+  display: inline-block;
+  padding: 5px 12px;
+  border-radius: 4px;
+  font-size: 15px;
+  font-weight: bold;
+  text-align: center;
+  white-space: nowrap;
+  min-width: 80px;
+  background-color: rgba(240, 240, 240, 0.5);
+  border: none;
+}
+
+/* สีของ badge ตามประเภทขยะ */
+.waste-type-badge.type-recycle {
+  background-color: rgba(33, 150, 243, 0.15);
+  color: #0d6efd;
+  border-color: transparent;
+}
+
+.waste-type-badge.type-organic {
+  background-color: rgba(76, 175, 80, 0.15);
+  color: #2e7d32;
+  border-color: transparent;
+}
+
+.waste-type-badge.type-hazardous {
+  background-color: rgba(244, 67, 54, 0.15);
+  color: #c62828;
+  border-color: transparent;
+}
+
+.waste-type-badge.type-general {
+  background-color: rgba(255, 152, 0, 0.15);
+  color: #e65100;
+  border-color: transparent;
+}
+
+.waste-type-badge.type-other {
+  background-color: rgba(158, 158, 158, 0.15);
+  color: #616161;
+  border-color: transparent;
+}
+
+/* ปรับแต่งเพิ่มเติมสำหรับการแสดงผลในตาราง */
+.data-table td.waste-type-cell {
+  vertical-align: middle;
+}
+
+/* ทำให้คอลัมน์จัดการอยู่ทางขวา */
+.data-table th:last-child,
+.data-table td:last-child {
+  position: sticky;
+  right: 0;
+  background-color: white;
+  z-index: 1;
+  box-shadow: -2px 0 5px rgba(0, 0, 0, 0.1);
+  min-width: 90px;
+  text-align: center;
+}
+
+/* สำหรับหน้าจอขนาดใหญ่ คงขนาดเดิม */
+@media (min-width: 992px) {
+  .action-buttons {
+    gap: 6px;
+  }
+
+  .edit-btn,
+  .delete-btn {
+    width: 42px;
+    height: 23px;
+  }
+
+  .edit-btn i,
+  .delete-btn i {
+    font-size: 15px;
+  }
+
+  .page-number {
+    padding: 5px 10px;
+    min-width: 32px;
+    height: 32px;
+    font-size: 14px;
+  }
+
+  .pagination-button {
+    padding: 6px 12px;
+    font-size: 14px;
+    min-width: 90px;
+  }
+}
+
+/* สไตล์สำหรับโมดัลยืนยันการลบ */
+.delete-info-container {
+  margin-bottom: 1.5rem;
+  padding: 15px;
+  border-radius: 6px;
+  background-color: #f8f9fa;
+  border-left: 4px solid #e74c3c;
+}
+
+.delete-info p {
+  margin-bottom: 12px;
+}
+
+.delete-item-details {
+  background-color: white;
+  padding: 12px;
+  border-radius: 5px;
+  border: 1px solid #e0e0e0;
+}
+
+.delete-item-details p {
+  margin-bottom: 8px;
+  font-size: 14px;
+}
+
+.delete-item-details p:last-child {
+  margin-bottom: 0;
+}

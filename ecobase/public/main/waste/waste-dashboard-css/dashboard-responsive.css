@@ -1,0 +1,137 @@
+/* dashboard-responsive.css */
+
+/* ขนาดจอแท็บเล็ต */
+@media (max-width: 992px) {
+  .dashboard-sections {
+    grid-template-columns: 1fr;
+  }
+
+  .date-filters {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 10px;
+  }
+
+  .filter-group {
+    width: 100%;
+    min-width: 250px; /* ลดจาก 400px */
+  }
+
+  .filter-buttons {
+    margin-top: 10px;
+  }
+  
+  /* ปรับขนาดกราฟเปรียบเทียบให้เหมาะกับหน้าจอแท็บเล็ต */
+  .comparison-card {
+    height: 450px; /* ปรับลดจาก 500px เพื่อให้พอดีกับหน้าจอแท็บเล็ต */
+  }
+  
+  .comparison-card .chart-inner-container {
+    min-width: 700px; /* ปรับลดจาก 900px เพื่อให้พอดีกับหน้าจอแท็บเล็ต */
+  }
+}
+
+/* ขนาดจอแท็บเล็ต portrait */
+@media (max-width: 768px) {
+  .filter-group {
+    min-width: 200px; /* ลดขนาดให้เหมาะกับแท็บเล็ต portrait */
+  }
+
+  .filter-group input {
+    font-size: 15px;
+    padding: 9px;
+  }
+
+  .filter-button {
+    padding: 10px 14px;
+    font-size: 15px;
+  }
+
+  .dashboard-filter {
+    padding: 18px;
+  }
+}
+
+/* ขนาดจอมือถือ */
+@media (max-width: 576px) {
+  .dashboard-container {
+    padding: 15px 10px;
+  }
+
+  .dashboard-title {
+    font-size: 20px;
+  }
+
+  .filter-title {
+    font-size: 16px;
+    margin-bottom: 12px;
+  }
+
+  .dashboard-filter {
+    padding: 15px; /* ลดจาก default */
+  }
+
+  .date-filters {
+    gap: 8px; /* ลด gap ให้เหมาะกับมือถือ */
+  }
+
+  .filter-group {
+    min-width: 100%; /* ใช้ความกว้างเต็มบนมือถือ */
+    width: 100%;
+  }
+
+  .filter-group input {
+    font-size: 16px; /* เพิ่มขนาดฟอนต์เพื่อป้องกัน zoom บน iOS */
+    padding: 10px 8px; /* เพิ่ม padding สำหรับสัมผัสที่ดีขึ้น */
+  }
+
+  .filter-buttons {
+    flex-direction: column;
+    width: 100%;
+    gap: 8px; /* เพิ่ม gap ระหว่างปุ่ม */
+    margin-top: 10px;
+  }
+
+  .filter-button {
+    width: 100%;
+    padding: 12px 16px; /* เพิ่ม padding สำหรับการสัมผัสที่ดีขึ้น */
+    font-size: 16px; /* เพิ่มขนาดฟอนต์ */
+  }
+
+  .waste-card {
+    padding: 15px;
+    height: 320px;
+  }
+  
+  /* ปรับขนาดกราฟเปรียบเทียบให้เหมาะสมกับมือถือ */
+  .comparison-card {
+    height: 400px; /* ปรับลดจาก 450px เพื่อให้พอดีกับหน้าจอมือถือ */
+  }
+  
+  .comparison-card .chart-inner-container {
+    min-width: 550px; /* ปรับลดจาก 700px เพื่อให้พอดีกับหน้าจอมือถือ */
+  }
+  
+  /* ปรับขนาดตัวอักษรในชื่อกราฟเปรียบเทียบ */
+  .comparison-card .card-title {
+    font-size: 18px; /* ปรับลดจาก 22px */
+  }
+  
+  /* ทำให้ legend มีขนาดเล็กลงบนมือถือ */
+  .comparison-chart-container canvas {
+    max-height: 350px; /* ปรับลดจาก 450px */
+  }
+
+  .card-header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .card-total {
+    margin-top: 10px;
+  }
+
+  .chart-inner-container {
+    min-width: 400px;
+  }
+} 

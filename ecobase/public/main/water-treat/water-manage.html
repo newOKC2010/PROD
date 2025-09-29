@@ -1,0 +1,355 @@
+<!DOCTYPE html>
+<html lang="th">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>จัดการระบบบำบัดน้ำ</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Mitr:wght@400;500;600;700&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+    <link rel="stylesheet" href="/assets/common/style.css" />
+    <link rel="stylesheet" href="/assets/water/water-treat-manage-css/water-data-table.css" />
+    <link rel="stylesheet" href="/assets/water/water-treat-manage-css/water-form-elements.css" />
+    <link rel="stylesheet" href="/assets/water/water-treat-manage-css/water-modals.css" />
+    <link rel="stylesheet" href="/assets/water/water-treat-manage-css/water-details-modal.css" />
+    <link rel="stylesheet" href="/assets/water/water-treat-manage-css/water-manage-responsive.css" />
+    <link rel="stylesheet" href="/assets/water/water-treat-manage-css/water-search-form.css" />
+    <link rel="stylesheet" href="/assets/water/water-treat-manage-css/water-pagination.css" />
+  </head>
+
+  <body>
+    <div class="container">
+      <div class="main-content">
+        <div class="header">
+          <h1>จัดการข้อมูลระบบบำบัดน้ำ</h1>
+          <a href="/water-dashboard" class="back-button">กลับไปหน้าแดชบอร์ด</a>
+        </div>
+        <div class="content">
+          <div class="data-table-container">
+            <div class="table-header">
+              <h3>รายการข้อมูลบำบัดน้ำเสีย</h3>
+              <button id="add-new-data-btn" class="add-button"><i class="fas fa-plus"></i> เพิ่มข้อมูลใหม่</button>
+            </div>
+
+            <div class="search-form">
+              <h4>ค้นหาข้อมูล</h4>
+              <div class="form-row">
+                <div class="form-group">
+                  <label for="start-date">วันที่เริ่มต้น:</label>
+                  <input type="date" id="start-date" name="start_date" />
+                </div>
+                <div class="form-group">
+                  <label for="end-date">วันที่สิ้นสุด:</label>
+                  <input type="date" id="end-date" name="end_date" />
+                </div>
+                <div class="form-buttons search-buttons">
+                  <button type="button" id="search-btn" class="search-button">
+                    <i class="fas fa-search"></i> ค้นหา
+                  </button>
+                  <button type="button" id="reset-search-btn" class="reset-button">
+                    <i class="fas fa-undo"></i> ล้างการค้นหา
+                  </button>
+                  <button type="button" id="export-excel-btn" class="export-button">
+                    <i class="fas fa-file-excel"></i>&nbsp;&nbsp;ส่งออก Excel
+                  </button>
+                </div>
+              </div>
+            </div>
+
+            <div class="table-controls">
+              <div class="pagination-controls">
+                <span>แสดง</span>
+                <select id="page-size-selector">
+                  <option value="5" selected>5</option>
+                  <option value="10">10</option>
+                  <option value="20">20</option>
+                </select>
+                <span>รายการต่อหน้า</span>
+              </div>
+            </div>
+
+            <div class="table-responsive">
+              <table class="data-table">
+                <thead>
+                  <tr>
+                    <th>ลำดับ</th>
+                    <th>วันที่บันทึก</th>
+                    <th>ผู้บันทึก</th>
+                    <th>ปริมาณการใช้ไฟฟ้า (kWh)</th>
+                    <th>ปริมาณน้ำใช้ (ลบ.ม.)</th>
+                    <th>ปริมาณน้ำเสียเข้าระบบ (ลบ.ม.)</th>
+                    <th>การระบายน้ำทิ้ง (ลบ.ม.)</th>
+                    <th>ปริมาณสารเคมี (กก.)</th>
+                    <th>ค่า pH</th>
+                    <th>สถานะระบบบำบัด</th>
+                    <th>จัดการ</th>
+                  </tr>
+                </thead>
+                <tbody id="data-table-body">
+                  <!-- ข้อมูลจะถูกเพิ่มที่นี่ด้วย JavaScript -->
+                  <tr class="loading-row">
+                    <td colspan="11" class="text-center">กำลังโหลดข้อมูล...</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+
+            <div class="pagination-container">
+              <div class="pagination-info">
+                แสดง <span id="showing-from">0</span> ถึง <span id="showing-to">0</span> จากทั้งหมด
+                <span id="total-items">0</span> รายการ
+              </div>
+              <div class="pagination-control-wrapper">
+                <button id="prev-page-btn" class="pagination-button">ก่อนหน้า</button>
+                <div id="page-numbers" class="page-numbers">
+                  <!-- ปุ่มหมายเลขหน้าจะถูกเพิ่มที่นี่ด้วย JavaScript -->
+                </div>
+                <button id="next-page-btn" class="pagination-button">ถัดไป</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Modal สำหรับแก้ไขข้อมูล -->
+    <div id="edit-modal" class="modal">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h3>แก้ไขข้อมูล</h3>
+          <span class="close-modal">&times;</span>
+        </div>
+        <div class="modal-body">
+          <form id="edit-form">
+            <input type="hidden" id="edit-info-id" />
+
+            <div class="form-group">
+              <label for="edit-record-date">วันที่บันทึกข้อมูล:</label>
+              <div id="date-input-container">
+                <input type="date" id="edit-record-date" name="record_date" required />
+              </div>
+              <div id="date-display-container" style="display: none">
+                <div class="date-display">
+                  <span id="date-display-text"></span>
+                </div>
+              </div>
+            </div>
+
+            <h4 class="form-section-title">ข้อมูลการใช้ทรัพยากร</h4>
+
+            <div class="form-row">
+              <div class="form-group">
+                <label for="edit-electricity-usage">ปริมาณการใช้ไฟฟ้า (kWh):</label>
+                <input type="number" id="edit-electricity-usage" name="electricity_usage" step="0.01" min="0" />
+              </div>
+
+              <div class="form-group">
+                <label for="edit-water-usage">ปริมาณการใช้น้ำ (ลบ.ม.):</label>
+                <input type="number" id="edit-water-usage" name="water_usage" step="0.01" min="0" />
+              </div>
+            </div>
+
+            <div class="form-row">
+              <div class="form-group">
+                <label for="edit-wastewater-inflow">ปริมาณน้ำเสียเข้าระบบ (ลบ.ม.):</label>
+                <input type="number" id="edit-wastewater-inflow" name="wastewater_inflow" step="0.01" min="0" />
+              </div>
+
+              <div class="form-group">
+                <label for="edit-wastewater-outflow">การระบายน้ำทิ้ง (ลบ.ม.):</label>
+                <input type="number" id="edit-wastewater-outflow" name="wastewater_outflow" step="0.01" min="0" />
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label for="edit-chemical-usage">ปริมาณสารเคมี (กก.):</label>
+              <input type="number" id="edit-chemical-usage" name="chemical_usage" step="0.01" min="0" />
+            </div>
+
+            <h4 class="form-section-title">สถานะอุปกรณ์</h4>
+
+            <div class="form-row">
+              <div class="form-group">
+                <label for="edit-treatment-system-status">สถานะระบบบำบัด:</label>
+                <select id="edit-treatment-system-status" name="treatment_system_status_id" required></select>
+              </div>
+
+              <div class="form-group">
+                <label for="edit-water-pump-status">สถานะเครื่องสูบน้ำ:</label>
+                <select id="edit-water-pump-status" name="water_pump_status_id"></select>
+              </div>
+            </div>
+
+            <div class="form-row">
+              <div class="form-group">
+                <label for="edit-aerator-status">สถานะเครื่องเติมอากาศ:</label>
+                <select id="edit-aerator-status" name="aerator_status_id"></select>
+              </div>
+
+              <div class="form-group">
+                <label for="edit-wastewater-mixer-status">สถานะเครื่องกวนผสมน้ำเสีย:</label>
+                <select id="edit-wastewater-mixer-status" name="wastewater_mixer_status_id"></select>
+              </div>
+            </div>
+
+            <div class="form-row">
+              <div class="form-group">
+                <label for="edit-chemical-mixer-status">สถานะเครื่องกวนผสมสารเคมี:</label>
+                <select id="edit-chemical-mixer-status" name="chemical_mixer_status_id"></select>
+              </div>
+
+              <div class="form-group">
+                <label for="edit-sludge-pump-status">สถานะเครื่องสูบตะกอน:</label>
+                <select id="edit-sludge-pump-status" name="sludge_pump_status_id"></select>
+              </div>
+            </div>
+
+            <h4 class="form-section-title">ข้อมูลคุณภาพน้ำและตะกอน</h4>
+
+            <div class="form-row">
+              <div class="form-group">
+                <label for="edit-ph-value">ค่า pH:</label>
+                <input type="number" id="edit-ph-value" name="ph_value" step="0.1" min="0" max="14" />
+              </div>
+
+              <div class="form-group">
+                <label for="edit-residual-chlorine">ค่าคลอรีนตกค้าง:</label>
+                <input type="number" id="edit-residual-chlorine" name="residual_chlorine" step="0.01" min="0" />
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label for="edit-sludge-removal">ปริมาณตะกอนส่วนเกินที่นำไปกำจัด (ลบ.ม.):</label>
+              <input type="number" id="edit-sludge-removal" name="sludge_removal" step="0.01" min="0" />
+            </div>
+
+            <div class="form-buttons">
+              <button type="button" class="cancel-button close-modal">ยกเลิก</button>
+              <button type="submit" class="save-button">บันทึกข้อมูล</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+
+    <!-- Modal สำหรับยืนยันการลบ -->
+    <div id="delete-confirm-modal" class="modal">
+      <div class="modal-content delete-confirm-content">
+        <div class="modal-header">
+          <h3>ยืนยันการลบข้อมูล</h3>
+          <span class="close-modal">&times;</span>
+        </div>
+        <div class="modal-body">
+          <p>คุณต้องการลบข้อมูลนี้ใช่หรือไม่?</p>
+          <p>รหัสข้อมูล: <span id="delete-info-id"></span></p>
+          <div class="form-buttons">
+            <button type="button" class="cancel-button close-modal">ยกเลิก</button>
+            <button type="button" id="confirm-delete-btn" class="delete-button">ลบข้อมูล</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- เพิ่ม Modal สำหรับดูรายละเอียดเพิ่มเติม -->
+    <div id="details-modal" class="modal">
+      <div class="modal-content details-content">
+        <div class="modal-header">
+          <h3>รายละเอียดข้อมูล</h3>
+          <span class="close-modal">&times;</span>
+        </div>
+        <div class="modal-body">
+          <div class="details-container">
+            <h4 class="form-section-title">ข้อมูลทั่วไป</h4>
+            <div class="details-grid">
+              <div class="details-item">
+                <span class="details-label">รหัสข้อมูล:</span>
+                <span id="detail-info-id" class="details-value"></span>
+              </div>
+              <div class="details-item">
+                <span class="details-label">วันที่บันทึก:</span>
+                <span id="detail-record-date" class="details-value"></span>
+              </div>
+              <div class="details-item">
+                <span class="details-label">ผู้บันทึก:</span>
+                <span id="detail-user-name" class="details-value"></span>
+              </div>
+            </div>
+
+            <h4 class="form-section-title">ข้อมูลการใช้ทรัพยากร</h4>
+            <div class="details-grid">
+              <div class="details-item">
+                <span class="details-label">ปริมาณการใช้ไฟฟ้า (kWh):</span>
+                <span id="detail-electricity-usage" class="details-value"></span>
+              </div>
+              <div class="details-item">
+                <span class="details-label">ปริมาณการใช้น้ำ (ลบ.ม.):</span>
+                <span id="detail-water-usage" class="details-value"></span>
+              </div>
+              <div class="details-item">
+                <span class="details-label">ปริมาณน้ำเสียเข้าระบบ (ลบ.ม.):</span>
+                <span id="detail-wastewater-inflow" class="details-value"></span>
+              </div>
+              <div class="details-item">
+                <span class="details-label">การระบายน้ำทิ้ง (ลบ.ม.):</span>
+                <span id="detail-wastewater-outflow" class="details-value"></span>
+              </div>
+              <div class="details-item">
+                <span class="details-label">ปริมาณสารเคมี (กก.):</span>
+                <span id="detail-chemical-usage" class="details-value"></span>
+              </div>
+            </div>
+
+            <h4 class="form-section-title">สถานะอุปกรณ์</h4>
+            <div class="details-grid">
+              <div class="details-item">
+                <span class="details-label">สถานะระบบบำบัด:</span>
+                <span id="detail-treatment-system-status" class="details-value"></span>
+              </div>
+              <div class="details-item">
+                <span class="details-label">สถานะเครื่องสูบน้ำ:</span>
+                <span id="detail-water-pump-status" class="details-value"></span>
+              </div>
+              <div class="details-item">
+                <span class="details-label">สถานะเครื่องเติมอากาศ:</span>
+                <span id="detail-aerator-status" class="details-value"></span>
+              </div>
+              <div class="details-item">
+                <span class="details-label">สถานะเครื่องกวนน้ำเสีย:</span>
+                <span id="detail-wastewater-mixer-status" class="details-value"></span>
+              </div>
+              <div class="details-item">
+                <span class="details-label">สถานะเครื่องกวนสารเคมี:</span>
+                <span id="detail-chemical-mixer-status" class="details-value"></span>
+              </div>
+              <div class="details-item">
+                <span class="details-label">สถานะเครื่องสูบตะกอน:</span>
+                <span id="detail-sludge-pump-status" class="details-value"></span>
+              </div>
+            </div>
+
+            <h4 class="form-section-title">ข้อมูลคุณภาพน้ำและตะกอน</h4>
+            <div class="details-grid">
+              <div class="details-item">
+                <span class="details-label">ค่า pH:</span>
+                <span id="detail-ph-value" class="details-value"></span>
+              </div>
+              <div class="details-item">
+                <span class="details-label">ค่าคลอรีนตกค้าง:</span>
+                <span id="detail-residual-chlorine" class="details-value"></span>
+              </div>
+              <div class="details-item">
+                <span class="details-label">ตะกอนส่วนเกินที่นำไปกำจัด:</span>
+                <span id="detail-sludge-removal" class="details-value"></span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script defer src="/assets/common/script.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js"></script>
+    <script type="module" defer src="/assets/water/water-manage.js"></script>
+  </body>
+</html>

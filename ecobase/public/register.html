@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="th">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>สมัครสมาชิก</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Mitr:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" />
+  <link rel="stylesheet" href="/assets/common/style.css" />
+</head>
+
+<body>
+  <div class="container">
+    <div class="main-content">
+      <div class="header">
+        <h1>สมัครสมาชิก</h1>
+      </div>
+      <div class="content">
+        <div class="login-container">
+          <form id="register-form">
+            <div class="form-group">
+              <label for="fullname">ชื่อ-นามสกุล</label>
+              <input type="text" id="fullname" name="fullname" placeholder="ชื่อ-นามสกุล ภาษาไทย" pattern="^[ก-๙\s]+$"  onkeypress="return /[\u0E00-\u0E7F\s]/.test(event.key)" />
+            </div>
+            <div class="form-group">
+              <label for="email">อีเมล</label>
+              <input type="email" id="email" name="email" placeholder="อีเมล" onkeypress="return /[a-zA-Z0-9_\.\@\-]/.test(event.key)"" />
+            </div>
+            <div class="form-group">
+              <label for="cid">เลขประจำตัวประชาชน</label>
+              <input type="text" id="cid" name="cid" maxlength="13" placeholder="เลขประจำตัวประชาชน 13 หลัก" oninput="this.value = this.value.replace(/[^0-9]/g, '')"  />
+            </div>
+            <div class="form-group">
+              <label for="username">ชื่อผู้ใช้</label>
+              <input type="text" id="username" name="username" placeholder="ชื่อผู้ใช้ภาษาอังกฤษหรือตัวเลข" pattern="^[a-zA-Z0-9_]+$"   onkeypress="return /[a-zA-Z0-9_]/.test(event.key)" />
+            </div>
+            <div class="form-group">
+              <label for="password">รหัสผ่าน</label>
+              <div class="password-container">
+                <input type="password" id="password" name="password" placeholder="รหัสผ่าน"  />
+                <span class="password-toggle" id="password-toggle">
+                  <i class="fa-solid fa-eye" id="eye-icon"></i>
+                </span>
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="confirm-password">ยืนยันรหัสผ่าน</label>
+              <div class="password-container">
+                <input type="password" id="confirm-password" name="confirm-password" placeholder="ยืนยันรหัสผ่าน"  />
+                <span class="password-toggle" id="confirm-password-toggle">
+                  <i class="fa-solid fa-eye" id="confirm-eye-icon"></i>
+                </span>
+              </div>
+            </div>
+            <button type="submit" class="form-button">สมัครสมาชิก</button>
+            <div class="form-footer">
+              <p>มีบัญชีอยู่แล้ว? <a href="/login">เข้าสู่ระบบ</a></p>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+  <script src="/assets/common/script.js"></script>
+  <script src="/assets/common/register.js"></script>
+</body>
+
+</html>

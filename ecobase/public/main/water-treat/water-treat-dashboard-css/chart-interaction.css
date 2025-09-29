@@ -1,0 +1,9 @@
+.chart-container canvas {
+  cursor: pointer;
+}
+
+/* เพิ่มเอฟเฟกต์เมื่อ hover เพื่อให้รู้ว่าสามารถคลิกได้ */
+.chart-container canvas:hover {
+  opacity: 0.9;
+  box-shadow: 0 0 8px rgba(0, 0, 0, 0.1);
+}

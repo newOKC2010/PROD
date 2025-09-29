@@ -1,0 +1,67 @@
+.dashboard {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 20px;
+}
+
+.dashboard-card {
+    background-color: white;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    transition: transform 0.3s ease;
+}
+
+.dashboard-card:hover {
+    transform: translateY(-5px);
+}
+
+.dashboard-card h3 {
+    color: #2c3e50;
+    margin-bottom: 15px;
+    border-bottom: 2px solid #3498db;
+    padding-bottom: 10px;
+}
+
+.status-active {
+    color: #27ae60;
+    font-weight: bold;
+}
+
+.status-inactive {
+    color: #e74c3c;
+    font-weight: bold;
+}
+
+.meter {
+    height: 20px;
+    background-color: #ecf0f1;
+    border-radius: 10px;
+    margin: 15px 0;
+    overflow: hidden;
+}
+
+.meter-value {
+    height: 100%;
+    background-color: #3498db;
+    text-align: center;
+    color: white;
+    font-weight: bold;
+    line-height: 20px;
+    transition: width 1s ease-in-out;
+}
+
+.button {
+    display: inline-block;
+    background-color: #3498db;
+    color: white;
+    padding: 10px 15px;
+    border-radius: 5px;
+    text-decoration: none;
+    margin-top: 10px;
+    transition: background-color 0.3s ease;
+}
+
+.button:hover {
+    background-color: #2980b9;
+}

@@ -1,0 +1,76 @@
+/* สไตล์สำหรับการแสดงผลแบบ Responsive */
+
+/* จอขนาดกลาง (แท็บเล็ต) */
+@media screen and (max-width: 992px) {
+  .container {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .sidebar {
+    width: 100%;
+    height: auto;
+    position: static;
+  }
+
+  .main-content {
+    margin-left: 0;
+    width: 100%;
+  }
+
+  .form-row {
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .modal-content {
+    width: 90%;
+    margin: 5% auto;
+  }
+
+  .details-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* จอขนาดเล็ก (มือถือ) */
+@media screen and (max-width: 576px) {
+  .header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .back-button {
+    margin-left: 0;
+    margin-top: 10px;
+  }
+
+  .table-header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .add-button {
+    margin-top: 10px;
+    width: 100%;
+  }
+
+  .pagination-container {
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .pagination-info {
+    text-align: center;
+  }
+
+  .data-table th:nth-child(3),
+  .data-table td:nth-child(3),
+  .data-table th:nth-child(5),
+  .data-table td:nth-child(5),
+  .data-table th:nth-child(6),
+  .data-table td:nth-child(6) {
+    display: none;
+  }
+}
