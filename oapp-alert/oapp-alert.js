@@ -4776,6 +4776,9 @@ class LoadEnv {
     CRON_JOB_TEST_MODE: Bun.env.CRON_JOB_TEST_MODE || "false",
     CRON_JOB_DAYS_AHEAD: Bun.env.CRON_JOB_DAYS_AHEAD || "1"
   };
+  static loadSendLog = {
+    SEND_LOG_CID: Bun.env.SEND_LOG_CID || ""
+  };
 }
 
 // src/database/db_model.ts
@@ -5088,7 +5091,6 @@ class OappSendAlert {
       const apiUrl = env.MOPH_ALERT_URL || "https://api.example.com/alert";
       const clientKey = env.MOPH_CLIENT || "";
       const secretKey = env.MOPH_SECRET || "";
-      const cidDisplay = payload.cid.join(", ");
       const response = await fetch(apiUrl, {
         method: "POST",
         headers: {
@@ -5099,14 +5101,21 @@ class OappSendAlert {
         body: JSON.stringify(payload)
       });
       const result = await response.json();
-      console.log(`\uD83D\uDCE4 \u0E2A\u0E48\u0E07\u0E41\u0E08\u0E49\u0E07\u0E40\u0E15\u0E37\u0E2D\u0E19\u0E44\u0E1B\u0E22\u0E31\u0E07 CID: ${cidDisplay}`);
-      console.log(`\uD83D\uDCCA \u0E2A\u0E16\u0E32\u0E19\u0E30: ${result.message_code} - ${result.message}`);
+      const totalCids = payload.cid.length;
+      if (response.status === 200 && result.message_code === 200) {
+        result.success_count = totalCids;
+        result.failed_count = 0;
+      } else {
+        result.success_count = 0;
+        result.failed_count = totalCids;
+      }
       return result;
     } catch (error) {
-      console.error("\u274C \u0E40\u0E01\u0E34\u0E14\u0E02\u0E49\u0E2D\u0E1C\u0E34\u0E14\u0E1E\u0E25\u0E32\u0E14\u0E43\u0E19\u0E01\u0E32\u0E23\u0E2A\u0E48\u0E07\u0E41\u0E08\u0E49\u0E07\u0E40\u0E15\u0E37\u0E2D\u0E19:", error);
       return {
         message: "\u0E2A\u0E48\u0E07\u0E41\u0E08\u0E49\u0E07\u0E40\u0E15\u0E37\u0E2D\u0E19\u0E44\u0E21\u0E48\u0E2A\u0E33\u0E40\u0E23\u0E47\u0E08",
-        message_code: 500
+        message_code: 500,
+        success_count: 0,
+        failed_count: 0
       };
     }
   }
@@ -5158,6 +5167,7 @@ class OappUtils {
 class FlexTomorrowBuilder {
   static createAppointmentAlert(patient) {
     const { fname, lname } = OappUtils.parsePatientName(patient.pt_name);
+    const appointmentDate = OappUtils.formatThaiDate(new Date(patient.tomorrow));
     return {
       type: "flex",
       altText: `\u0E41\u0E08\u0E49\u0E07\u0E40\u0E15\u0E37\u0E2D\u0E19\u0E08\u0E32\u0E01\u0E42\u0E23\u0E07\u0E1E\u0E22\u0E32\u0E1A\u0E32\u0E25\u0E1A\u0E32\u0E07\u0E40\u0E25\u0E19: \u0E19\u0E31\u0E14\u0E2B\u0E21\u0E32\u0E22\u0E1E\u0E1A\u0E41\u0E1E\u0E17\u0E22\u0E4C - \u0E04\u0E38\u0E13 ${fname} ${lname}`,
@@ -5178,7 +5188,7 @@ class FlexTomorrowBuilder {
             },
             {
               type: "text",
-              text: "\u0E19\u0E31\u0E14\u0E2B\u0E21\u0E32\u0E22\u0E1E\u0E1A\u0E41\u0E1E\u0E17\u0E22\u0E4C\u0E27\u0E31\u0E19\u0E1E\u0E23\u0E38\u0E48\u0E07\u0E19\u0E35\u0E49",
+              text: `\u0E04\u0E38\u0E13\u0E21\u0E35\u0E19\u0E31\u0E14\u0E2B\u0E21\u0E32\u0E22\u0E1E\u0E1A\u0E41\u0E1E\u0E17\u0E22\u0E4C\u0E27\u0E31\u0E19\u0E17\u0E35\u0E48 ${appointmentDate}`,
               weight: "bold",
               size: "md",
               color: "#1DB446",
@@ -5373,8 +5383,6 @@ class OappTomorrowService {
       } else if (result.message_code === 401) {
         statusText = "\u26A0\uFE0F \u0E44\u0E21\u0E48\u0E21\u0E35 CID";
       }
-      console.log(`\uD83D\uDCF1 \u0E2A\u0E16\u0E32\u0E19\u0E30\u0E41\u0E08\u0E49\u0E07\u0E40\u0E15\u0E37\u0E2D\u0E19: ${statusText} (${result.message_code})`);
-      console.log(`\uD83D\uDCE7 \u0E02\u0E49\u0E2D\u0E04\u0E27\u0E32\u0E21: ${result.message}`);
     } catch (error) {
       console.error(`\u274C \u0E40\u0E01\u0E34\u0E14\u0E02\u0E49\u0E2D\u0E1C\u0E34\u0E14\u0E1E\u0E25\u0E32\u0E14\u0E43\u0E19\u0E01\u0E32\u0E23\u0E1B\u0E23\u0E30\u0E21\u0E27\u0E25\u0E1C\u0E25\u0E19\u0E31\u0E14\u0E1E\u0E23\u0E38\u0E48\u0E07\u0E19\u0E35\u0E49 hn: ${hn}, oapp_id: ${oapp_id}:`, error);
     }
@@ -5977,6 +5985,50 @@ class OappService {
   }
 }
 
+// src/controllers/send_alert_flex/flex_cron_log.ts
+class FlexCronLogBuilder {
+  static async sendCronJobLog(successCount, existingCount, holidayCount, daysAhead, errorMsg) {
+    try {
+      const logConfig = LoadEnv.loadSendLog;
+      if (!logConfig.SEND_LOG_CID)
+        return;
+      const currentDate = new Date().toLocaleDateString("th-TH");
+      const failedCount = 0;
+      const totalCount = successCount + existingCount + holidayCount;
+      const messageText = errorMsg ? `\u274C \u0E40\u0E01\u0E34\u0E14\u0E02\u0E49\u0E2D\u0E1C\u0E34\u0E14\u0E1E\u0E25\u0E32\u0E14: ${errorMsg}` : `\u0E41\u0E08\u0E49\u0E07\u0E40\u0E15\u0E37\u0E2D\u0E19\u0E2A\u0E48\u0E07\u0E19\u0E31\u0E14\u0E2B\u0E21\u0E32\u0E22\u0E25\u0E48\u0E27\u0E07\u0E2B\u0E19\u0E49\u0E32 ${daysAhead} \u0E27\u0E31\u0E19 \u0E43\u0E19\u0E27\u0E31\u0E19\u0E17\u0E35\u0E48 ${currentDate}
+\u0E17\u0E31\u0E49\u0E07\u0E2B\u0E21\u0E14 ${totalCount} \u0E04\u0E19
+\u0E2A\u0E48\u0E07\u0E2A\u0E33\u0E40\u0E23\u0E47\u0E08 ${successCount} \u0E04\u0E19
+\u0E44\u0E21\u0E48\u0E2A\u0E33\u0E40\u0E23\u0E47\u0E08 ${failedCount} \u0E04\u0E19
+\u0E02\u0E49\u0E32\u0E21\u0E27\u0E31\u0E19\u0E2B\u0E22\u0E38\u0E14 ${holidayCount} \u0E04\u0E19`;
+      const message = {
+        type: "flex",
+        altText: messageText,
+        contents: {
+          type: "bubble",
+          body: {
+            type: "box",
+            layout: "vertical",
+            contents: [
+              {
+                type: "text",
+                text: messageText,
+                wrap: true,
+                color: errorMsg ? "#FF0000" : "#000000"
+              }
+            ]
+          }
+        }
+      };
+      await OappSendAlert.sendAlert({
+        cid: [logConfig.SEND_LOG_CID],
+        messages: [message]
+      });
+    } catch (error) {
+      console.error("\u274C \u0E2A\u0E48\u0E07 Log \u0E44\u0E21\u0E48\u0E2A\u0E33\u0E40\u0E23\u0E47\u0E08:", error);
+    }
+  }
+}
+
 // src/controllers/oapp_cron_job.ts
 class OappCronJob {
   static isRunning = false;
@@ -5988,12 +6040,9 @@ class OappCronJob {
     }
     const isTestMode = LoadEnv.LoadCronJob.CRON_JOB_TEST_MODE === "true";
     if (isTestMode) {
-      console.log("\uD83E\uDDEA OAPP Cron Job (TEST MODE - \u0E17\u0E38\u0E01 30 \u0E27\u0E34\u0E19\u0E32\u0E17\u0E35)");
       this.checkTomorrowAppointments();
       this.schedulerId = setInterval(() => this.checkTomorrowAppointments(), 30000);
     } else {
-      const cronTime = LoadEnv.LoadCronJob.CRON_JOB_TIME || "01:00";
-      console.log(`\uD83D\uDE80 OAPP Cron Job (DAILY MODE - \u0E17\u0E38\u0E01\u0E27\u0E31\u0E19\u0E40\u0E27\u0E25\u0E32 ${cronTime})`);
       this.scheduleDaily();
     }
   }
@@ -6002,7 +6051,6 @@ class OappCronJob {
       clearTimeout(this.schedulerId);
       clearInterval(this.schedulerId);
       this.schedulerId = null;
-      console.log("\uD83D\uDED1 \u0E2B\u0E22\u0E38\u0E14 OAPP Cron Job");
     }
   }
   static scheduleDaily() {
@@ -6013,7 +6061,6 @@ class OappCronJob {
     if (nextRun <= now)
       nextRun.setDate(nextRun.getDate() + 1);
     const delay = nextRun.getTime() - Date.now();
-    console.log(`\u23F0 \u0E23\u0E2D\u0E1A\u0E16\u0E31\u0E14\u0E44\u0E1B: ${nextRun.toLocaleString("th-TH")}`);
     this.schedulerId = setTimeout(() => {
       this.checkTomorrowAppointments();
       this.scheduleDaily();
@@ -6023,21 +6070,24 @@ class OappCronJob {
     if (this.isRunning)
       return;
     this.isRunning = true;
+    const daysAhead = parseInt(LoadEnv.LoadCronJob.CRON_JOB_DAYS_AHEAD) || 1;
+    console.log(`\uD83D\uDE80 \u0E40\u0E23\u0E34\u0E48\u0E21\u0E17\u0E33\u0E07\u0E32\u0E19\u0E41\u0E08\u0E49\u0E07\u0E40\u0E15\u0E37\u0E2D\u0E19\u0E19\u0E31\u0E14\u0E2B\u0E21\u0E32\u0E22\u0E25\u0E48\u0E27\u0E07\u0E2B\u0E19\u0E49\u0E32 ${daysAhead} \u0E27\u0E31\u0E19`);
     try {
-      const daysAhead = parseInt(LoadEnv.LoadCronJob.CRON_JOB_DAYS_AHEAD) || 1;
-      const countResult = await DBConn.query(`
-                SELECT COUNT(*) as total
-                FROM oapp o
-                WHERE o.nextdate = CURRENT_DATE + INTERVAL '${daysAhead} day'
-                AND NOT EXISTS (SELECT 1 FROM holiday h WHERE h.holiday_date = o.nextdate)
-            `);
+      const [countResult, holidayResult] = await Promise.all([
+        DBConn.query(`
+                    SELECT COUNT(*) as total
+                    FROM oapp o
+                    WHERE o.nextdate = CURRENT_DATE + INTERVAL '${daysAhead} day'
+                    AND NOT EXISTS (SELECT 1 FROM holiday h WHERE h.holiday_date = o.nextdate)
+                `),
+        DBConn.query(`
+                    SELECT COUNT(*) as holiday_count
+                    FROM oapp o
+                    WHERE o.nextdate = CURRENT_DATE + INTERVAL '${daysAhead} day'
+                    AND EXISTS (SELECT 1 FROM holiday h WHERE h.holiday_date = o.nextdate)
+                `)
+      ]);
       const totalFound = parseInt(countResult.rows[0]?.total || 0);
-      const holidayResult = await DBConn.query(`
-                SELECT COUNT(*) as holiday_count
-                FROM oapp o
-                WHERE o.nextdate = CURRENT_DATE + INTERVAL '${daysAhead} day'
-                AND EXISTS (SELECT 1 FROM holiday h WHERE h.holiday_date = o.nextdate)
-            `);
       const holidayCount = parseInt(holidayResult.rows[0]?.holiday_count || 0);
       const insertResult = await DBConn.query(`
                 INSERT INTO oapp_tomorrow (oapp_id, hn, vn, clinic, nexttime, nextdate)
@@ -6047,35 +6097,17 @@ class OappCronJob {
                 AND NOT EXISTS (SELECT 1 FROM oapp_tomorrow ot WHERE ot.oapp_id = o.oapp_id AND ot.nextdate = o.nextdate)
                 AND NOT EXISTS (SELECT 1 FROM holiday h WHERE h.holiday_date = o.nextdate)
                 ON CONFLICT (oapp_id, nextdate) DO NOTHING
-                RETURNING hn, vn, clinic, nexttime
+                RETURNING *
             `);
       const inserted = insertResult.rows.length;
-      console.log(`\uD83D\uDCCA \u0E1E\u0E1A\u0E19\u0E31\u0E14\u0E1E\u0E23\u0E38\u0E48\u0E07\u0E19\u0E35\u0E49: ${totalFound} \u0E04\u0E19 | INSERT \u0E40\u0E02\u0E49\u0E32 oapp_tomorrow: ${inserted} \u0E04\u0E19 ${inserted === totalFound ? "\u2705" : "\u26A0\uFE0F"}`);
-      if (holidayCount > 0) {
-        console.log(`\uD83D\uDEAB \u0E02\u0E49\u0E32\u0E21\u0E19\u0E31\u0E14\u0E27\u0E31\u0E19\u0E2B\u0E22\u0E38\u0E14: ${holidayCount} \u0E04\u0E19`);
-      }
-      if (inserted < totalFound) {
-        const existingResult = await DBConn.query(`
-                    SELECT COUNT(*) as existing_count
-                    FROM oapp o
-                    INNER JOIN oapp_tomorrow ot ON ot.oapp_id = o.oapp_id AND ot.nextdate = o.nextdate
-                    WHERE o.nextdate = CURRENT_DATE + INTERVAL '${daysAhead} day'
-                    AND NOT EXISTS (SELECT 1 FROM holiday h WHERE h.holiday_date = o.nextdate)
-                `);
-        const existingCount = parseInt(existingResult.rows[0]?.existing_count || 0);
-        const missing = totalFound - inserted - existingCount;
-        console.log(`\uD83D\uDD0D \u0E2A\u0E32\u0E40\u0E2B\u0E15\u0E38 INSERT \u0E44\u0E21\u0E48\u0E2B\u0E21\u0E14:`);
-        console.log(`   - \u0E21\u0E35\u0E2D\u0E22\u0E39\u0E48\u0E41\u0E25\u0E49\u0E27\u0E43\u0E19 oapp_tomorrow: ${existingCount} \u0E04\u0E19`);
-        console.log(`   - INSERT \u0E43\u0E2B\u0E21\u0E48\u0E2A\u0E33\u0E40\u0E23\u0E47\u0E08: ${inserted} \u0E04\u0E19`);
-        if (missing > 0) {
-          console.log(`   - \u0E44\u0E21\u0E48\u0E2A\u0E32\u0E21\u0E32\u0E23\u0E16 INSERT \u0E44\u0E14\u0E49: ${missing} \u0E04\u0E19 (\u0E15\u0E23\u0E27\u0E08\u0E2A\u0E2D\u0E1A constraint \u0E2B\u0E23\u0E37\u0E2D data integrity)`);
-        }
-      }
-      insertResult.rows.forEach((row) => console.log(`   - HN:${row.hn} VN:${row.vn} \u0E04\u0E25\u0E34\u0E19\u0E34\u0E01:${row.clinic} \u0E40\u0E27\u0E25\u0E32:${row.nexttime}`));
+      await FlexCronLogBuilder.sendCronJobLog(inserted, totalFound - inserted, holidayCount, daysAhead);
     } catch (error) {
       console.error("\u274C \u0E40\u0E01\u0E34\u0E14\u0E02\u0E49\u0E2D\u0E1C\u0E34\u0E14\u0E1E\u0E25\u0E32\u0E14:", error);
+      const errorMessage = error instanceof Error ? error.message : String(error);
+      await FlexCronLogBuilder.sendCronJobLog(0, 0, 0, daysAhead, errorMessage);
     } finally {
       this.isRunning = false;
+      console.log(`\u2705 \u0E40\u0E2A\u0E23\u0E47\u0E08\u0E2A\u0E34\u0E49\u0E19\u0E01\u0E32\u0E23\u0E41\u0E08\u0E49\u0E07\u0E40\u0E15\u0E37\u0E2D\u0E19 \u0E40\u0E27\u0E25\u0E32 ${new Date().toLocaleTimeString("th-TH")}`);
     }
   }
 }
