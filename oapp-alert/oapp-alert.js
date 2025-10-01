@@ -4845,38 +4845,6 @@ class DBModel {
 
 // src/database/db_triggers_insert.ts
 class DBModelTriggers {
-  static CREATE_FUNCTION_CHECK_TOMORROW = `
-        CREATE OR REPLACE FUNCTION check_tomorrow_appointment()
-        RETURNS TRIGGER AS $$
-        DECLARE
-            is_holiday BOOLEAN := FALSE;
-        BEGIN
-            -- \u0E15\u0E23\u0E27\u0E08\u0E2A\u0E2D\u0E1A\u0E27\u0E48\u0E32 nextdate \u0E40\u0E1B\u0E47\u0E19\u0E1E\u0E23\u0E38\u0E48\u0E07\u0E19\u0E35\u0E49\u0E2B\u0E23\u0E37\u0E2D\u0E44\u0E21\u0E48
-            IF NEW.nextdate = CURRENT_DATE + INTERVAL '1 day' THEN
-                -- \u0E15\u0E23\u0E27\u0E08\u0E2A\u0E2D\u0E1A\u0E27\u0E31\u0E19\u0E2B\u0E22\u0E38\u0E14
-                SELECT EXISTS(
-                    SELECT 1 FROM holiday h WHERE h.holiday_date = NEW.nextdate
-                ) INTO is_holiday;
-                
-                -- \u0E16\u0E49\u0E32\u0E44\u0E21\u0E48\u0E43\u0E0A\u0E48\u0E27\u0E31\u0E19\u0E2B\u0E22\u0E38\u0E14 \u0E43\u0E2B\u0E49\u0E1A\u0E31\u0E19\u0E17\u0E36\u0E01\u0E25\u0E07 oapp_tomorrow
-                IF NOT is_holiday THEN
-                    INSERT INTO oapp_tomorrow (oapp_id, hn, vn, clinic, nexttime, nextdate)
-                    VALUES (NEW.oapp_id, NEW.hn, NEW.vn, NEW.clinic, NEW.nexttime, NEW.nextdate)
-                    ON CONFLICT (oapp_id, nextdate) DO NOTHING;
-                    
-                    RAISE NOTICE '\u0E19\u0E31\u0E14\u0E1E\u0E23\u0E38\u0E48\u0E07\u0E19\u0E35\u0E49: HN=%, VN=%, Date=%, Clinic=%, Time=%', NEW.hn, NEW.vn, NEW.nextdate, NEW.clinic, NEW.nexttime;
-                ELSE
-                    RAISE NOTICE '\u0E02\u0E49\u0E32\u0E21\u0E19\u0E31\u0E14\u0E27\u0E31\u0E19\u0E2B\u0E22\u0E38\u0E14: HN=%, Date=%', NEW.hn, NEW.nextdate;
-                END IF;
-            END IF;
-            RETURN NEW;
-        END;
-        $$ LANGUAGE plpgsql`;
-  static CREATE_TRIGGER_CHECK_TOMORROW = `
-        CREATE TRIGGER trg_oapp_check_tomorrow
-        AFTER INSERT OR UPDATE OF nextdate ON oapp
-        FOR EACH ROW
-        EXECUTE FUNCTION check_tomorrow_appointment()`;
   static CREATE_FUNCTION_RESCHEDULE = `
         CREATE OR REPLACE FUNCTION log_oapp_reschedule()
         RETURNS TRIGGER AS $$
@@ -4901,10 +4869,10 @@ class DBModelTriggers {
                     );
                     
                     RAISE NOTICE '\u0E1A\u0E31\u0E19\u0E17\u0E36\u0E01\u0E01\u0E32\u0E23\u0E40\u0E25\u0E37\u0E48\u0E2D\u0E19\u0E19\u0E31\u0E14: HN=%, \u0E08\u0E32\u0E01 % \u0E40\u0E1B\u0E47\u0E19 %', 
-                                 NEW.hn, OLD.nextdate, NEW.nextdate;
+                                     NEW.hn, OLD.nextdate, NEW.nextdate;
                 ELSE
                     RAISE NOTICE '\u0E02\u0E49\u0E32\u0E21\u0E01\u0E32\u0E23\u0E40\u0E25\u0E37\u0E48\u0E2D\u0E19\u0E19\u0E31\u0E14\u0E40\u0E1B\u0E47\u0E19\u0E27\u0E31\u0E19\u0E2B\u0E22\u0E38\u0E14: HN=%, \u0E27\u0E31\u0E19\u0E43\u0E2B\u0E21\u0E48=%', 
-                                 NEW.hn, NEW.nextdate;
+                                     NEW.hn, NEW.nextdate;
                 END IF;
             END IF;
             RETURN NEW;
@@ -4919,10 +4887,6 @@ class DBModelTriggers {
   static async createTriggers() {
     try {
       console.log("\u26A1 \u0E01\u0E33\u0E25\u0E31\u0E07\u0E2A\u0E23\u0E49\u0E32\u0E07 triggers...");
-      await DBConn.query(this.CREATE_FUNCTION_CHECK_TOMORROW);
-      await DBConn.query(`DROP TRIGGER IF EXISTS trg_oapp_check_tomorrow ON oapp`);
-      await DBConn.query(this.CREATE_TRIGGER_CHECK_TOMORROW);
-      console.log("\u2705 \u0E2A\u0E23\u0E49\u0E32\u0E07 trigger check_tomorrow_appointment \u0E2A\u0E33\u0E40\u0E23\u0E47\u0E08");
       await DBConn.query(this.CREATE_FUNCTION_RESCHEDULE);
       await DBConn.query(`DROP TRIGGER IF EXISTS trg_oapp_reschedule ON oapp`);
       await DBConn.query(this.CREATE_TRIGGER_RESCHEDULE);
@@ -4937,30 +4901,6 @@ class DBModelTriggers {
 
 // src/database/db_triggers_notify.ts
 class DBTriggersNotify {
-  static CREATE_FUNCTION_NOTIFY_TOMORROW = `
-        CREATE OR REPLACE FUNCTION notify_oapp_tomorrow()
-        RETURNS TRIGGER AS $$
-        DECLARE
-            v_payload JSON;
-        BEGIN
-            v_payload := json_build_object(
-                'oapp_id', NEW.oapp_id,
-                'hn', NEW.hn,
-                'vn', NEW.vn
-            );
-            
-            PERFORM pg_notify('oapp_tomorrow_channel', v_payload::text);
-            
-            RAISE NOTICE 'Tomorrow appointment: oapp_id=%, hn=%, vn=%', NEW.oapp_id, NEW.hn, NEW.vn;
-            
-            RETURN NEW;
-        END;
-        $$ LANGUAGE plpgsql`;
-  static CREATE_TRIGGER_NOTIFY_TOMORROW = `
-        CREATE TRIGGER trg_oapp_tomorrow_notify
-        AFTER INSERT ON oapp_tomorrow
-        FOR EACH ROW
-        EXECUTE FUNCTION notify_oapp_tomorrow()`;
   static CREATE_FUNCTION_NOTIFY_RESCHEDULE = `
         CREATE OR REPLACE FUNCTION notify_oapp_reschedule()
         RETURNS TRIGGER AS $$
@@ -5013,10 +4953,6 @@ class DBTriggersNotify {
   static async createNotifyTriggers() {
     try {
       console.log("\uD83D\uDD14 \u0E01\u0E33\u0E25\u0E31\u0E07\u0E2A\u0E23\u0E49\u0E32\u0E07 notification triggers...");
-      await DBConn.query(this.CREATE_FUNCTION_NOTIFY_TOMORROW);
-      await DBConn.query(`DROP TRIGGER IF EXISTS trg_oapp_tomorrow_notify ON oapp_tomorrow`);
-      await DBConn.query(this.CREATE_TRIGGER_NOTIFY_TOMORROW);
-      console.log("\u2705 \u0E2A\u0E23\u0E49\u0E32\u0E07 trigger notify_oapp_tomorrow \u0E2A\u0E33\u0E40\u0E23\u0E47\u0E08");
       await DBConn.query(this.CREATE_FUNCTION_NOTIFY_RESCHEDULE);
       await DBConn.query(`DROP TRIGGER IF EXISTS trg_oapp_reschedule_notify ON oapp_reschedule`);
       await DBConn.query(this.CREATE_TRIGGER_NOTIFY_RESCHEDULE);
@@ -5105,12 +5041,15 @@ class OappSendAlert {
       if (response.status === 200 && result.message_code === 200) {
         result.success_count = totalCids;
         result.failed_count = 0;
+        console.log(`\u2705 \u0E2A\u0E48\u0E07\u0E2A\u0E33\u0E40\u0E23\u0E47\u0E08: ${totalCids} CID`);
       } else {
         result.success_count = 0;
         result.failed_count = totalCids;
+        console.log(`\u274C \u0E2A\u0E48\u0E07\u0E44\u0E21\u0E48\u0E2A\u0E33\u0E40\u0E23\u0E47\u0E08: ${totalCids} CID - \u0E2A\u0E16\u0E32\u0E19\u0E30: ${result.message_code}`);
       }
       return result;
     } catch (error) {
+      console.error("\u274C \u0E40\u0E01\u0E34\u0E14\u0E02\u0E49\u0E2D\u0E1C\u0E34\u0E14\u0E1E\u0E25\u0E32\u0E14\u0E43\u0E19\u0E01\u0E32\u0E23\u0E2A\u0E48\u0E07\u0E41\u0E08\u0E49\u0E07\u0E40\u0E15\u0E37\u0E2D\u0E19:", error);
       return {
         message: "\u0E2A\u0E48\u0E07\u0E41\u0E08\u0E49\u0E07\u0E40\u0E15\u0E37\u0E2D\u0E19\u0E44\u0E21\u0E48\u0E2A\u0E33\u0E40\u0E23\u0E47\u0E08",
         message_code: 500,
@@ -5160,232 +5099,6 @@ class OappUtils {
     const fname = nameParts.slice(1, -1).join(" ") || nameParts[1] || "";
     const lname = nameParts[nameParts.length - 1] || "";
     return { fname, lname };
-  }
-}
-
-// src/controllers/send_alert_flex/flex_tomorrow.ts
-class FlexTomorrowBuilder {
-  static createAppointmentAlert(patient) {
-    const { fname, lname } = OappUtils.parsePatientName(patient.pt_name);
-    const appointmentDate = OappUtils.formatThaiDate(new Date(patient.tomorrow));
-    return {
-      type: "flex",
-      altText: `\u0E41\u0E08\u0E49\u0E07\u0E40\u0E15\u0E37\u0E2D\u0E19\u0E08\u0E32\u0E01\u0E42\u0E23\u0E07\u0E1E\u0E22\u0E32\u0E1A\u0E32\u0E25\u0E1A\u0E32\u0E07\u0E40\u0E25\u0E19: \u0E19\u0E31\u0E14\u0E2B\u0E21\u0E32\u0E22\u0E1E\u0E1A\u0E41\u0E1E\u0E17\u0E22\u0E4C - \u0E04\u0E38\u0E13 ${fname} ${lname}`,
-      contents: {
-        type: "bubble",
-        header: {
-          type: "box",
-          layout: "vertical",
-          contents: [
-            {
-              type: "text",
-              text: `\u0E41\u0E08\u0E49\u0E07\u0E40\u0E15\u0E37\u0E2D\u0E19
-\u0E08\u0E32\u0E01\u0E42\u0E23\u0E07\u0E1E\u0E22\u0E32\u0E1A\u0E32\u0E25\u0E1A\u0E32\u0E07\u0E40\u0E25\u0E19`,
-              weight: "bold",
-              size: "lg",
-              color: "#1DB446",
-              wrap: true
-            },
-            {
-              type: "text",
-              text: `\u0E04\u0E38\u0E13\u0E21\u0E35\u0E19\u0E31\u0E14\u0E2B\u0E21\u0E32\u0E22\u0E1E\u0E1A\u0E41\u0E1E\u0E17\u0E22\u0E4C\u0E27\u0E31\u0E19\u0E17\u0E35\u0E48 ${appointmentDate}`,
-              weight: "bold",
-              size: "md",
-              color: "#1DB446",
-              margin: "sm",
-              wrap: true
-            }
-          ]
-        },
-        body: {
-          type: "box",
-          layout: "vertical",
-          contents: [
-            {
-              type: "text",
-              text: `\u0E40\u0E23\u0E35\u0E22\u0E19 \u0E04\u0E38\u0E13 ${fname} ${lname}`,
-              weight: "bold",
-              size: "lg",
-              wrap: true
-            },
-            {
-              type: "text",
-              text: "\u0E42\u0E23\u0E07\u0E1E\u0E22\u0E32\u0E1A\u0E32\u0E25\u0E02\u0E2D\u0E41\u0E08\u0E49\u0E07\u0E40\u0E15\u0E37\u0E2D\u0E19\u0E01\u0E32\u0E23\u0E19\u0E31\u0E14\u0E2B\u0E21\u0E32\u0E22\u0E02\u0E2D\u0E07\u0E17\u0E48\u0E32\u0E19 \u0E14\u0E31\u0E07\u0E19\u0E35\u0E49",
-              wrap: true,
-              margin: "md",
-              size: "sm"
-            },
-            {
-              type: "box",
-              layout: "vertical",
-              margin: "lg",
-              spacing: "sm",
-              contents: [
-                {
-                  type: "box",
-                  layout: "horizontal",
-                  contents: [
-                    {
-                      type: "text",
-                      text: "\u0E04\u0E25\u0E34\u0E19\u0E34\u0E01",
-                      size: "sm",
-                      color: "#555555",
-                      flex: 2
-                    },
-                    {
-                      type: "text",
-                      text: OappUtils.formatClinicName(patient.clinic_name),
-                      size: "sm",
-                      color: "#111111",
-                      flex: 5,
-                      wrap: true
-                    }
-                  ]
-                },
-                {
-                  type: "box",
-                  layout: "horizontal",
-                  contents: [
-                    {
-                      type: "text",
-                      text: "\u0E27\u0E31\u0E19\u0E17\u0E35\u0E48",
-                      size: "sm",
-                      color: "#555555",
-                      flex: 2
-                    },
-                    {
-                      type: "text",
-                      text: OappUtils.formatThaiDate(new Date(patient.tomorrow)),
-                      size: "sm",
-                      color: "#111111",
-                      weight: "bold",
-                      flex: 5
-                    }
-                  ]
-                },
-                {
-                  type: "box",
-                  layout: "horizontal",
-                  contents: [
-                    {
-                      type: "text",
-                      text: "\u0E40\u0E27\u0E25\u0E32",
-                      size: "sm",
-                      color: "#555555",
-                      flex: 2
-                    },
-                    {
-                      type: "text",
-                      text: OappUtils.formatTime(patient.nexttime),
-                      size: "sm",
-                      color: "#111111",
-                      flex: 5
-                    }
-                  ]
-                }
-              ]
-            },
-            {
-              type: "text",
-              text: "\u0E01\u0E23\u0E38\u0E13\u0E32\u0E21\u0E32\u0E15\u0E32\u0E21\u0E27\u0E31\u0E19\u0E41\u0E25\u0E30\u0E40\u0E27\u0E25\u0E32 \u0E1E\u0E23\u0E49\u0E2D\u0E21\u0E1A\u0E31\u0E15\u0E23\u0E1B\u0E23\u0E30\u0E08\u0E33\u0E15\u0E31\u0E27\u0E1B\u0E23\u0E30\u0E0A\u0E32\u0E0A\u0E19\u0E17\u0E38\u0E01\u0E04\u0E23\u0E31\u0E49\u0E07",
-              wrap: true,
-              margin: "lg",
-              size: "sm",
-              color: "#555555"
-            }
-          ]
-        },
-        footer: {
-          type: "box",
-          layout: "vertical",
-          contents: [
-            {
-              type: "text",
-              text: "\u0E02\u0E2D\u0E02\u0E2D\u0E1A\u0E04\u0E38\u0E13\u0E17\u0E35\u0E48\u0E17\u0E48\u0E32\u0E19\u0E44\u0E27\u0E49\u0E27\u0E32\u0E07\u0E43\u0E08\u0E42\u0E23\u0E07\u0E1E\u0E22\u0E32\u0E1A\u0E32\u0E25\u0E1A\u0E32\u0E07\u0E40\u0E25\u0E19",
-              wrap: true,
-              size: "xs",
-              color: "#aaaaaa"
-            }
-          ]
-        }
-      }
-    };
-  }
-}
-
-// src/controllers/oapp_tomorrow.ts
-class OappTomorrowService {
-  static processedNotifications = new Set;
-  static async handleTomorrowNotification(payload) {
-    try {
-      const data = JSON.parse(payload);
-      const { oapp_id, hn, vn } = data;
-      const key = `oapp_tomorrow:${oapp_id}:${hn}`;
-      if (this.processedNotifications.has(key)) {
-        console.log(`\u23ED\uFE0F \u0E02\u0E49\u0E32\u0E21 notification \u0E0B\u0E49\u0E33: ${key}`);
-        return;
-      }
-      this.processedNotifications.add(key);
-      setTimeout(() => this.processedNotifications.delete(key), 1e4);
-      console.log(`
-` + "=".repeat(60));
-      console.log("\uD83D\uDCC5 \u0E41\u0E08\u0E49\u0E07\u0E40\u0E15\u0E37\u0E2D\u0E19\u0E19\u0E31\u0E14\u0E1E\u0E23\u0E38\u0E48\u0E07\u0E19\u0E35\u0E49!");
-      console.log("=".repeat(60));
-      console.log(`\uD83C\uDFF7\uFE0F  \u0E23\u0E2B\u0E31\u0E2A\u0E19\u0E31\u0E14: ${oapp_id}`);
-      console.log(`\uD83C\uDFE5  HN: ${hn} | VN: ${vn}`);
-      await this.getPatientTomorrowInfo(hn, oapp_id);
-      console.log("=".repeat(60) + `
-`);
-    } catch (error) {
-      console.error("\u274C \u0E40\u0E01\u0E34\u0E14\u0E02\u0E49\u0E2D\u0E1C\u0E34\u0E14\u0E1E\u0E25\u0E32\u0E14\u0E43\u0E19\u0E01\u0E32\u0E23\u0E1B\u0E23\u0E30\u0E21\u0E27\u0E25\u0E1C\u0E25 oapp_tomorrow notification:", error);
-    }
-  }
-  static async getPatientTomorrowInfo(hn, oapp_id) {
-    try {
-      const query = `
-                SELECT
-                    pt.cid,
-                    CONCAT(pt.pname,' ',pt.fname,'  ',pt.lname) AS pt_name,
-                    ot.nextdate AS tomorrow,
-                    ot.nexttime AS nexttime,
-                    c.name AS clinic_name
-                FROM
-                    patient pt
-                    INNER JOIN oapp_tomorrow ot ON ot.hn = pt.hn
-                    INNER JOIN clinic c ON c.clinic = ot.clinic
-                WHERE pt.hn = $1 AND ot.oapp_id = $2
-                LIMIT 1
-            `;
-      const queryResult = await DBConn.query(query, [hn, oapp_id]);
-      if (queryResult.rows.length === 0) {
-        console.log(`\u26A0\uFE0F \u0E44\u0E21\u0E48\u0E1E\u0E1A\u0E02\u0E49\u0E2D\u0E21\u0E39\u0E25\u0E1C\u0E39\u0E49\u0E1B\u0E48\u0E27\u0E22 hn: ${hn}, oapp_id: ${oapp_id}`);
-        return;
-      }
-      const patientInfo = queryResult.rows[0];
-      console.log("-".repeat(40));
-      console.log(`\uD83D\uDC64  \u0E1C\u0E39\u0E49\u0E1B\u0E48\u0E27\u0E22: ${patientInfo.pt_name}`);
-      console.log(`\uD83C\uDFF7\uFE0F  \u0E40\u0E25\u0E02\u0E1B\u0E23\u0E30\u0E08\u0E33\u0E15\u0E31\u0E27: ${patientInfo.cid}`);
-      console.log(`\uD83D\uDCC5  \u0E27\u0E31\u0E19\u0E19\u0E31\u0E14: ${patientInfo.tomorrow}`);
-      console.log(`\uD83C\uDFE5  \u0E04\u0E25\u0E34\u0E19\u0E34\u0E01: ${OappUtils.formatClinicName(patientInfo.clinic_name)}`);
-      console.log(`\u23F0  \u0E40\u0E27\u0E25\u0E32: ${OappUtils.formatTime(patientInfo.nexttime)}`);
-      console.log("-".repeat(40));
-      const flexMessage = FlexTomorrowBuilder.createAppointmentAlert(patientInfo);
-      const payload = {
-        cid: [patientInfo.cid],
-        messages: [flexMessage]
-      };
-      const result = await OappSendAlert.sendAlert(payload);
-      let statusText = "\u2753 \u0E44\u0E21\u0E48\u0E17\u0E23\u0E32\u0E1A\u0E2A\u0E16\u0E32\u0E19\u0E30";
-      if (result.message_code === 200) {
-        statusText = "\u2705 \u0E2A\u0E33\u0E40\u0E23\u0E47\u0E08";
-      } else if (result.message_code === 500) {
-        statusText = "\u274C \u0E44\u0E21\u0E48\u0E1E\u0E1A";
-      } else if (result.message_code === 401) {
-        statusText = "\u26A0\uFE0F \u0E44\u0E21\u0E48\u0E21\u0E35 CID";
-      }
-    } catch (error) {
-      console.error(`\u274C \u0E40\u0E01\u0E34\u0E14\u0E02\u0E49\u0E2D\u0E1C\u0E34\u0E14\u0E1E\u0E25\u0E32\u0E14\u0E43\u0E19\u0E01\u0E32\u0E23\u0E1B\u0E23\u0E30\u0E21\u0E27\u0E25\u0E1C\u0E25\u0E19\u0E31\u0E14\u0E1E\u0E23\u0E38\u0E48\u0E07\u0E19\u0E35\u0E49 hn: ${hn}, oapp_id: ${oapp_id}:`, error);
-    }
   }
 }
 
@@ -5891,7 +5604,6 @@ class OappService {
     try {
       await this.cleanup();
       this.client = await DBConn.getDedicatedClient();
-      await this.client.query("LISTEN oapp_tomorrow_channel");
       await this.client.query("LISTEN oapp_reschedule_channel");
       await this.client.query("LISTEN oapp_cancel_channel");
       this.client.on("notification", this.handleNotification.bind(this));
@@ -5921,10 +5633,6 @@ class OappService {
     if (!msg.payload)
       return;
     console.log(`\uD83D\uDD14 \u0E23\u0E31\u0E1A notification \u0E08\u0E32\u0E01 ${msg.channel}:`, msg.payload);
-    if (msg.channel === "oapp_tomorrow_channel") {
-      await OappTomorrowService.handleTomorrowNotification(msg.payload);
-      return;
-    }
     if (msg.channel === "oapp_reschedule_channel") {
       await OappRescheduleService.handleRescheduleNotification(msg.payload);
       return;
@@ -5985,17 +5693,16 @@ class OappService {
   }
 }
 
-// src/controllers/send_alert_flex/flex_cron_log.ts
+// src/controllers/send_alert_flex/flex_cron_log_admin.ts
 class FlexCronLogBuilder {
-  static async sendCronJobLog(successCount, existingCount, holidayCount, daysAhead, errorMsg) {
+  static async sendCronJobLog(successCount, failedCount, existingCount, holidayCount, daysAhead, errorMsg) {
     try {
       const logConfig = LoadEnv.loadSendLog;
       if (!logConfig.SEND_LOG_CID)
         return;
       const currentDate = new Date().toLocaleDateString("th-TH");
-      const failedCount = 0;
-      const totalCount = successCount + existingCount + holidayCount;
-      const messageText = errorMsg ? `\u274C \u0E40\u0E01\u0E34\u0E14\u0E02\u0E49\u0E2D\u0E1C\u0E34\u0E14\u0E1E\u0E25\u0E32\u0E14: ${errorMsg}` : `\u0E41\u0E08\u0E49\u0E07\u0E40\u0E15\u0E37\u0E2D\u0E19\u0E2A\u0E48\u0E07\u0E19\u0E31\u0E14\u0E2B\u0E21\u0E32\u0E22\u0E25\u0E48\u0E27\u0E07\u0E2B\u0E19\u0E49\u0E32 ${daysAhead} \u0E27\u0E31\u0E19 \u0E43\u0E19\u0E27\u0E31\u0E19\u0E17\u0E35\u0E48 ${currentDate}
+      const totalCount = successCount + failedCount + existingCount + holidayCount;
+      const messageText = errorMsg ? `\u274C \u0E40\u0E01\u0E34\u0E14\u0E02\u0E49\u0E2D\u0E1C\u0E34\u0E14\u0E1E\u0E25\u0E32\u0E14: ${errorMsg}` : `\u0E41\u0E08\u0E49\u0E07\u0E40\u0E15\u0E37\u0E2D\u0E19\u0E19\u0E31\u0E14\u0E2B\u0E21\u0E32\u0E22\u0E25\u0E48\u0E27\u0E07\u0E2B\u0E19\u0E49\u0E32 ${daysAhead} \u0E27\u0E31\u0E19 \u0E43\u0E19\u0E27\u0E31\u0E19\u0E17\u0E35\u0E48 ${currentDate}
 \u0E17\u0E31\u0E49\u0E07\u0E2B\u0E21\u0E14 ${totalCount} \u0E04\u0E19
 \u0E2A\u0E48\u0E07\u0E2A\u0E33\u0E40\u0E23\u0E47\u0E08 ${successCount} \u0E04\u0E19
 \u0E44\u0E21\u0E48\u0E2A\u0E33\u0E40\u0E23\u0E47\u0E08 ${failedCount} \u0E04\u0E19
@@ -6026,6 +5733,156 @@ class FlexCronLogBuilder {
     } catch (error) {
       console.error("\u274C \u0E2A\u0E48\u0E07 Log \u0E44\u0E21\u0E48\u0E2A\u0E33\u0E40\u0E23\u0E47\u0E08:", error);
     }
+  }
+}
+
+// src/controllers/send_alert_flex/flex_tomorrow.ts
+class FlexTomorrowBuilder {
+  static createAppointmentAlert(patient) {
+    const { fname, lname } = OappUtils.parsePatientName(patient.pt_name);
+    const appointmentDate = OappUtils.formatThaiDate(new Date(patient.tomorrow));
+    return {
+      type: "flex",
+      altText: `\u0E41\u0E08\u0E49\u0E07\u0E40\u0E15\u0E37\u0E2D\u0E19\u0E08\u0E32\u0E01\u0E42\u0E23\u0E07\u0E1E\u0E22\u0E32\u0E1A\u0E32\u0E25\u0E1A\u0E32\u0E07\u0E40\u0E25\u0E19: \u0E19\u0E31\u0E14\u0E2B\u0E21\u0E32\u0E22\u0E1E\u0E1A\u0E41\u0E1E\u0E17\u0E22\u0E4C - \u0E04\u0E38\u0E13 ${fname} ${lname}`,
+      contents: {
+        type: "bubble",
+        header: {
+          type: "box",
+          layout: "vertical",
+          contents: [
+            {
+              type: "text",
+              text: `\u0E41\u0E08\u0E49\u0E07\u0E40\u0E15\u0E37\u0E2D\u0E19
+\u0E08\u0E32\u0E01\u0E42\u0E23\u0E07\u0E1E\u0E22\u0E32\u0E1A\u0E32\u0E25\u0E1A\u0E32\u0E07\u0E40\u0E25\u0E19`,
+              weight: "bold",
+              size: "lg",
+              color: "#1DB446",
+              wrap: true
+            },
+            {
+              type: "text",
+              text: `\u0E04\u0E38\u0E13\u0E21\u0E35\u0E19\u0E31\u0E14\u0E2B\u0E21\u0E32\u0E22\u0E1E\u0E1A\u0E41\u0E1E\u0E17\u0E22\u0E4C\u0E27\u0E31\u0E19\u0E17\u0E35\u0E48 ${appointmentDate}`,
+              weight: "bold",
+              size: "md",
+              color: "#1DB446",
+              margin: "sm",
+              wrap: true
+            }
+          ]
+        },
+        body: {
+          type: "box",
+          layout: "vertical",
+          contents: [
+            {
+              type: "text",
+              text: `\u0E40\u0E23\u0E35\u0E22\u0E19 \u0E04\u0E38\u0E13 ${fname} ${lname}`,
+              weight: "bold",
+              size: "lg",
+              wrap: true
+            },
+            {
+              type: "text",
+              text: "\u0E42\u0E23\u0E07\u0E1E\u0E22\u0E32\u0E1A\u0E32\u0E25\u0E02\u0E2D\u0E41\u0E08\u0E49\u0E07\u0E40\u0E15\u0E37\u0E2D\u0E19\u0E01\u0E32\u0E23\u0E19\u0E31\u0E14\u0E2B\u0E21\u0E32\u0E22\u0E02\u0E2D\u0E07\u0E17\u0E48\u0E32\u0E19 \u0E14\u0E31\u0E07\u0E19\u0E35\u0E49",
+              wrap: true,
+              margin: "md",
+              size: "sm"
+            },
+            {
+              type: "box",
+              layout: "vertical",
+              margin: "lg",
+              spacing: "sm",
+              contents: [
+                {
+                  type: "box",
+                  layout: "horizontal",
+                  contents: [
+                    {
+                      type: "text",
+                      text: "\u0E04\u0E25\u0E34\u0E19\u0E34\u0E01",
+                      size: "sm",
+                      color: "#555555",
+                      flex: 2
+                    },
+                    {
+                      type: "text",
+                      text: OappUtils.formatClinicName(patient.clinic_name),
+                      size: "sm",
+                      color: "#111111",
+                      flex: 5,
+                      wrap: true
+                    }
+                  ]
+                },
+                {
+                  type: "box",
+                  layout: "horizontal",
+                  contents: [
+                    {
+                      type: "text",
+                      text: "\u0E27\u0E31\u0E19\u0E17\u0E35\u0E48",
+                      size: "sm",
+                      color: "#555555",
+                      flex: 2
+                    },
+                    {
+                      type: "text",
+                      text: OappUtils.formatThaiDate(new Date(patient.tomorrow)),
+                      size: "sm",
+                      color: "#111111",
+                      weight: "bold",
+                      flex: 5
+                    }
+                  ]
+                },
+                {
+                  type: "box",
+                  layout: "horizontal",
+                  contents: [
+                    {
+                      type: "text",
+                      text: "\u0E40\u0E27\u0E25\u0E32",
+                      size: "sm",
+                      color: "#555555",
+                      flex: 2
+                    },
+                    {
+                      type: "text",
+                      text: OappUtils.formatTime(patient.nexttime),
+                      size: "sm",
+                      color: "#111111",
+                      flex: 5
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              type: "text",
+              text: "\u0E01\u0E23\u0E38\u0E13\u0E32\u0E21\u0E32\u0E15\u0E32\u0E21\u0E27\u0E31\u0E19\u0E41\u0E25\u0E30\u0E40\u0E27\u0E25\u0E32 \u0E1E\u0E23\u0E49\u0E2D\u0E21\u0E1A\u0E31\u0E15\u0E23\u0E1B\u0E23\u0E30\u0E08\u0E33\u0E15\u0E31\u0E27\u0E1B\u0E23\u0E30\u0E0A\u0E32\u0E0A\u0E19\u0E17\u0E38\u0E01\u0E04\u0E23\u0E31\u0E49\u0E07",
+              wrap: true,
+              margin: "lg",
+              size: "sm",
+              color: "#555555"
+            }
+          ]
+        },
+        footer: {
+          type: "box",
+          layout: "vertical",
+          contents: [
+            {
+              type: "text",
+              text: "\u0E02\u0E2D\u0E02\u0E2D\u0E1A\u0E04\u0E38\u0E13\u0E17\u0E35\u0E48\u0E17\u0E48\u0E32\u0E19\u0E44\u0E27\u0E49\u0E27\u0E32\u0E07\u0E43\u0E08\u0E42\u0E23\u0E07\u0E1E\u0E22\u0E32\u0E1A\u0E32\u0E25\u0E1A\u0E32\u0E07\u0E40\u0E25\u0E19",
+              wrap: true,
+              size: "xs",
+              color: "#aaaaaa"
+            }
+          ]
+        }
+      }
+    };
   }
 }
 
@@ -6061,6 +5918,7 @@ class OappCronJob {
     if (nextRun <= now)
       nextRun.setDate(nextRun.getDate() + 1);
     const delay = nextRun.getTime() - Date.now();
+    console.log(`\u23F0 \u0E01\u0E33\u0E2B\u0E19\u0E14\u0E23\u0E2D\u0E1A\u0E16\u0E31\u0E14\u0E44\u0E1B: ${nextRun.toLocaleString("th-TH")}`);
     this.schedulerId = setTimeout(() => {
       this.checkTomorrowAppointments();
       this.scheduleDaily();
@@ -6071,7 +5929,13 @@ class OappCronJob {
       return;
     this.isRunning = true;
     const daysAhead = parseInt(LoadEnv.LoadCronJob.CRON_JOB_DAYS_AHEAD) || 1;
-    console.log(`\uD83D\uDE80 \u0E40\u0E23\u0E34\u0E48\u0E21\u0E17\u0E33\u0E07\u0E32\u0E19\u0E41\u0E08\u0E49\u0E07\u0E40\u0E15\u0E37\u0E2D\u0E19\u0E19\u0E31\u0E14\u0E2B\u0E21\u0E32\u0E22\u0E25\u0E48\u0E27\u0E07\u0E2B\u0E19\u0E49\u0E32 ${daysAhead} \u0E27\u0E31\u0E19`);
+    const startTime = new Date;
+    console.log(`
+` + "=".repeat(60));
+    console.log(`\uD83D\uDE80 \u0E40\u0E23\u0E34\u0E48\u0E21\u0E17\u0E33\u0E07\u0E32\u0E19 Cron Job`);
+    console.log(`\u23F0 \u0E40\u0E27\u0E25\u0E32: ${startTime.toLocaleString("th-TH")}`);
+    console.log(`\uD83D\uDCC5 \u0E41\u0E08\u0E49\u0E07\u0E40\u0E15\u0E37\u0E2D\u0E19\u0E19\u0E31\u0E14\u0E2B\u0E21\u0E32\u0E22\u0E25\u0E48\u0E27\u0E07\u0E2B\u0E19\u0E49\u0E32 ${daysAhead} \u0E27\u0E31\u0E19`);
+    console.log("=".repeat(60));
     try {
       const [countResult, holidayResult] = await Promise.all([
         DBConn.query(`
@@ -6100,15 +5964,80 @@ class OappCronJob {
                 RETURNING *
             `);
       const inserted = insertResult.rows.length;
-      await FlexCronLogBuilder.sendCronJobLog(inserted, totalFound - inserted, holidayCount, daysAhead);
+      let successCount = 0;
+      let failedCount = 0;
+      if (inserted > 0) {
+        const results = await this.sendAlertsToPatients(insertResult.rows);
+        successCount = results.success;
+        failedCount = results.failed;
+      }
+      try {
+        await FlexCronLogBuilder.sendCronJobLog(successCount, failedCount, totalFound - inserted, holidayCount, daysAhead);
+        console.log("\u2705 \u0E2A\u0E48\u0E07 log \u0E44\u0E1B\u0E22\u0E31\u0E07 admin \u0E2A\u0E33\u0E40\u0E23\u0E47\u0E08");
+      } catch (logError) {
+        console.error("\u274C \u0E2A\u0E48\u0E07 log \u0E44\u0E1B\u0E22\u0E31\u0E07 admin \u0E44\u0E21\u0E48\u0E2A\u0E33\u0E40\u0E23\u0E47\u0E08:", logError);
+      }
     } catch (error) {
       console.error("\u274C \u0E40\u0E01\u0E34\u0E14\u0E02\u0E49\u0E2D\u0E1C\u0E34\u0E14\u0E1E\u0E25\u0E32\u0E14:", error);
       const errorMessage = error instanceof Error ? error.message : String(error);
-      await FlexCronLogBuilder.sendCronJobLog(0, 0, 0, daysAhead, errorMessage);
+      await FlexCronLogBuilder.sendCronJobLog(0, 0, 0, 0, daysAhead, errorMessage);
     } finally {
       this.isRunning = false;
-      console.log(`\u2705 \u0E40\u0E2A\u0E23\u0E47\u0E08\u0E2A\u0E34\u0E49\u0E19\u0E01\u0E32\u0E23\u0E41\u0E08\u0E49\u0E07\u0E40\u0E15\u0E37\u0E2D\u0E19 \u0E40\u0E27\u0E25\u0E32 ${new Date().toLocaleTimeString("th-TH")}`);
+      const endTime = new Date;
+      const [hours, minutes] = (LoadEnv.LoadCronJob.CRON_JOB_TIME || "01:00").split(":");
+      const nextRun = new Date;
+      nextRun.setHours(parseInt(hours || "1") || 1, parseInt(minutes || "0") || 0, 0, 0);
+      if (nextRun <= endTime)
+        nextRun.setDate(nextRun.getDate() + 1);
+      console.log("=".repeat(60));
+      console.log(`\u2705 \u0E40\u0E2A\u0E23\u0E47\u0E08\u0E2A\u0E34\u0E49\u0E19\u0E01\u0E32\u0E23\u0E17\u0E33\u0E07\u0E32\u0E19`);
+      console.log(`\u23F0 \u0E40\u0E27\u0E25\u0E32\u0E40\u0E2A\u0E23\u0E47\u0E08: ${endTime.toLocaleString("th-TH")}`);
+      console.log(`\uD83D\uDD04 \u0E23\u0E2D\u0E1A\u0E16\u0E31\u0E14\u0E44\u0E1B: ${nextRun.toLocaleString("th-TH")}`);
+      console.log("=".repeat(60) + `
+`);
     }
+  }
+  static async sendAlertsToPatients(records) {
+    let success = 0;
+    let failed = 0;
+    for (const record of records) {
+      try {
+        const query = `
+                    SELECT
+                        pt.cid,
+                        CONCAT(pt.pname,' ',pt.fname,'  ',pt.lname) AS pt_name,
+                        ot.nextdate AS tomorrow,
+                        ot.nexttime AS nexttime,
+                        c.name AS clinic_name
+                    FROM patient pt
+                    INNER JOIN oapp_tomorrow ot ON ot.hn = pt.hn
+                    INNER JOIN clinic c ON c.clinic = ot.clinic
+                    WHERE pt.hn = $1 AND ot.oapp_id = $2
+                    LIMIT 1
+                `;
+        const result = await DBConn.query(query, [record.hn, record.oapp_id]);
+        if (result.rows.length === 0) {
+          failed++;
+          continue;
+        }
+        const patientInfo = result.rows[0];
+        const flexMessage = FlexTomorrowBuilder.createAppointmentAlert(patientInfo);
+        const payload = {
+          cid: [patientInfo.cid],
+          messages: [flexMessage]
+        };
+        const apiResult = await OappSendAlert.sendAlert(payload);
+        if (apiResult.message_code === 200) {
+          success++;
+        } else {
+          failed++;
+        }
+      } catch (error) {
+        console.error(`\u274C \u0E2A\u0E48\u0E07\u0E41\u0E08\u0E49\u0E07\u0E40\u0E15\u0E37\u0E2D\u0E19\u0E44\u0E21\u0E48\u0E2A\u0E33\u0E40\u0E23\u0E47\u0E08 HN: ${record.hn}`, error);
+        failed++;
+      }
+    }
+    return { success, failed };
   }
 }
 
